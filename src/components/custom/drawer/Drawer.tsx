@@ -16,7 +16,7 @@ interface Props {
 
 export const Drawer = ({ role }: Props) => {
 	const [isOpen, setIsOpen] = useState(false)
-	const filtredDrawerItems: Item[] = drawerItems.filter((item: Item) => item.usedByRoles?.includes(role))
+	const filteredDrawerItems: Item[] = drawerItems.filter((item: Item) => item.usedByRoles?.includes(role))
 
 	return (
 		<Box className={drawer}>
@@ -25,7 +25,7 @@ export const Drawer = ({ role }: Props) => {
 					<BrandLogo addHomeLink />
 				</Box>
 				<Stack gap={4}>
-					{filtredDrawerItems.map(item => (
+					{filteredDrawerItems.map(item => (
 						<>
 							<DrawerItem item={item} isOpen={isOpen} setIsOpen={setIsOpen} />
 							{item?.subItems &&
