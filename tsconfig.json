@@ -1,0 +1,42 @@
+{
+	"compilerOptions": {
+		"target": "es5",
+		"lib": ["dom", "dom.iterable", "esnext"],
+		"allowJs": true,
+		"skipLibCheck": true,
+		"noUnusedLocals": true,
+		"strict": true,
+		"forceConsistentCasingInFileNames": true,
+		"noEmit": true,
+		"esModuleInterop": true,
+		"module": "esnext",
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"types": ["node"],
+		"jsx": "preserve",
+		"baseUrl": "./src",
+		"incremental": true,
+		"paths": {
+			"public/*": ["../public/*"],
+			"@/components/*": ["./components/*"],
+			"@/style/*": ["./style/*"],
+			"@/services/*": ["./services/*"],
+			"@/contentful/*": ["./contentful/*"],
+			"@/hooks/*": ["./hooks/*"],
+			"@/types/*": ["./types/*"],
+			"@/utils/*": ["./utils/*"],
+			"@/store/*": ["./store/*"]
+		},
+		"plugins": [
+			{
+				"name": "next"
+			}
+		]
+	},
+	"mdx": {
+		"plugins": [["remark-frontmatter", ["toml", "yaml"]], "remark-gfm"]
+	},
+	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+	"exclude": ["node_modules"]
+}
