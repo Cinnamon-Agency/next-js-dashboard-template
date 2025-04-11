@@ -13,8 +13,8 @@ import { authOptions } from 'app/api/auth/[...nextauth]/auth'
 import { ROUTES } from 'parameters'
 
 export const metadata: Metadata = {
-	title: 'Journeys | Dashboard',
-	description: 'Barnahus Journeys'
+	title: 'Collabbro | Dashboard',
+	description: 'Collabbro Admin Dashboard'
 }
 
 const DashboardLayout = async ({ children }: { children: ReactNode }) => {
