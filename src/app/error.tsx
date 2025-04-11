@@ -35,7 +35,7 @@ const Error = () => {
 										Something went wrong
 									</Heading>
 									<Text fontSize="small" textAlign="center">
-										Please wait a moment and then reload. If reload doesnt help, request assistance.
+										Please wait a moment and then reload. If reload doesn't help, request assistance.
 									</Text>
 								</Stack>
 								<Button className={atoms({ width: '100%' })} onClick={() => window.location.reload()}>
