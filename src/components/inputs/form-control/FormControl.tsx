@@ -33,7 +33,13 @@ type Props = {
 	children: ReactNode
 }
 
-export const FormControl = ({ name, maxLength, successMessageString, errorMessageString, children }: Props) => {
+export const FormControl = ({
+	name,
+	maxLength,
+	successMessageString = '',
+	errorMessageString = '',
+	children
+}: Props) => {
 	const {
 		control,
 		formState: { errors },
