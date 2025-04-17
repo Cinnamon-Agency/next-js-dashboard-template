@@ -1,8 +1,7 @@
 'use client'
 
-import { redirect, useRouter } from 'next/navigation'
-import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
+import { useRouter } from 'next/navigation'
 
 import { BrandLogo } from '@/components/custom/brand-logo/BrandLogo'
 import { Button } from '@/components/inputs/button'
@@ -16,14 +15,9 @@ import { ROUTES } from 'parameters'
 const NotFound = () => {
 	const t = useTranslations()
 	const { push } = useRouter()
-	const { data: session } = useSession()
-
-	if (session === null) {
-		redirect(ROUTES.LOGIN)
-	}
 
 	return (
-		<Box width="100vw" justify="center" style={{ paddingTop: '18%', display: session ? 'flex' : 'none' }}>
+		<Box width="100vw" justify="center" style={{ paddingTop: '18%' }}>
 			<Stack gap={10} alignItems="center">
 				<BrandLogo />
 				<Box

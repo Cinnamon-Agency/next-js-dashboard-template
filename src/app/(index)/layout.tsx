@@ -1,4 +1,3 @@
-import { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 import { getServerSession } from 'next-auth/next'
 import { ReactNode } from 'react'
@@ -11,6 +10,7 @@ import { getSeenOnboardings } from 'api/services/onboarding'
 import { getSettings } from 'api/services/settings'
 import { authOptions } from 'app/api/auth/[...nextauth]/auth'
 import { ROUTES } from 'parameters'
+import { Metadata } from 'next'
 
 export const metadata: Metadata = {
 	title: 'Collabbro | Dashboard',

@@ -1,13 +1,14 @@
-import { Metadata } from 'next'
 import { ReactNode } from 'react'
 
 import { BrandLogo } from '@/components/custom/brand-logo/BrandLogo'
 import { Box } from '@/components/layout/box'
 import { Stack } from '@/components/layout/stack'
 
+import { Metadata } from 'next'
+
 export const metadata: Metadata = {
-	title: 'Journeys | Authorization',
-	description: 'Barnahus Journeys'
+	title: 'Collabbro | Dashboard',
+	description: 'Collabbro Admin Dashboard'
 }
 
 const AuthorizationLayout = ({ children }: { children: ReactNode }) => {

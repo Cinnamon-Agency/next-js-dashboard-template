@@ -21,6 +21,11 @@ const nextConfig = {
 	// experimental: {
 	// 	appDir: true
 	// },
+	i18n: {
+		locales: ['en'],
+		defaultLocale: 'en',
+		localeDetection: true
+	},
 	webpack(config) {
 		config.module.rules.push({
 			test: /\.svg$/,

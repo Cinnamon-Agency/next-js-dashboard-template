@@ -19,7 +19,7 @@ import { createBarnahus } from 'api/services/barnahuses'
 import { ROUTES } from 'parameters'
 import { requiredString } from 'schemas'
 
-import { ConfirmActionDialog } from '../../../../../components/overlay/confirm-action-dialog/ConfirmActionDialog'
+import { ConfirmActionDialog } from '../../../../components/overlay/confirm-action-dialog/ConfirmActionDialog'
 import BarnahusForm from '../form'
 
 const formSchema = z.object({
