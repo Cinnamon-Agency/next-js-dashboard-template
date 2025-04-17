@@ -1,6 +1,7 @@
-import { Barnahus } from '../barnahuses/barnahus'
-import { Base } from '../common/base'
+import { UserPermissionEnum, UserRoleEnum } from 'enums/userRoleEnum'
 
-export interface Roles extends Base {
-	barnahuses: Barnahus[]
+export interface Role {
+	id: string
+	name: UserRoleEnum
+	permissions: Array<UserPermissionEnum>
 }

@@ -1,13 +1,8 @@
-import { Barnahus } from '../barnahuses/barnahus'
-import { Roles } from '../roles/roles'
+import { Role } from '../roles/roles'
 
 export interface UserData {
 	id?: string
-	userId?: string
-	firstName: string
-	lastName: string
+	name?: string
 	email?: string
-	phoneNumber?: string
-	roles: Roles[]
-	barnahusRoles: Barnahus[]
+	role: Role
 }

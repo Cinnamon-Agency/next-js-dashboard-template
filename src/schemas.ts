@@ -12,6 +12,9 @@ export const passwordSchema = z.object({
 			message: 'ValidationMeseges.password'
 		})
 })
+export const loginPasswordSchema = z.object({
+	password: z.string().min(1, { message: 'ValidationMeseges.required' })
+})
 
 export const requiredString = z.object({
 	scheme: z.string().min(1, { message: 'ValidationMeseges.required' })

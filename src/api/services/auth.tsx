@@ -12,7 +12,7 @@ export const register = async (requestData: Register) => {
 }
 
 export const login = async (requestData: Login) => {
-	const { data } = await instance.post(`/auth/login`, requestData)
+	const { data } = await instance.post(`/auth/admin/login`, requestData)
 
 	return data
 }

@@ -1,7 +1,7 @@
 export const ROUTES = {
 	HOME: '/',
-	REGISTER: '/register',
-	LOGIN: '/login',
+	REGISTER: '/admin/verify',
+	LOGIN: '/admin/login',
 	FORGOT_PASSWORD: 'forgot-password',
 	FORGOT_PASSWORD_SUCCESS: 'forgot-password/success',
 	REVIEWS: '/reviews',

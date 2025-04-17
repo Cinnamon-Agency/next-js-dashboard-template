@@ -11,7 +11,7 @@ const HomePage = async () => {
 		return redirect(ROUTES.LOGIN)
 	}
 
-	const userRole = session?.user?.roles[0]?.name
+	const userRole = session?.user.role.name
 
 	switch (userRole) {
 		case UserRoleEnum.SUPER_ADMIN:

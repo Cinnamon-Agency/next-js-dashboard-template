@@ -21,7 +21,7 @@ const DashboardLayout = async ({ children }: { children: ReactNode }) => {
 	const session = await getServerSession(authOptions)
 	const { data: seenOnboardings } = await getSeenOnboardings()
 	const { data: settingsData } = await getSettings()
-	const userRole = session?.user?.roles[0]?.name
+	const userRole = session?.user.role.name
 
 	// This is for protected routes
 	if (!session) {

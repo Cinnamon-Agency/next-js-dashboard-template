@@ -18,12 +18,12 @@ import { Stack } from '@/components/layout/stack'
 import { Heading } from '@/components/typography/heading'
 import { useLoading } from '@/hooks/use-loading'
 import { ROUTES } from 'parameters'
-import { emailSchema, passwordSchema } from 'schemas'
+import { emailSchema, loginPasswordSchema } from 'schemas'
 import { atoms } from 'style/atoms.css'
 
 const formSchema = z.object({
 	...emailSchema.shape,
-	...passwordSchema.shape
+	...loginPasswordSchema.shape
 })
 
 type Schema = z.infer<typeof formSchema>
@@ -42,6 +42,7 @@ const LoginPage = () => {
 	const onSubmit = async (data: Schema) => {
 		loading.toggleLoading()
 		const result = await signIn('login', { ...data, redirect: false })
+		console.log(result)
 
 		if (result?.status === 200) {
 			push(ROUTES.HOME)
