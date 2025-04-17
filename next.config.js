@@ -23,8 +23,7 @@ const nextConfig = {
 	// },
 	i18n: {
 		locales: ['en'],
-		defaultLocale: 'en',
-		localeDetection: true
+		defaultLocale: 'en'
 	},
 	webpack(config) {
 		config.module.rules.push({
