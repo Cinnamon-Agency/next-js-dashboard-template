@@ -42,7 +42,6 @@ const LoginPage = () => {
 	const onSubmit = async (data: Schema) => {
 		loading.toggleLoading()
 		const result = await signIn('login', { ...data, redirect: false })
-		console.log(result)
 
 		if (result?.status === 200) {
 			push(ROUTES.HOME)
