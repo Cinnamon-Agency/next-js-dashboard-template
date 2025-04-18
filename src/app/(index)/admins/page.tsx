@@ -1,9 +1,14 @@
 import { ListWrapper } from '@/components/custom/layouts'
 import { DataTable } from '@/components/data-display/data-table'
 import { getAdmins } from 'api/services/admins'
+import { authOptions } from 'app/api/auth/[...nextauth]/auth'
+import { redirect } from 'next/navigation'
 
 import { columns } from './columns'
 import { Inputs } from './inputs'
+import { getServerSession } from 'next-auth'
+import { UserPermissionEnum } from 'enums/userRoleEnum'
+import { ROUTES } from 'parameters'
 
 interface Props {
 	searchParams: {
@@ -14,6 +19,10 @@ interface Props {
 }
 
 const AdminsPage = async ({ searchParams }: Props) => {
+	const session = await getServerSession(authOptions)
+	if (!session?.user.role.permissions?.includes(UserPermissionEnum.ADMIN_READ)) {
+		return redirect(ROUTES.REVIEWS)
+	}
 	const { data: adminsData } = await getAdmins(searchParams)
 	// const isInitialListEmpty = (adminsData?.pagination?.count === 0 && !searchParams.search) || adminsData === null
 	// const transformedAdminArray = adminsData?.users?.map((admin: any) => {
