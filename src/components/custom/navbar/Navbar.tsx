@@ -1,8 +1,8 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
 import { Session } from 'next-auth'
 import { useTranslations } from 'next-intl'
+import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
 import { LeftIcon } from '@/components/icons/left-icon'
@@ -12,19 +12,17 @@ import { Box } from '@/components/layout/box'
 import { Inline } from '@/components/layout/inline'
 import { Heading } from '@/components/typography/heading'
 import { Text } from '@/components/typography/text'
-import { Settings } from 'api/models/settings/settings'
 import { useNavbarItemsStore } from 'store/navbar'
 
-import * as styles from './Navbar.css'
 import { UserDropdown } from '../user-dropdown'
+import * as styles from './Navbar.css'
 
 interface Props {
 	session: Session | null
-	settings: Settings
 	seenOnboardingSections: string[]
 }
 
-export const Navbar = ({ session, settings, seenOnboardingSections }: Props) => {
+export const Navbar = ({ session, seenOnboardingSections }: Props) => {
 	const router = useRouter()
 	const t = useTranslations()
 	const { navbarItems, setNavbarIsLoading } = useNavbarItemsStore()
@@ -76,7 +74,7 @@ export const Navbar = ({ session, settings, seenOnboardingSections }: Props) => 
 					{navbarItems?.useUserDropdown && (
 						<Box style={{ marginTop: '-0.5rem' }}>
 							<Inline gap={3}>
-								<UserDropdown session={session} settings={settings} seenOnboardingSections={seenOnboardingSections} />
+								<UserDropdown session={session} seenOnboardingSections={seenOnboardingSections} />
 							</Inline>
 						</Box>
 					)}

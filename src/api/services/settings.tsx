@@ -1,9 +1,4 @@
 import axiosInstanceWithToken from 'api/instances/AxiosInstanceWithToken'
-import { fetchWithToken } from 'api/instances/FetchWithToken'
-
-export const getSettings = async () => {
-	return fetchWithToken(`user/settings`)
-}
 
 export const personal = async (firstName: string, lastName: string, phoneNumber?: string) => {
 	const response = await axiosInstanceWithToken.put(`/user/personal`, {

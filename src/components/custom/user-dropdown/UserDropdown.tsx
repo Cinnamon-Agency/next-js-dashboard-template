@@ -1,9 +1,9 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
 import { Session } from 'next-auth'
 import { signOut } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
+import { useRouter } from 'next/navigation'
 import React, { useEffect, useRef, useState } from 'react'
 
 import { BlockIcon } from '@/components/icons/block-icon'
@@ -13,15 +13,14 @@ import { Box } from '@/components/layout/box'
 import { Inline } from '@/components/layout/inline'
 import { Stack } from '@/components/layout/stack'
 import { Text } from '@/components/typography/text'
-import { Settings } from 'api/models/settings/settings'
 import { logout } from 'api/services/auth'
 import { deleteOnboarding } from 'api/services/onboarding'
 import { ROUTES } from 'parameters'
 
-import { dropdownListContainer, dropdownListItem, dropdownListItemWithAction } from './UserDropdown.css'
 import CarretDownIcon from '../../icons/block-icon/assets/carret-down-icon.svg'
 import CarretUpIcon from '../../icons/block-icon/assets/carret-up-icon.svg'
 import { Onboarding } from '../onboarding'
+import { dropdownListContainer, dropdownListItem, dropdownListItemWithAction } from './UserDropdown.css'
 
 interface Option {
 	label?: string
@@ -31,11 +30,10 @@ interface Option {
 
 interface Props {
 	session: Session | null
-	settings: Settings
 	seenOnboardingSections: string[]
 }
 
-export const UserDropdown = ({ session, settings, seenOnboardingSections }: Props) => {
+export const UserDropdown = ({ session, seenOnboardingSections }: Props) => {
 	const t = useTranslations()
 	const [isOpen, setIsOpen] = useState(false)
 	const [openOnboarding, setOpenOnboarding] = useState(false)
@@ -63,7 +61,7 @@ export const UserDropdown = ({ session, settings, seenOnboardingSections }: Prop
 
 	const options: Option[] = [
 		{
-			label: settings?.email
+			label: session?.user.email
 		},
 		{
 			label: 'General.profileSettings',
@@ -114,7 +112,7 @@ export const UserDropdown = ({ session, settings, seenOnboardingSections }: Prop
 								<Inline gap={2} alignItems="center">
 									<UserIcon size="medium" color="neutral.800" />
 									<Text fontSize="medium" fontWeight="semibold" lineHeight="xlarge" color="neutral.800">
-										{t(settings.fullName)}
+										{t(session?.user.name)}
 									</Text>
 									<BlockIcon icon={isOpen ? CarretUpIcon : CarretDownIcon} size="medium" color="neutral.800" />
 								</Inline>

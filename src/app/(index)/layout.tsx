@@ -7,7 +7,6 @@ import { Navbar } from '@/components/custom/navbar'
 import { Box } from '@/components/layout/box'
 import { Stack } from '@/components/layout/stack'
 import { getSeenOnboardings } from 'api/services/onboarding'
-import { getSettings } from 'api/services/settings'
 import { authOptions } from 'app/api/auth/[...nextauth]/auth'
 import { ROUTES } from 'parameters'
 import { Metadata } from 'next'
@@ -20,7 +19,6 @@ export const metadata: Metadata = {
 const DashboardLayout = async ({ children }: { children: ReactNode }) => {
 	const session = await getServerSession(authOptions)
 	const { data: seenOnboardings } = await getSeenOnboardings()
-	const { data: settingsData } = await getSettings()
 	const userRole = session?.user.role.name
 
 	// This is for protected routes
@@ -33,11 +31,7 @@ const DashboardLayout = async ({ children }: { children: ReactNode }) => {
 			{userRole && <Drawer role={userRole} />}
 			<Box flex="1">
 				<Stack>
-					<Navbar
-						session={session}
-						settings={settingsData}
-						seenOnboardingSections={seenOnboardings?.onboardingSections}
-					/>
+					<Navbar session={session} seenOnboardingSections={seenOnboardings?.onboardingSections} />
 					<Box display="flex" align="center">
 						{children}
 					</Box>
