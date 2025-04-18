@@ -26,14 +26,7 @@ export const Drawer = ({ role }: Props) => {
 				</Box>
 				<Stack gap={4}>
 					{filteredDrawerItems.map(item => (
-						<>
-							<DrawerItem item={item} isOpen={isOpen} setIsOpen={setIsOpen} />
-							{item?.subItems &&
-								isOpen &&
-								item?.subItems.map((subItem: Item) => (
-									<DrawerItem item={subItem} isOpen={isOpen} setIsOpen={setIsOpen} />
-								))}
-						</>
+						<DrawerItem key={item.label} item={item} isOpen={isOpen} setIsOpen={setIsOpen} />
 					))}
 				</Stack>
 			</Stack>
