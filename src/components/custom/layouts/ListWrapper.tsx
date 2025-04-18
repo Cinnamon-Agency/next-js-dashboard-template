@@ -19,7 +19,7 @@ type ListWrapperProps = {
 export const ListWrapper = ({ title, children }: ListWrapperProps) => {
 	const t = useTranslations()
 	const { navbarIsLoading } = useNavbarItemsStore()
-	useNavbarItems({ title, useUserDropdown: true })
+	useNavbarItems({ title })
 
 	useEffect(() => {
 		const editMessage = localStorage.getItem('editMessage')

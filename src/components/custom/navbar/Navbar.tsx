@@ -71,13 +71,12 @@ export const Navbar = ({ session, seenOnboardingSections }: Props) => {
 							</Inline>
 						</Box>
 					)}
-					{navbarItems?.useUserDropdown && (
-						<Box style={{ marginTop: '-0.5rem' }}>
-							<Inline gap={3}>
-								<UserDropdown session={session} seenOnboardingSections={seenOnboardingSections} />
-							</Inline>
-						</Box>
-					)}
+
+					<Box style={{ marginTop: '-0.5rem' }}>
+						<Inline gap={3}>
+							<UserDropdown session={session} seenOnboardingSections={seenOnboardingSections} />
+						</Inline>
+					</Box>
 				</Inline>
 			</Box>
 		</Box>

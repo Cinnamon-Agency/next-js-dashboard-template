@@ -44,7 +44,7 @@ export const NoListData = ({
 
 	if (setNavbarItems) {
 		// eslint-disable-next-line
-		useNavbarItems({ title: navbarTitle ?? '', useUserDropdown: true })
+		useNavbarItems({ title: navbarTitle ?? '' })
 	}
 
 	return (
