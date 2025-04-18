@@ -7,13 +7,17 @@ import { FormControl } from '@/components/inputs/form-control'
 import { RequiredLabel } from '@/components/inputs/required-label'
 import { TextInput } from '@/components/inputs/text-input'
 import { OpenedProps } from '@/hooks/use-toggle'
+import { Select } from '@/components/inputs/select'
+import { Role } from 'api/models/roles/roles'
+import { UserRoleEnum } from 'enums/userRoleEnum'
 
 interface Props {
+	roles: Array<Role>
 	isEdit?: boolean
 	cancelDialog?: OpenedProps
 }
 
-const AdminForm = ({ isEdit, cancelDialog }: Props) => {
+const AdminForm = ({ roles, isEdit, cancelDialog }: Props) => {
 	const t = useTranslations()
 
 	return (
@@ -25,28 +29,23 @@ const AdminForm = ({ isEdit, cancelDialog }: Props) => {
 				<TextInput disabled={isEdit} type="email" placeholder={t('General.emailPlaceholder')} />
 				<FormControl.Message />
 			</FormControl>
-			<FormControl name="barnahus">
-				<FormControl.Label>{t('General.barnahus')}</FormControl.Label>
-				<TextInput placeholder={t('General.barnahusPlaceholder')} disabled />
-				<FormControl.Message />
-			</FormControl>
-			<FormControl name="firstName">
+			<FormControl name="fullName">
 				<FormControl.Label>
-					<RequiredLabel>{t('General.firstName')}</RequiredLabel>
+					<RequiredLabel>{t('General.fullName')}</RequiredLabel>
 				</FormControl.Label>
-				<TextInput placeholder={t('General.firstNamePlaceholder')} />
+				<TextInput placeholder={t('General.fullNamePlaceholder')} />
 				<FormControl.Message />
 			</FormControl>
-			<FormControl name="lastName">
+			<FormControl name="roleId">
 				<FormControl.Label>
-					<RequiredLabel>{t('General.lastName')}</RequiredLabel>
+					<RequiredLabel>{t('General.role')}</RequiredLabel>
 				</FormControl.Label>
-				<TextInput placeholder={t('General.lastNamePlaceholder')} />
-				<FormControl.Message />
-			</FormControl>
-			<FormControl name="phoneNumber">
-				<FormControl.Label>{t('General.phoneNumber')}</FormControl.Label>
-				<TextInput placeholder={t('General.phoneNumberPlaceholder')} />
+				<Select
+					options={roles
+						.filter(({ name }) => name !== UserRoleEnum.SUPER_ADMIN)
+						.map(({ id, permissions }) => ({ value: id, label: permissions.toString() }))}
+					placeholder={t('General.rolePlaceholder')}
+				/>
 				<FormControl.Message />
 			</FormControl>
 		</FormItems>

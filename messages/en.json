@@ -227,7 +227,7 @@
 		"successfullBulkDelete": "Admins successfully deleted!",
 		"deleteAdminDescription": "Press 'Delete' if you want to remove the Admin.",
 		"noListDataDescription": "You can add multiple Admins. The Admins will be in charge of overseeing content for the Barnahus and adding Practitioners.",
-		"addAdminDescription": "Please note that <important>the Admin will receive an email invitation,</important> which will grant them access to the Journeys dashboard.",
+		"addAdminDescription": "Please note that <important>the Admin will receive an email invitation,</important> which will grant them access to the dashboard.",
 		"onboardingAddPractitionerDescription": "As an Admin, you can add Practitioners and generate journeys for children. Please consult the implementation kit for further information about Admins."
 	},
 	"MasterAdmins": {

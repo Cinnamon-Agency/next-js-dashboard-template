@@ -9,28 +9,26 @@ import { FormWrapper } from '@/components/custom/layouts/add-form'
 import { useNavbarItems } from '@/hooks/use-navbar-items'
 import { replaceEmptyStringFromObjectWithNull } from '@/utils/replaceEmptyStringFromObjectWithNull'
 import { Admin } from 'api/models/admin/admin'
-import { Barnahus } from 'api/models/barnahuses/barnahus'
 import { updateAdmin } from 'api/services/admins'
-import { emailSchema, phoneNumberScheme, requiredString } from 'schemas'
+import { emailSchema, requiredString } from 'schemas'
 
+import { Role } from 'api/models/roles/roles'
 import AdminForm from '../../form'
 
 const formSchema = z.object({
 	email: emailSchema.shape.email,
-	barnahus: z.string().optional(),
-	firstName: requiredString.shape.scheme,
-	lastName: requiredString.shape.scheme,
-	phoneNumber: phoneNumberScheme.shape.phone
+	fullName: requiredString.shape.scheme,
+	roleId: requiredString.shape.scheme
 })
 
 type Schema = z.infer<typeof formSchema>
 
 interface Props {
 	admin: Admin
-	barnahus?: Barnahus
+	roles: Array<Role>
 }
 
-const AdminEdit = ({ admin, barnahus }: Props) => {
+const AdminEdit = ({ admin, roles }: Props) => {
 	const { back, refresh } = useRouter()
 	useNavbarItems({ title: 'Admins.edit', backLabel: 'Admins.back' })
 
@@ -39,17 +37,15 @@ const AdminEdit = ({ admin, barnahus }: Props) => {
 		resolver: zodResolver(formSchema),
 		defaultValues: {
 			email: admin.email,
-			barnahus: barnahus?.location,
-			firstName: admin.firstName,
-			lastName: admin.lastName,
-			phoneNumber: admin.phoneNumber ?? ''
+			fullName: admin.fullName,
+			roleId: admin.id // todo
 		}
 	})
 
 	const onSubmit = async () => {
 		const data = form.getValues()
 		const dataWIhoutEmptyString = replaceEmptyStringFromObjectWithNull(data)
-		const result = await updateAdmin({ ...dataWIhoutEmptyString, userId: admin.userId })
+		const result = await updateAdmin({ ...dataWIhoutEmptyString, userId: admin.id })
 		if (result?.message === 'OK') {
 			localStorage.setItem('editMessage', 'Admins.successfullyEdited')
 			refresh()
@@ -61,7 +57,7 @@ const AdminEdit = ({ admin, barnahus }: Props) => {
 		<FormWrapper>
 			<FormProvider {...form}>
 				<form onSubmit={form.handleSubmit(onSubmit)}>
-					<AdminForm isEdit />
+					<AdminForm isEdit roles={roles} />
 				</form>
 			</FormProvider>
 		</FormWrapper>

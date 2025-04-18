@@ -1,15 +1,17 @@
-import { getServerSession } from 'next-auth/next'
-
 import { getAdmin } from 'api/services/admins'
-import { authOptions } from 'app/api/auth/[...nextauth]/auth'
 
+import { usePermissions } from '@/hooks/usePermissions'
+import { getRoles } from 'api/services/roles'
+import { UserPermissionEnum } from 'enums/userRoleEnum'
 import AdminEdit from './AdminEdit'
+import { ROUTES } from 'parameters'
 
 const AdminEditPage = async ({ params }: { params: { id: string } }) => {
-	const session = await getServerSession(authOptions)
+	usePermissions({ permission: UserPermissionEnum.ADMIN_WRITE, route: ROUTES.REVIEWS as keyof typeof ROUTES })
+	const roleData = await getRoles()
 	const { data } = await getAdmin(params.id)
 
-	return <AdminEdit admin={data.admin} barnahus={session?.user.barnahusRoles[0]} />
+	return <AdminEdit admin={data.admin} roles={roleData.data.roles} />
 }
 
 export default AdminEditPage

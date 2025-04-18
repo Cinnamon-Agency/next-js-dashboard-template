@@ -1,14 +1,12 @@
 import { ListWrapper } from '@/components/custom/layouts'
 import { DataTable } from '@/components/data-display/data-table'
 import { getAdmins } from 'api/services/admins'
-import { authOptions } from 'app/api/auth/[...nextauth]/auth'
-import { redirect } from 'next/navigation'
 
-import { columns } from './columns'
-import { Inputs } from './inputs'
-import { getServerSession } from 'next-auth'
+import { usePermissions } from '@/hooks/usePermissions'
 import { UserPermissionEnum } from 'enums/userRoleEnum'
 import { ROUTES } from 'parameters'
+import { columns } from './columns'
+import { Inputs } from './inputs'
 
 interface Props {
 	searchParams: {
@@ -19,10 +17,8 @@ interface Props {
 }
 
 const AdminsPage = async ({ searchParams }: Props) => {
-	const session = await getServerSession(authOptions)
-	if (!session?.user.role.permissions?.includes(UserPermissionEnum.ADMIN_READ)) {
-		return redirect(ROUTES.REVIEWS)
-	}
+	usePermissions({ permission: UserPermissionEnum.ADMIN_READ, route: ROUTES.REVIEWS as keyof typeof ROUTES })
+
 	const { data: adminsData } = await getAdmins(searchParams)
 	// const isInitialListEmpty = (adminsData?.pagination?.count === 0 && !searchParams.search) || adminsData === null
 	// const transformedAdminArray = adminsData?.users?.map((admin: any) => {
@@ -50,11 +46,12 @@ const AdminsPage = async ({ searchParams }: Props) => {
 	// 		/>
 	// 	</ListWrapper>
 	// )
+
 	return (
 		<ListWrapper title="General.admins">
-			<Inputs data={adminsData.admins} />
+			<Inputs data={adminsData?.admins} />
 			{/* todo pagination */}
-			<DataTable columns={columns} data={adminsData.admins} pagination={{ count: 0, page: 0, limit: 0 }} />
+			<DataTable columns={columns} data={adminsData?.admins} pagination={{ count: 0, page: 0, limit: 0 }} />
 		</ListWrapper>
 	)
 }

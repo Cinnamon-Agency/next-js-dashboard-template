@@ -1,8 +1,8 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
+import { useRouter } from 'next/navigation'
 import { FormProvider, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -13,28 +13,25 @@ import { SuccessToast } from '@/components/overlay/toast-messages/SuccessToastme
 import { useNavbarItems } from '@/hooks/use-navbar-items'
 import { useOpened } from '@/hooks/use-toggle'
 import { replaceEmptyStringFromObjectWithNull } from '@/utils/replaceEmptyStringFromObjectWithNull'
-import { Barnahus } from 'api/models/barnahuses/barnahus'
 import { createAdmin } from 'api/services/admins'
 import { ROUTES } from 'parameters'
-import { emailSchema, phoneNumberScheme, requiredString } from 'schemas'
+import { emailSchema, requiredString } from 'schemas'
 
+import { Role } from 'api/models/roles/roles'
 import AdminForm from '../form'
 
 const formSchema = z.object({
 	email: emailSchema.shape.email,
-	barnahus: z.string().optional(),
-	firstName: requiredString.shape.scheme,
-	lastName: requiredString.shape.scheme,
-	phoneNumber: phoneNumberScheme.shape.phone
+	fullName: requiredString.shape.scheme,
+	roleId: requiredString.shape.scheme
 })
 
 type Schema = z.infer<typeof formSchema>
 
 interface Props {
-	barnahus?: Barnahus
+	roles: Array<Role>
 }
-
-const AdminAdd = ({ barnahus }: Props) => {
+const AdminAdd = ({ roles }: Props) => {
 	const t = useTranslations()
 	const { push, refresh } = useRouter()
 	const confirmDialog = useOpened()
@@ -46,10 +43,8 @@ const AdminAdd = ({ barnahus }: Props) => {
 		resolver: zodResolver(formSchema),
 		defaultValues: {
 			email: '',
-			barnahus: barnahus?.location,
-			firstName: '',
-			lastName: '',
-			phoneNumber: ''
+			fullName: '',
+			roleId: ''
 		}
 	})
 
@@ -73,7 +68,7 @@ const AdminAdd = ({ barnahus }: Props) => {
 			<FormWrapper>
 				<FormProvider {...form}>
 					<form onSubmit={form.handleSubmit(handleDialog)}>
-						<AdminForm cancelDialog={cancelDialog} />
+						<AdminForm cancelDialog={cancelDialog} roles={roles} />
 					</form>
 				</FormProvider>
 			</FormWrapper>
