@@ -14,6 +14,7 @@
 		"active": "Active",
 		"default": "Default",
 		"emailPlaceholder": "e.g. john.doe@gmail.com",
+		"fullNamePlaceholder": "Full name",
 		"barnahusId": "Barnahus ID",
 		"reviews": "Reviews",
 		"barnahusPlaceholder": "Stockholm, Sweden",

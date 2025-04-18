@@ -17,10 +17,10 @@ import { Stack } from '@/components/layout/stack'
 import { SuccessToast } from '@/components/overlay/toast-messages/SuccessToastmessage'
 import { Text } from '@/components/typography/text'
 import { useOpened } from '@/hooks/use-toggle'
-import { Settings } from 'api/models/settings/settings'
 import { email } from 'api/services/settings'
 import { emailSchema } from 'schemas'
 
+import { Session } from 'next-auth'
 import { EmailVerificationDialog } from './emailVerificationDialog'
 
 const formSchema = z.object({
@@ -31,20 +31,21 @@ const formSchema = z.object({
 type Schema = z.infer<typeof formSchema>
 
 interface Props {
-	settings: Settings
+	session: Session | null
 }
 
-export const EmailForm = ({ settings }: Props) => {
+export const EmailForm = ({ session }: Props) => {
 	const t = useTranslations()
 	const emailVerificationDialog = useOpened()
 
 	const form = useForm<Schema>({
 		mode: 'onChange',
 		resolver: zodResolver(formSchema),
-		defaultValues: { currentEmail: settings?.email, newEmail: '' }
+		defaultValues: { currentEmail: session?.user.email, newEmail: '' }
 	})
 
 	const onSubmit = async () => {
+		// todo add api call
 		const data = form.getValues()
 		const result = await email(data.newEmail)
 		if (result?.message === 'OK') {
