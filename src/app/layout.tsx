@@ -31,7 +31,7 @@ const RootLayout = async ({ children }: Props) => {
 	const messages = await getMessages()
 
 	return (
-		<IntlProvider locale="en" messages={messages}>
+		<IntlProvider locale="en" messages={messages} timeZone="America/Chicago">
 			<SessionProvider>
 				<TokenHandler>
 					<html lang="en">
