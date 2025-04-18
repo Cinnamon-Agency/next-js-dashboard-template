@@ -139,6 +139,9 @@ FormControl.Message = ({
 	const t = useTranslations()
 	const labelColor = errorMessage ? 'destructive.500' : successMessage ? 'success.500' : 'neutral.500'
 	const labelMessage = errorMessage || successMessage || instructionMessage
+	if (!labelMessage) {
+		return null
+	}
 
 	return (
 		<Box position="absolute" paddingTop={1}>
