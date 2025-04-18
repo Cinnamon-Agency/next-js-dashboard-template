@@ -14,12 +14,12 @@ import { ConfirmActionDialog } from '@/components/overlay/confirm-action-dialog'
 import { SuccessToast } from '@/components/overlay/toast-messages/SuccessToastmessage'
 import { useOpened } from '@/hooks/use-toggle'
 import { useTableStore } from '@/store/table'
-import { Admins } from 'api/models/admin/Admins'
 import { deleteAdmin, deleteAdmins } from 'api/services/admins'
 import { ROUTES } from 'parameters'
+import { Admin } from 'api/models/admin/admin'
 
 interface Props {
-	data: Admins[]
+	data: Array<Admin>
 }
 
 export const Inputs = ({ data }: Props) => {
@@ -49,7 +49,7 @@ export const Inputs = ({ data }: Props) => {
 		const index = Object.keys(checkedItems || {})
 		const numericIndex = parseInt(index[0], 10)
 
-		push(ROUTES.EDIT_ADMINS + data[numericIndex].userId)
+		push(ROUTES.EDIT_ADMINS + data[numericIndex].id)
 		refresh()
 	}
 
@@ -57,7 +57,7 @@ export const Inputs = ({ data }: Props) => {
 		const indexes = Object.keys(checkedItems || {})
 		const ids = indexes.map(index => {
 			const numericIndex = parseInt(index, 10)
-			return data[numericIndex].userId
+			return data[numericIndex].id
 		})
 
 		const isDeleteBulk = ids.length > 1

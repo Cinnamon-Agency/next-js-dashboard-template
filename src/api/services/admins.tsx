@@ -9,13 +9,14 @@ interface Query {
 }
 
 export const getAdmins = (query: Query) => {
-	const queryParams = {
-		search: query.search,
-		page: query.page ?? 1,
-		limit: query.limit ?? 10
-	}
+	// todo add query params
+	// const queryParams = {
+	// 	search: query.search,
+	// 	page: query.page ?? 1,
+	// 	limit: query.limit ?? 10
+	// }
 
-	return fetchWithToken(`admin`, queryParams)
+	return fetchWithToken(`admin`)
 }
 
 export const createAdmin = async (admin: AdminPayload) => {

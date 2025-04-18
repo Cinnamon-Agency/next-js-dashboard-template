@@ -10,8 +10,5 @@ export const ROUTES = {
 	ADMINS: '/admins',
 	ADD_ADMINS: '/admins/add',
 	EDIT_ADMINS: '/admins/edit/',
-	MASTER_ADMINS: '/master-admins',
-	ADD_MASTER_ADMINS: '/master-admins/add',
-	EDIT_MASTER_ADMINS: '/master-admins/edit/',
 	SETTINGS: '/settings'
 }

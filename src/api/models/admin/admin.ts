@@ -1,10 +1,9 @@
+import { UserRoleEnum } from 'enums/userRoleEnum'
+
 export interface Admin {
-	userId: string
-	firstName: string
-	lastName: string
+	id: string
 	email: string
-	phoneNumber: string
-	location: string
-	locations: string[]
-	locationCode: string
+	fullName: string
+	role: UserRoleEnum
+	status: 'Active' | 'Inactive'
 }

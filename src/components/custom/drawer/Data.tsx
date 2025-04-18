@@ -21,7 +21,7 @@ export const drawerItems: Item[] = [
 		route: ROUTES.REVIEWS,
 		usedByRoles: [UserRoleEnum.SUPER_ADMIN, UserRoleEnum.ADMIN]
 	},
-	{ label: 'admins', icon: <PersonIcon />, route: ROUTES.MASTER_ADMINS, usedByRoles: [UserRoleEnum.SUPER_ADMIN] },
+	{ label: 'admins', icon: <PersonIcon />, route: ROUTES.ADMINS, usedByRoles: [UserRoleEnum.SUPER_ADMIN] },
 	{
 		label: 'settings',
 		icon: <GearIcon />,

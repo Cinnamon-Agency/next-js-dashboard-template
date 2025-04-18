@@ -13,7 +13,6 @@ import { Box } from '@/components/layout/box'
 import { Inline } from '@/components/layout/inline'
 import { Stack } from '@/components/layout/stack'
 import { Text } from '@/components/typography/text'
-import { handleFullName } from '@/utils/handleFullName'
 import { Settings } from 'api/models/settings/settings'
 import { logout } from 'api/services/auth'
 import { deleteOnboarding } from 'api/services/onboarding'
@@ -42,7 +41,7 @@ export const UserDropdown = ({ session, settings, seenOnboardingSections }: Prop
 	const [openOnboarding, setOpenOnboarding] = useState(false)
 	const ref = useRef<HTMLDivElement>(null)
 	const { replace } = useRouter()
-	const userRole = session?.user?.roles[0]?.name
+	const userRole = session?.user?.role.name
 
 	const handleLogout = async () => {
 		const result = await logout()
@@ -115,7 +114,7 @@ export const UserDropdown = ({ session, settings, seenOnboardingSections }: Prop
 								<Inline gap={2} alignItems="center">
 									<UserIcon size="medium" color="neutral.800" />
 									<Text fontSize="medium" fontWeight="semibold" lineHeight="xlarge" color="neutral.800">
-										{t(handleFullName(settings?.firstName, settings?.lastName))}
+										{t(settings.fullName)}
 									</Text>
 									<BlockIcon icon={isOpen ? CarretUpIcon : CarretDownIcon} size="medium" color="neutral.800" />
 								</Inline>
