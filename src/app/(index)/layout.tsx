@@ -19,16 +19,16 @@ export const metadata: Metadata = {
 const DashboardLayout = async ({ children }: { children: ReactNode }) => {
 	const session = await getServerSession(authOptions)
 	const { data: seenOnboardings } = await getSeenOnboardings()
-	const userRole = session?.user.role.name
 
 	// This is for protected routes
 	if (!session) {
-		redirect(ROUTES.LOGIN)
+		return redirect(ROUTES.LOGIN)
 	}
+	const permissions = session.user.role.permissions
 
 	return (
 		<>
-			{userRole && <Drawer role={userRole} />}
+			<Drawer permissions={permissions} />
 			<Box flex="1">
 				<Stack>
 					<Navbar session={session} seenOnboardingSections={seenOnboardings?.onboardingSections} />

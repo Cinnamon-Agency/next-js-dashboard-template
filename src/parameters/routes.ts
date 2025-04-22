@@ -10,5 +10,6 @@ export const ROUTES = {
 	ADMINS: '/admins',
 	ADD_ADMINS: '/admins/add',
 	EDIT_ADMINS: '/admins/edit/',
-	SETTINGS: '/settings'
+	SETTINGS: '/settings',
+	NOT_FOUND: '/not-found'
 }

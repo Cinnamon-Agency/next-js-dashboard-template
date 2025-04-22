@@ -9,14 +9,17 @@ import { Item, drawerItems } from './Data'
 import { drawer } from './Drawer.css'
 import { DrawerItem } from './DrawerItem'
 import { BrandLogo } from '../brand-logo/BrandLogo'
+import { UserPermissionEnum } from 'enums/userRoleEnum'
 
 interface Props {
-	role: string
+	permissions: UserPermissionEnum[]
 }
 
-export const Drawer = ({ role }: Props) => {
+export const Drawer = ({ permissions }: Props) => {
 	const [isOpen, setIsOpen] = useState(false)
-	const filteredDrawerItems: Item[] = drawerItems.filter((item: Item) => item.usedByRoles?.includes(role))
+	const filteredDrawerItems: Item[] = drawerItems.filter(
+		(item: Item) => !item.usedByPermission || permissions.includes(item.usedByPermission)
+	)
 
 	return (
 		<Box className={drawer}>

@@ -2,16 +2,14 @@
 import GearIcon from '@/components/icons/block-icon/assets/gear-icon.svg'
 import HouseIcon from '@/components/icons/block-icon/assets/house-icon.svg'
 import PersonIcon from '@/components/icons/block-icon/assets/person-icon.svg'
-import { UserRoleEnum } from 'enums/userRoleEnum'
+import { UserPermissionEnum } from 'enums/userRoleEnum'
 import { ROUTES } from 'parameters'
 
 export interface Item {
 	label: string
 	icon: JSX.Element
-	route?: string
-	isSubItem?: boolean
-	usedByRoles?: string[]
-	subItems?: Item[]
+	route: string
+	usedByPermission?: UserPermissionEnum
 }
 
 export const drawerItems: Item[] = [
@@ -19,13 +17,12 @@ export const drawerItems: Item[] = [
 		label: 'reviews',
 		icon: <HouseIcon />,
 		route: ROUTES.REVIEWS,
-		usedByRoles: [UserRoleEnum.SUPER_ADMIN, UserRoleEnum.ADMIN]
+		usedByPermission: UserPermissionEnum.REVIEW_READ
 	},
-	{ label: 'admins', icon: <PersonIcon />, route: ROUTES.ADMINS, usedByRoles: [UserRoleEnum.SUPER_ADMIN] },
+	{ label: 'admins', icon: <PersonIcon />, route: ROUTES.ADMINS, usedByPermission: UserPermissionEnum.ADMIN_READ },
 	{
 		label: 'settings',
 		icon: <GearIcon />,
-		route: ROUTES.SETTINGS,
-		usedByRoles: [UserRoleEnum.SUPER_ADMIN, UserRoleEnum.ADMIN]
+		route: ROUTES.SETTINGS
 	}
 ]
