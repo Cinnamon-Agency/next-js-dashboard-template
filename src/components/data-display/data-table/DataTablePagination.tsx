@@ -28,12 +28,12 @@ export const DataTablePagination = ({ table, pagination }: DataTablePaginationPr
 		pagination?.count <= 10
 			? t('General.showingAllResult', { results: pagination?.count })
 			: pagination?.count === firstRowIndex
-			  ? t('General.showingSomeResult', { start: firstRowIndex, results: pagination?.count })
-			  : t('General.showingSomeResults', {
+				? t('General.showingSomeResult', { start: firstRowIndex, results: pagination?.count })
+				: t('General.showingSomeResults', {
 						start: firstRowIndex,
 						end: lastRowIndex,
 						results: pagination?.count
-			    })
+					})
 
 	return (
 		<Box className={dataTablePaginationContainer}>
@@ -50,7 +50,7 @@ export const DataTablePagination = ({ table, pagination }: DataTablePaginationPr
 						</Button>
 						<Inline gap={2} alignItems="center">
 							{Array.from({ length: totalPages }).map((_, index) => (
-								<Button size="auto" variant="adaptive">
+								<Button size="auto" variant="adaptive" key={index}>
 									<Text
 										color={currentPage === index ? 'neutral.500' : 'neutral.400'}
 										onClick={() => table.setPageIndex(index)}>
