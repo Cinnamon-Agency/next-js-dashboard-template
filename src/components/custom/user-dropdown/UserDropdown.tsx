@@ -2,7 +2,6 @@
 
 import { Session } from 'next-auth'
 import { signOut } from 'next-auth/react'
-import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useRef, useState } from 'react'
 
@@ -19,7 +18,7 @@ import { ROUTES } from 'parameters'
 
 import CarretDownIcon from '../../icons/block-icon/assets/carret-down-icon.svg'
 import CarretUpIcon from '../../icons/block-icon/assets/carret-up-icon.svg'
-import { Onboarding } from '../onboarding'
+// import { Onboarding } from '../onboarding'
 import { dropdownListContainer, dropdownListItem, dropdownListItemWithAction } from './UserDropdown.css'
 
 interface Option {
@@ -34,7 +33,6 @@ interface Props {
 }
 
 export const UserDropdown = ({ session, seenOnboardingSections }: Props) => {
-	const t = useTranslations()
 	const [isOpen, setIsOpen] = useState(false)
 	const [openOnboarding, setOpenOnboarding] = useState(false)
 	const ref = useRef<HTMLDivElement>(null)
@@ -64,15 +62,15 @@ export const UserDropdown = ({ session, seenOnboardingSections }: Props) => {
 			label: session?.user.email
 		},
 		{
-			label: 'General.profileSettings',
+			label: 'Profile settings',
 			action: () => replace(ROUTES.SETTINGS)
 		},
 		{
-			label: 'General.onboardingFlow',
+			label: 'Onboarding flow',
 			action: () => handleDeleteOnboarding()
 		},
 		{
-			label: 'General.logOut',
+			label: 'Log out',
 			action: () => handleLogout()
 		}
 	]
@@ -101,9 +99,9 @@ export const UserDropdown = ({ session, seenOnboardingSections }: Props) => {
 
 	return (
 		<>
-			{userRole && (!seenOnboardingSections?.includes(userRole) || openOnboarding) && (
+			{/* {userRole && (!seenOnboardingSections?.includes(userRole) || openOnboarding) && (
 				<Onboarding userRole={userRole} openOnboarding={openOnboarding} setOpenOnboarding={setOpenOnboarding} />
-			)}
+			)} */}
 			<div ref={ref}>
 				<Box position="relative">
 					<Box display="flex" width="100%" justifyContent="flex-end">
@@ -132,14 +130,14 @@ export const UserDropdown = ({ session, seenOnboardingSections }: Props) => {
 											onClick={option.action}>
 											<Box className={dropdownListItemWithAction}>
 												<Text fontSize="medium" lineHeight="xlarge">
-													{t(option.label)}
+													{option.label}
 												</Text>
 											</Box>
 										</Button>
 									) : (
 										<Box key={option.label} className={dropdownListItem}>
 											<Text fontSize="medium" lineHeight="xlarge">
-												{t(option.label)}
+												{option.label}
 											</Text>
 										</Box>
 									)
