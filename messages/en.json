@@ -139,7 +139,7 @@
 	"ValidationMeseges": {
 		"required": "This field is required.",
 		"email": "Invalid email. Please try again.",
-		"password": "Please make sure your password meets the criteria.",
+		"password": "Min 8 and max 24 characters, 1 number and 1 symbol",
 		"confirmPassword": "Please make sure your passwords match.",
 		"phone": "Invalid phone number. Please try again.",
 		"invalidRegistrationLink": "Invalid or expired registration link"

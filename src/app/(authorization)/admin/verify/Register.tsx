@@ -54,7 +54,7 @@ const Register = ({ uid, status, email }: Props) => {
 		loading.toggleLoading()
 		const registerData: any = { uid, password: data.password }
 		const result = await signIn('register', { ...registerData, redirect: false })
-
+		console.log(result)
 		if (result?.status === 200) {
 			push(ROUTES.HOME)
 		} else {
@@ -101,7 +101,7 @@ const Register = ({ uid, status, email }: Props) => {
 								<TextInput placeholder={t('General.emailPlaceholder')} disabled />
 								<FormControl.Message />
 							</FormControl>
-							<FormControl name="password">
+							<FormControl name="password" successMessageString="Authorization.passwordInstructions">
 								<FormControl.Label>
 									<RequiredLabel>{t('Authorization.password')}</RequiredLabel>
 								</FormControl.Label>
