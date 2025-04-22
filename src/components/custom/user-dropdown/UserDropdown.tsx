@@ -124,7 +124,12 @@ export const UserDropdown = ({ session, seenOnboardingSections }: Props) => {
 							<Stack>
 								{options?.map(option =>
 									option.action ? (
-										<Button size="auto" variant="adaptive" disabled={option.disabled} onClick={option.action}>
+										<Button
+											key={option.label}
+											size="auto"
+											variant="adaptive"
+											disabled={option.disabled}
+											onClick={option.action}>
 											<Box className={dropdownListItemWithAction}>
 												<Text fontSize="medium" lineHeight="xlarge">
 													{t(option.label)}
@@ -132,7 +137,7 @@ export const UserDropdown = ({ session, seenOnboardingSections }: Props) => {
 											</Box>
 										</Button>
 									) : (
-										<Box className={dropdownListItem}>
+										<Box key={option.label} className={dropdownListItem}>
 											<Text fontSize="medium" lineHeight="xlarge">
 												{t(option.label)}
 											</Text>
