@@ -112,7 +112,7 @@ export const UserDropdown = ({ session, seenOnboardingSections }: Props) => {
 								<Inline gap={2} alignItems="center">
 									<UserIcon size="medium" color="neutral.800" />
 									<Text fontSize="medium" fontWeight="semibold" lineHeight="xlarge" color="neutral.800">
-										{t(session?.user.name)}
+										{session?.user.name}
 									</Text>
 									<BlockIcon icon={isOpen ? CarretUpIcon : CarretDownIcon} size="medium" color="neutral.800" />
 								</Inline>
