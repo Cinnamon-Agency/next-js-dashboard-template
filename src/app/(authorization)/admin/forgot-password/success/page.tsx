@@ -1,6 +1,6 @@
 'use client'
 
-import { useSearchParams } from 'next/navigation'
+import { redirect, useSearchParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
 
@@ -11,12 +11,16 @@ import { Heading } from '@/components/typography/heading'
 import { Text } from '@/components/typography/text'
 import { atoms } from '@/style/atoms.css'
 import { forgotPassword } from 'api/services/auth'
+import { ROUTES } from 'parameters'
 
 const SuccessPage = () => {
 	const t = useTranslations()
 	const searchParams = useSearchParams()
 	const [countdown, setCountdown] = useState<number>(30)
 	const email = searchParams.get('email')
+	if (!email) {
+		return redirect(ROUTES.NOT_FOUND)
+	}
 
 	const onSubmit = async (e: any) => {
 		e.preventDefault()
@@ -50,17 +54,18 @@ const SuccessPage = () => {
 				</Heading>
 				<Box textAlign="center">
 					<Text as="span" fontSize="small">
-						{t('Authorization.ForgotPassword.successInstructions1')}
+						Link was sent to{' '}
 					</Text>
 					<Text as="span" fontSize="small" fontWeight="semibold">
 						{email}
 					</Text>
 					<Text as="span" fontSize="small">
-						{t('Authorization.ForgotPassword.successInstructions2')}
+						{' '}
+						Click on the link. It will redirect you to the page where you can reset your password.
 					</Text>
 				</Box>
 				<Text fontSize="small" textAlign="center">
-					{t('Authorization.ForgotPassword.resendInstructions')}
+					If you didn't receive an email, please press the 'resend' button
 				</Text>
 			</Stack>
 			<form className={atoms({ width: '100%' })} onSubmit={onSubmit}>
