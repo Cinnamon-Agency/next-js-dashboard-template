@@ -4,7 +4,6 @@ import { Controller, useFormContext } from 'react-hook-form'
 import { getChildByType, overridePropsDeep } from 'react-nanny'
 
 import { SearchDropdown } from '@/components/custom/search-dropdown/SearchDropdown'
-import { AudioUpload } from '@/components/custom/upload/audio-upload'
 import { PhotoUpload } from '@/components/custom/upload/photo-upload'
 import { CheckIcon } from '@/components/icons/check-icon'
 import { ErrorIcon } from '@/components/icons/error-icon'
@@ -56,7 +55,6 @@ export const FormControl = ({
 		NumericInput,
 		PatternInput,
 		PasswordInput,
-		AudioUpload,
 		PhotoUpload,
 		Checkbox,
 		CheckboxGroup,

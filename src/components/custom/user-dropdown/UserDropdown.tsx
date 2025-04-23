@@ -13,12 +13,10 @@ import { Inline } from '@/components/layout/inline'
 import { Stack } from '@/components/layout/stack'
 import { Text } from '@/components/typography/text'
 import { logout } from 'api/services/auth'
-import { deleteOnboarding } from 'api/services/onboarding'
 import { ROUTES } from 'parameters'
 
 import CarretDownIcon from '../../icons/block-icon/assets/carret-down-icon.svg'
 import CarretUpIcon from '../../icons/block-icon/assets/carret-up-icon.svg'
-// import { Onboarding } from '../onboarding'
 import { dropdownListContainer, dropdownListItem, dropdownListItemWithAction } from './UserDropdown.css'
 
 interface Option {
@@ -29,31 +27,18 @@ interface Option {
 
 interface Props {
 	session: Session | null
-	seenOnboardingSections: string[]
 }
 
-export const UserDropdown = ({ session, seenOnboardingSections }: Props) => {
+export const UserDropdown = ({ session }: Props) => {
 	const [isOpen, setIsOpen] = useState(false)
-	const [openOnboarding, setOpenOnboarding] = useState(false)
 	const ref = useRef<HTMLDivElement>(null)
 	const { replace } = useRouter()
-	const userRole = session?.user?.role.name
 
 	const handleLogout = async () => {
 		const result = await logout()
 
 		if (result?.message === 'OK') {
 			signOut({ callbackUrl: ROUTES.LOGIN })
-		}
-	}
-
-	const handleDeleteOnboarding = async () => {
-		if (userRole) {
-			const result = await deleteOnboarding(userRole)
-
-			if (result?.message === 'OK') {
-				setOpenOnboarding(true)
-			}
 		}
 	}
 
@@ -64,10 +49,6 @@ export const UserDropdown = ({ session, seenOnboardingSections }: Props) => {
 		{
 			label: 'Profile settings',
 			action: () => replace(ROUTES.SETTINGS)
-		},
-		{
-			label: 'Onboarding flow',
-			action: () => handleDeleteOnboarding()
 		},
 		{
 			label: 'Log out',
@@ -88,9 +69,6 @@ export const UserDropdown = ({ session, seenOnboardingSections }: Props) => {
 
 	useEffect(() => {
 		document.addEventListener('mousedown', handleClickOutside)
-		if (userRole && !seenOnboardingSections?.includes(userRole)) {
-			setOpenOnboarding(true)
-		}
 
 		return () => {
 			document.removeEventListener('mousedown', handleClickOutside)
@@ -98,55 +76,50 @@ export const UserDropdown = ({ session, seenOnboardingSections }: Props) => {
 	}, [])
 
 	return (
-		<>
-			{/* {userRole && (!seenOnboardingSections?.includes(userRole) || openOnboarding) && (
-				<Onboarding userRole={userRole} openOnboarding={openOnboarding} setOpenOnboarding={setOpenOnboarding} />
-			)} */}
-			<div ref={ref}>
-				<Box position="relative">
-					<Box display="flex" width="100%" justifyContent="flex-end">
-						<Button size="auto" variant="adaptive" onClick={handleDropDownOpening}>
-							<Box borderRadius="small" padding={2} backgroundColor="neutral.150">
-								<Inline gap={2} alignItems="center">
-									<UserIcon size="medium" color="neutral.800" />
-									<Text fontSize="medium" fontWeight="semibold" lineHeight="xlarge" color="neutral.800">
-										{session?.user.name}
-									</Text>
-									<BlockIcon icon={isOpen ? CarretUpIcon : CarretDownIcon} size="medium" color="neutral.800" />
-								</Inline>
-							</Box>
-						</Button>
-					</Box>
-					{isOpen && (
-						<Box className={dropdownListContainer}>
-							<Stack>
-								{options?.map(option =>
-									option.action ? (
-										<Button
-											key={option.label}
-											size="auto"
-											variant="adaptive"
-											disabled={option.disabled}
-											onClick={option.action}>
-											<Box className={dropdownListItemWithAction}>
-												<Text fontSize="medium" lineHeight="xlarge">
-													{option.label}
-												</Text>
-											</Box>
-										</Button>
-									) : (
-										<Box key={option.label} className={dropdownListItem}>
+		<div ref={ref}>
+			<Box position="relative">
+				<Box display="flex" width="100%" justifyContent="flex-end">
+					<Button size="auto" variant="adaptive" onClick={handleDropDownOpening}>
+						<Box borderRadius="small" padding={2} backgroundColor="neutral.150">
+							<Inline gap={2} alignItems="center">
+								<UserIcon size="medium" color="neutral.800" />
+								<Text fontSize="medium" fontWeight="semibold" lineHeight="xlarge" color="neutral.800">
+									{session?.user.name}
+								</Text>
+								<BlockIcon icon={isOpen ? CarretUpIcon : CarretDownIcon} size="medium" color="neutral.800" />
+							</Inline>
+						</Box>
+					</Button>
+				</Box>
+				{isOpen && (
+					<Box className={dropdownListContainer}>
+						<Stack>
+							{options?.map(option =>
+								option.action ? (
+									<Button
+										key={option.label}
+										size="auto"
+										variant="adaptive"
+										disabled={option.disabled}
+										onClick={option.action}>
+										<Box className={dropdownListItemWithAction}>
 											<Text fontSize="medium" lineHeight="xlarge">
 												{option.label}
 											</Text>
 										</Box>
-									)
-								)}
-							</Stack>
-						</Box>
-					)}
-				</Box>
-			</div>
-		</>
+									</Button>
+								) : (
+									<Box key={option.label} className={dropdownListItem}>
+										<Text fontSize="medium" lineHeight="xlarge">
+											{option.label}
+										</Text>
+									</Box>
+								)
+							)}
+						</Stack>
+					</Box>
+				)}
+			</Box>
+		</div>
 	)
 }

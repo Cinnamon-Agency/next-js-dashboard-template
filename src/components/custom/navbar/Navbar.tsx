@@ -19,10 +19,9 @@ import * as styles from './Navbar.css'
 
 interface Props {
 	session: Session | null
-	seenOnboardingSections: string[]
 }
 
-export const Navbar = ({ session, seenOnboardingSections }: Props) => {
+export const Navbar = ({ session }: Props) => {
 	const router = useRouter()
 	const t = useTranslations()
 	const { navbarItems, setNavbarIsLoading } = useNavbarItemsStore()
@@ -74,7 +73,7 @@ export const Navbar = ({ session, seenOnboardingSections }: Props) => {
 
 					<Box style={{ marginTop: '-0.5rem' }}>
 						<Inline gap={3}>
-							<UserDropdown session={session} seenOnboardingSections={seenOnboardingSections} />
+							<UserDropdown session={session} />
 						</Inline>
 					</Box>
 				</Inline>
