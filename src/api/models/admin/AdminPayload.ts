@@ -1,5 +1,5 @@
 export interface AdminPayload {
-	email: string
+	id: string
 	fullName: string
 	roleId: string
 }

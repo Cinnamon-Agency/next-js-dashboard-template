@@ -22,13 +22,15 @@ const AdminForm = ({ roles, isEdit, cancelDialog }: Props) => {
 
 	return (
 		<FormItems openCancelDialog={cancelDialog?.toggleOpened}>
-			<FormControl name="email">
-				<FormControl.Label>
-					<RequiredLabel>{t('General.email')}</RequiredLabel>
-				</FormControl.Label>
-				<TextInput disabled={isEdit} type="email" placeholder={t('General.emailPlaceholder')} />
-				<FormControl.Message />
-			</FormControl>
+			{isEdit ? null : (
+				<FormControl name="email">
+					<FormControl.Label>
+						<RequiredLabel>{t('General.email')}</RequiredLabel>
+					</FormControl.Label>
+					<TextInput type="email" placeholder={t('General.emailPlaceholder')} />
+					<FormControl.Message />
+				</FormControl>
+			)}
 			<FormControl name="fullName">
 				<FormControl.Label>
 					<RequiredLabel>{t('General.fullName')}</RequiredLabel>

@@ -12,6 +12,7 @@
 		"status": "Status",
 		"role": "Role",
 		"active": "Active",
+		"permissions": "Permissions",
 		"default": "Default",
 		"emailPlaceholder": "e.g. john.doe@gmail.com",
 		"fullNamePlaceholder": "Full name",

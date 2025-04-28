@@ -2,13 +2,13 @@ import { ListWrapper } from '@/components/custom/layouts'
 import { DataTable } from '@/components/data-display/data-table'
 import { getAdmins } from 'api/services/admins'
 
+import { NoListData } from '@/components/custom/no-list-data/NoListData'
 import { usePermissions } from '@/hooks/usePermissions'
+import { handleAdminRoles } from '@/utils/handleAdminRoles'
 import { UserPermissionEnum } from 'enums/userRoleEnum'
 import { ROUTES } from 'parameters'
 import { columns } from './columns'
 import { Inputs } from './inputs'
-import { NoListData } from '@/components/custom/no-list-data/NoListData'
-import { replaceNullInListWithDash } from '@/utils/replaceNullInListWithDash'
 
 interface Props {
 	searchParams: {
@@ -35,11 +35,7 @@ const AdminsPage = async ({ searchParams }: Props) => {
 	) : (
 		<ListWrapper title="General.admins">
 			<Inputs data={adminsData?.admins} />
-			<DataTable
-				columns={columns}
-				data={replaceNullInListWithDash(adminsData?.admins)}
-				pagination={adminsData?.pagination}
-			/>
+			<DataTable columns={columns} data={handleAdminRoles(adminsData?.admins)} pagination={adminsData?.pagination} />
 		</ListWrapper>
 	)
 }

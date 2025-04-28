@@ -10,13 +10,12 @@ import { useNavbarItems } from '@/hooks/use-navbar-items'
 import { replaceEmptyStringFromObjectWithNull } from '@/utils/replaceEmptyStringFromObjectWithNull'
 import { Admin } from 'api/models/admin/admin'
 import { updateAdmin } from 'api/services/admins'
-import { emailSchema, requiredString } from 'schemas'
+import { requiredString } from 'schemas'
 
 import { Role } from 'api/models/roles/roles'
 import AdminForm from '../../form'
 
 const formSchema = z.object({
-	email: emailSchema.shape.email,
 	fullName: requiredString.shape.scheme,
 	roleId: requiredString.shape.scheme
 })
@@ -36,16 +35,15 @@ const AdminEdit = ({ admin, roles }: Props) => {
 		mode: 'onChange',
 		resolver: zodResolver(formSchema),
 		defaultValues: {
-			email: admin.email,
 			fullName: admin.fullName,
-			roleId: admin.id // todo
+			roleId: admin.role.id
 		}
 	})
 
 	const onSubmit = async () => {
 		const data = form.getValues()
 		const dataWIhoutEmptyString = replaceEmptyStringFromObjectWithNull(data)
-		const result = await updateAdmin({ ...dataWIhoutEmptyString, userId: admin.id })
+		const result = await updateAdmin({ ...dataWIhoutEmptyString, id: admin.id })
 		if (result?.message === 'OK') {
 			localStorage.setItem('editMessage', 'Admins.successfullyEdited')
 			refresh()
