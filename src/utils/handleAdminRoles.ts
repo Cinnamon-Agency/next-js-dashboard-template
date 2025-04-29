@@ -4,6 +4,6 @@ export const handleAdminRoles = (admins: Admin[]) => {
 	return admins.map(({ role, ...rest }) => ({
 		...rest,
 		role: role.name,
-		permissions: role.permissions.toString()
+		permissions: role.permissions.toString().replace(/,/g, ', ')
 	}))
 }
