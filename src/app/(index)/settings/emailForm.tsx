@@ -45,7 +45,6 @@ export const EmailForm = ({ session }: Props) => {
 	})
 
 	const onSubmit = async () => {
-		// todo add api call
 		const data = form.getValues()
 		const result = await email(data.newEmail)
 		if (result?.message === 'OK') {

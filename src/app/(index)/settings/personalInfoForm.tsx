@@ -15,6 +15,8 @@ import { Columns } from '@/components/layout/columns'
 import { Divider } from '@/components/layout/divider'
 import { Inline } from '@/components/layout/inline'
 import { Stack } from '@/components/layout/stack'
+import { SuccessToast } from '@/components/overlay/toast-messages/SuccessToastmessage'
+import { personal } from 'api/services/settings'
 import { requiredString } from 'schemas'
 
 const formSchema = z.object({
@@ -39,12 +41,11 @@ export const PersonalInfoForm = ({ session }: Props) => {
 	})
 
 	const onSubmit = async (data: Schema) => {
-		// todo add api call
-		// const result = await personal(data.firstName, data.lastName, data.phoneNumber)
-		// if (result?.message === 'OK') {
-		// 	router.refresh()
-		// 	SuccessToast(t('Settings.personalInfoSuccessfullyUpdated'))
-		// }
+		const result = await personal(data.fullName)
+		if (result?.message === 'OK') {
+			// todo: add session update
+			SuccessToast(t('Settings.personalInfoSuccessfullyUpdated'))
+		}
 	}
 
 	return (
