@@ -57,7 +57,7 @@ export const Navbar = ({ session }: Props) => {
 			<Box width="100%">
 				<Inline justifyContent="space-between" alignItems="flex-start">
 					<Heading variant="h2" lineHeight="medium" color="neutral.800">
-						{t(navbarItems?.title ?? 'General.loading')}
+						{navbarItems?.title ?? 'Loading...'}
 					</Heading>
 					{navbarItems?.actionButton && <Box style={{ marginTop: '-1rem' }}>{navbarItems?.actionButton}</Box>}
 					{navbarItems?.location && (

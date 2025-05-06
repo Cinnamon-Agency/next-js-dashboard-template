@@ -26,14 +26,14 @@ const AdminsPage = async ({ searchParams }: Props) => {
 
 	return isInitialListEmpty ? (
 		<NoListData
-			navbarTitle="General.admins"
+			navbarTitle="Admins"
 			title="Admins.noListDataTitle"
 			description="Admins.noListDataDescription"
 			buttonLabel="Admins.add"
 			buttonLink={ROUTES.ADD_ADMINS}
 		/>
 	) : (
-		<ListWrapper title="General.admins">
+		<ListWrapper title="Admins">
 			<Inputs data={adminsData?.admins} />
 			<DataTable columns={columns} data={handleAdminRoles(adminsData?.admins)} pagination={adminsData?.pagination} />
 		</ListWrapper>

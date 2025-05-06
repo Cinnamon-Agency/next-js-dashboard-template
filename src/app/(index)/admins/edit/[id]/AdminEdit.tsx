@@ -29,7 +29,7 @@ interface Props {
 
 const AdminEdit = ({ admin, roles }: Props) => {
 	const { back, refresh } = useRouter()
-	useNavbarItems({ title: 'Admins.edit', backLabel: 'Admins.back' })
+	useNavbarItems({ title: 'Edit Admin', backLabel: 'Admins.back' })
 
 	const form = useForm<Schema>({
 		mode: 'onChange',

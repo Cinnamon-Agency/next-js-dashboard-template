@@ -20,7 +20,7 @@ interface Props {
 const SettingsTabs = ({ session }: Props) => {
 	const t = useTranslations()
 	const { navbarIsLoading } = useNavbarItemsStore()
-	useNavbarItems({ title: 'General.settings' })
+	useNavbarItems({ title: 'Settings' })
 
 	return (
 		<Box>

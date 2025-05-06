@@ -36,7 +36,7 @@ const AdminAdd = ({ roles }: Props) => {
 	const { push, refresh } = useRouter()
 	const confirmDialog = useOpened()
 	const cancelDialog = useOpened()
-	useNavbarItems({ title: 'Admins.add', backLabel: 'Admins.back' })
+	useNavbarItems({ title: 'Add Admin', backLabel: 'Admins.back' })
 
 	const form = useForm<Schema>({
 		mode: 'onChange',
