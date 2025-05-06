@@ -43,7 +43,7 @@ export const dropdownListContainer = style({
 
 export const dropdownListItemsContainer = style({
 	overflow: 'auto',
-	maxHeight: '154px'
+	maxHeight: '200px'
 })
 
 export const dropdownListItem = style({

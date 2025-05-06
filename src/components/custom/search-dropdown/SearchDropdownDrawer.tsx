@@ -72,7 +72,7 @@ export const SearchDropdownDrawer = ({ name, options, placeholder, alwaysShowSea
 	return (
 		<Box className={dropdownListContainer}>
 			<Stack gap={2}>
-				{(alwaysShowSearch || options?.length > 5) && (
+				{alwaysShowSearch && (
 					<Box width="100%" paddingX={1}>
 						<SearchInput
 							name={name}
@@ -86,7 +86,7 @@ export const SearchDropdownDrawer = ({ name, options, placeholder, alwaysShowSea
 					<Stack gap={1}>
 						{options && options?.length > 0 ? (
 							options?.map(option => (
-								<Button size="auto" variant="adaptive" onClick={e => handleDropdownOption(e, option)}>
+								<Button key={option.name} size="auto" variant="adaptive" onClick={e => handleDropdownOption(e, option)}>
 									<Box className={dropdownListItem}>
 										<Text fontSize="small">{option.name}</Text>
 									</Box>

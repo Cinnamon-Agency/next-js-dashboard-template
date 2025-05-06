@@ -136,7 +136,8 @@
 		"expertise": "Expertise",
 		"reliability": "Reliability",
 		"time": "Time",
-		"status": "Status"
+		"status": "Status",
+		"rating": "Rating"
 	},
 	"Admins": {
 		"add": "Add Admin",
