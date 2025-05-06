@@ -1,10 +1,12 @@
 import type { ColumnDef } from '@tanstack/react-table'
+import { Review } from 'api/models/reviews/reviews'
 
-import { Barnahus } from 'api/models/barnahuses/barnahus'
-
-export const columns: Array<ColumnDef<Barnahus>> = [
-	{ accessorKey: 'name', header: 'General.barnahus' },
-	{ accessorKey: 'location', header: 'General.location' },
-	{ accessorKey: 'locationCode', header: 'General.barnahusId' },
-	{ accessorKey: 'admin', header: 'Barnahuses.assignedMasterAdmin' }
+export const columns: Array<ColumnDef<Review>> = [
+	{ accessorKey: 'reviewerName', header: 'Reviews.reviewerName' },
+	{ accessorKey: 'comment', header: 'Reviews.comment' },
+	{ accessorKey: 'communication', header: 'Reviews.communication' },
+	{ accessorKey: 'expertise', header: 'Reviews.expertise' },
+	{ accessorKey: 'reliability', header: 'Reviews.reliability' },
+	{ accessorKey: 'time', header: 'Reviews.time' },
+	{ accessorKey: 'status', header: 'Reviews.status' }
 ]

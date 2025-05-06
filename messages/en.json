@@ -17,6 +17,7 @@
 		"emailPlaceholder": "e.g. john.doe@gmail.com",
 		"fullNamePlaceholder": "Full name",
 		"reviews": "Reviews",
+
 		"collaborations": "Collaborations",
 		"admin": "Admin",
 		"admins": "Admins",
@@ -121,29 +122,21 @@
 			"instructions": "Please login to your account again."
 		}
 	},
-	"Barnahuses": {
-		"add": "Add Barnahus",
-		"add&Invite": "Add Barnahus & send invitation",
-		"save&add": "Save & Add Barnahus",
-		"cancelAdd": "Cancel adding Barnahus?",
-		"edit": "Edit Barnahus",
-		"delete": "Delete Barnahus",
-		"back": "Back to Barnahus",
-		"searchBarnahus": "Search Barnahus",
-		"barnahusName": "Barnahus name",
-		"barnahusNamePlaceholder": "e.g. Barnahus Oslo",
-		"barnahusLocation": "Location",
-		"assignedMasterAdmin": "Assigned Master-Admin",
-		"assignedMasterAdminPlaceholder": "No Master-Admin assigned yet",
-		"successfullyCreated": "The Barnahus has been added & the Master-Admin has been invited.",
-		"successfullyDeleted": "Barnahus successfully deleted!",
-		"successfullBulkDelete": "Barnahus successfully deleted!",
-		"successfullyEdited": "Barnahus successfully edited!",
-		"save&Add": "Save & Add Barnahus",
-		"addBarnahusDescription": "Please note that the new Barnahus will be the central hub for adding all personnel at that location, including an Admin for content management and practitioners for custom case journeys.",
-		"deleteBarnahusesDescription": "Press 'Delete' if you want to remove the Barnahus.",
-		"assignedMasterAdminInfoText": "Once the Master-Admin is added, their name will appear here.",
-		"noListDataDescription": "Add a Barnahus and assign a Master-Admin"
+	"Reviews": {
+		"noListDataTitle": "No Reviews yet",
+		"noListDataDescription": "No Reviews to show",
+		"add": "Add Review",
+		"edit": "Edit Review",
+		"back": "Back to Reviews",
+		"searchReviews": "Search Reviews",
+		"successfullyEdited": "Review successfully edited!",
+		"reviewerName": "Reviewer name",
+		"comment": "Comment",
+		"communication": "Communication",
+		"expertise": "Expertise",
+		"reliability": "Reliability",
+		"time": "Time",
+		"status": "Status"
 	},
 	"Admins": {
 		"add": "Add Admin",

@@ -6,59 +6,32 @@ import { FormItems } from '@/components/custom/layouts/add-form'
 import { SearchDropdown } from '@/components/custom/search-dropdown'
 import { FormControl } from '@/components/inputs/form-control'
 import { RequiredLabel } from '@/components/inputs/required-label'
-import { TextInput } from '@/components/inputs/text-input'
 import { OpenedProps } from '@/hooks/use-toggle'
-import { Admins } from 'api/models/admin/Admins'
-import { Base } from 'api/models/common/base'
+import { Review, ReviewStatus } from 'api/models/reviews/reviews'
 
 interface Props {
-	locations: Base[]
-	masterAdmins: Admins[]
+	review: Review
 	cancelDialog?: OpenedProps
 }
 
-const BarnahusForm = ({ locations, masterAdmins, cancelDialog }: Props) => {
+const ReviewForm = ({ review, cancelDialog }: Props) => {
 	const t = useTranslations()
-	const transformedLocationsArray = locations?.map(location => {
-		return {
-			id: location.name,
-			name: location.name
-		}
-	})
-	const transformedMasterAdminsArray = masterAdmins?.map(masterAdmin => {
-		return {
-			id: masterAdmin.userId,
-			name: masterAdmin.name
-		}
-	})
+	const transformedStatusArray = Object.keys(ReviewStatus).map(key => ({
+		id: key,
+		name: key
+	}))
 
 	return (
 		<FormItems openCancelDialog={cancelDialog?.toggleOpened}>
-			<FormControl name="name">
+			<FormControl name="status">
 				<FormControl.Label>
-					<RequiredLabel>{t('Barnahuses.barnahusName')}</RequiredLabel>
+					<RequiredLabel>{t('Reviews.status')}</RequiredLabel>
 				</FormControl.Label>
-				<TextInput placeholder={t('Barnahuses.barnahusNamePlaceholder')} />
-				<FormControl.Message />
-			</FormControl>
-			<FormControl name="location">
-				<FormControl.Label>
-					<RequiredLabel>{t('Barnahuses.barnahusLocation')}</RequiredLabel>
-				</FormControl.Label>
-				<SearchDropdown
-					placeholder="Barnahuses.barnahusLocation"
-					options={transformedLocationsArray}
-					alwaysShowSearch
-				/>
-				<FormControl.Message />
-			</FormControl>
-			<FormControl name="masterAdmin">
-				<FormControl.Label>{t('General.masterAdmin')}</FormControl.Label>
-				<SearchDropdown placeholder="General.masterAdminPlaceholder" options={transformedMasterAdminsArray} />
+				<SearchDropdown placeholder="Reviews.status" options={transformedStatusArray} alwaysShowSearch />
 				<FormControl.Message />
 			</FormControl>
 		</FormItems>
 	)
 }
 
-export default BarnahusForm
+export default ReviewForm

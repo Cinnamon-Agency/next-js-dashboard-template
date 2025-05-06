@@ -1,11 +1,14 @@
-import { getBarnahus } from 'api/services/barnahuses'
+import { getReview } from 'api/services/reviews'
+import { ReviewDetails } from './ReviewDetails'
 
-import { BarnahusDetails } from './BarnahusDetails'
-
-const BarnahusDetailsPage = async ({ params }: { params: { id: string } }) => {
-	const { data } = await getBarnahus(params.id)
-
-	return <BarnahusDetails barnahus={data.barnahus} />
+interface Props {
+	params: { id: string }
 }
 
-export default BarnahusDetailsPage
+const ReviewDetailsPage = async ({ params }: Props) => {
+	const { data } = await getReview(params.id)
+
+	return <ReviewDetails review={data.review} />
+}
+
+export default ReviewDetailsPage

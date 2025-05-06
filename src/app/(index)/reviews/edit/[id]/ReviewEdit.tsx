@@ -8,50 +8,42 @@ import { z } from 'zod'
 import { FormWrapper } from '@/components/custom/layouts/add-form'
 import { useNavbarItems } from '@/hooks/use-navbar-items'
 import { replaceEmptyStringFromObjectWithNull } from '@/utils/replaceEmptyStringFromObjectWithNull'
-import { Admins } from 'api/models/admin/Admins'
-import { Barnahus } from 'api/models/barnahuses/barnahus'
-import { Base } from 'api/models/common/base'
-import { updateBarnahus } from 'api/services/barnahuses'
+import { updateReview } from 'api/services/reviews'
 import { requiredString } from 'schemas'
 
-import BarnahusForm from '../../form'
+import { Review } from 'api/models/reviews/reviews'
+import ReviewForm from '../../form'
 
 const formSchema = z.object({
-	name: requiredString.shape.scheme,
-	location: requiredString.shape.scheme,
-	masterAdmin: z.string().optional()
+	status: requiredString.shape.scheme
 })
 
 type Schema = z.infer<typeof formSchema>
 
 interface Props {
-	barnahus: Barnahus
-	locations: Base[]
-	masterAdmins: Admins[]
+	review: Review
 }
 
-const BarnahusEdit = ({ barnahus, locations, masterAdmins }: Props) => {
+const ReviewEdit = ({ review }: Props) => {
 	const { back, refresh } = useRouter()
-	useNavbarItems({ title: 'Barnahuses.edit', backLabel: 'Barnahuses.back' })
+	useNavbarItems({ title: 'Reviews.edit', backLabel: 'Reviews.back' })
 
 	const form = useForm<Schema>({
 		mode: 'onChange',
 		resolver: zodResolver(formSchema),
-		defaultValues: { name: barnahus.name, location: barnahus.location, masterAdmin: barnahus.admin ?? '' }
+		defaultValues: { status: review.status }
 	})
 
 	const onSubmit = async () => {
 		const data = form.getValues()
 		const dataWIhoutEmptyString = replaceEmptyStringFromObjectWithNull(data)
-		const result = await updateBarnahus({
-			barnahusId: barnahus.barnahusId,
-			name: dataWIhoutEmptyString.name,
-			location: dataWIhoutEmptyString.location,
-			adminId: barnahus.adminId ?? undefined
+		const result = await updateReview({
+			id: review.id,
+			status: dataWIhoutEmptyString.status
 		})
 
 		if (result?.message === 'OK') {
-			localStorage.setItem('editMessage', 'Barnahuses.successfullyEdited')
+			localStorage.setItem('editMessage', 'Reviews.successfullyEdited')
 			refresh()
 			back()
 		}
@@ -61,11 +53,11 @@ const BarnahusEdit = ({ barnahus, locations, masterAdmins }: Props) => {
 		<FormWrapper>
 			<FormProvider {...form}>
 				<form onSubmit={form.handleSubmit(onSubmit)}>
-					<BarnahusForm locations={locations} masterAdmins={masterAdmins} />
+					<ReviewForm review={review} />
 				</form>
 			</FormProvider>
 		</FormWrapper>
 	)
 }
 
-export default BarnahusEdit
+export default ReviewEdit
