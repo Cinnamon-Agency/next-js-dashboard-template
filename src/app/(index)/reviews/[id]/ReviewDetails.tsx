@@ -62,7 +62,7 @@ export const ReviewDetails = ({ review }: Props) => {
 			<Stack gap={4}>
 				<Label>{t('Reviews.time')}</Label>
 				<Text fontSize="small" color="neutral.800">
-					{formatDate(review.time, 'MM/dd/yyyy')}
+					{formatDate(review.time)}
 				</Text>
 			</Stack>
 			<Stack gap={4}>

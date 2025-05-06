@@ -27,9 +27,16 @@ interface Props<TData, TValue> {
 	data: TData[]
 	pagination?: Pagination
 	contentSection?: string
+	linkToSinglePage?: boolean
 }
 
-export const DataTable = <TData, TValue>({ columns, data, pagination, contentSection }: Props<TData, TValue>) => {
+export const DataTable = <TData, TValue>({
+	columns,
+	data,
+	pagination,
+	contentSection,
+	linkToSinglePage
+}: Props<TData, TValue>) => {
 	const { checkedItems } = useTableStore()
 	const searchParams = useSearchParams()
 	const { replace } = useRouter()
@@ -87,7 +94,13 @@ export const DataTable = <TData, TValue>({ columns, data, pagination, contentSec
 		<>
 			<Table>
 				<DataTableHeader table={table} />
-				<DataTableBody table={table} columns={columns} contentSection={contentSection} data={data} />
+				<DataTableBody
+					table={table}
+					columns={columns}
+					contentSection={contentSection}
+					data={data}
+					linkToSinglePage={linkToSinglePage}
+				/>
 			</Table>
 			{pagination && <DataTablePagination table={table} pagination={pagination} />}
 		</>

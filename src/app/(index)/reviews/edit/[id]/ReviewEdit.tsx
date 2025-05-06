@@ -26,7 +26,7 @@ interface Props {
 
 const ReviewEdit = ({ review }: Props) => {
 	const { back, refresh } = useRouter()
-	useNavbarItems({ title: 'Reviews.edit', backLabel: 'Reviews.back' })
+	useNavbarItems({ title: 'Edit Review', backLabel: 'Reviews.back' })
 
 	const form = useForm<Schema>({
 		mode: 'onChange',
@@ -38,7 +38,7 @@ const ReviewEdit = ({ review }: Props) => {
 		const data = form.getValues()
 		const dataWIhoutEmptyString = replaceEmptyStringFromObjectWithNull(data)
 		const result = await updateReview({
-			id: review.id,
+			reviewId: review.id,
 			status: dataWIhoutEmptyString.status
 		})
 

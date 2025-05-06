@@ -27,7 +27,7 @@ const ReviewForm = ({ review, cancelDialog }: Props) => {
 				<FormControl.Label>
 					<RequiredLabel>{t('Reviews.status')}</RequiredLabel>
 				</FormControl.Label>
-				<SearchDropdown placeholder="Reviews.status" options={transformedStatusArray} alwaysShowSearch />
+				<SearchDropdown placeholder="Reviews.status" options={transformedStatusArray} />
 				<FormControl.Message />
 			</FormControl>
 		</FormItems>

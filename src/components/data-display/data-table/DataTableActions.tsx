@@ -19,7 +19,7 @@ type DataTableActionsProps = {
 	isNoteEnebled?: boolean
 	onEdit?: () => void
 	onMakeItDefault?: () => void
-	onDelete: () => void
+	onDelete?: () => void
 	onNotes?: () => void
 }
 
@@ -73,12 +73,14 @@ export const DataTableActions = ({
 						</Text>
 					</Button>
 				)}
-				<Button disabled={disableDelete} size={size} variant="secondary" onClick={() => onDelete()}>
-					<TrashIcon size="medium" color="destructive.500" />
-					<Text color="destructive.500" fontWeight="semibold">
-						{t('General.delete')}
-					</Text>
-				</Button>
+				{onDelete ? (
+					<Button disabled={disableDelete} size={size} variant="secondary" onClick={() => onDelete()}>
+						<TrashIcon size="medium" color="destructive.500" />
+						<Text color="destructive.500" fontWeight="semibold">
+							{t('General.delete')}
+						</Text>
+					</Button>
+				) : null}
 				{displayDeleteInfo && <InputInfo infoText="Languages.deleteInfo" />}
 			</Inline>
 		</Inline>

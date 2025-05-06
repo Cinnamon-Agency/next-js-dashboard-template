@@ -63,7 +63,7 @@ export const Inputs = ({ data }: Props) => {
 					</Box>
 				</Inline>
 			) : (
-				<DataTableActions onEdit={handleEdit} onDelete={() => {}} />
+				<DataTableActions onEdit={handleEdit} />
 			)}
 		</div>
 	)

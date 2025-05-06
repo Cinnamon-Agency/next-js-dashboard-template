@@ -7,13 +7,12 @@ import { NoListData } from '@/components/custom/no-list-data/NoListData'
 import { getReviews } from 'api/services/reviews'
 import { columns } from './columns'
 import { Inputs } from './inputs'
+import { ReviewParams } from 'api/models/reviews/reviewPayload'
+import { formatDate } from '@/utils/formatDate'
+import { Review } from 'api/models/reviews/reviews'
 
 interface Props {
-	searchParams: {
-		status: string
-		page: number
-		limit: number
-	}
+	searchParams: ReviewParams
 }
 
 const ReviewsPage = async ({ searchParams }: Props) => {
@@ -23,15 +22,19 @@ const ReviewsPage = async ({ searchParams }: Props) => {
 	const isInitialListEmpty = (data?.pagination?.count === 0 && !searchParams.status) || data === null
 
 	return isInitialListEmpty ? (
-		<NoListData
-			navbarTitle="General.reviews"
-			title="Reviews.noListDataTitle"
-			description="Reviews.noListDataDescription"
-		/>
+		<NoListData navbarTitle="Reviews" title="Reviews.noListDataTitle" description="Reviews.noListDataDescription" />
 	) : (
-		<ListWrapper title="General.reviews">
+		<ListWrapper title="Reviews">
 			<Inputs data={data?.reviews} />
-			<DataTable columns={columns} data={data?.reviews} pagination={data?.pagination} />
+			<DataTable
+				columns={columns}
+				data={data?.reviews.map(({ time, ...rest }: Review) => ({
+					...rest,
+					time: formatDate(time)
+				}))}
+				pagination={data?.pagination}
+				linkToSinglePage
+			/>
 		</ListWrapper>
 	)
 }

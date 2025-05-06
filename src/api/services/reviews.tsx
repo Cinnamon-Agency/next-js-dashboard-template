@@ -1,15 +1,10 @@
 import axiosInstanceWithToken from 'api/instances/AxiosInstanceWithToken'
 import { fetchWithToken } from 'api/instances/FetchWithToken'
-import { ReviewPayload } from 'api/models/reviews/reviewPayload'
+import { ReviewParams, ReviewPayload } from 'api/models/reviews/reviewPayload'
 
-interface Query {
-	status: string
-	page: number
-	limit: number
-}
-
-export const getReviews = (query: Query) => {
+export const getReviews = (query: ReviewParams) => {
 	const queryParams = {
+		...query,
 		status: query.status,
 		page: query.page ?? 1,
 		limit: query.limit ?? 10
