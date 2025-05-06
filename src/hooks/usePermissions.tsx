@@ -6,11 +6,10 @@ import { ROUTES } from 'parameters'
 
 interface PermissionsProps {
 	permission: UserPermissionEnum
-	route: keyof typeof ROUTES
 }
-export const usePermissions = async ({ permission, route }: PermissionsProps) => {
+export const usePermissions = async ({ permission }: PermissionsProps) => {
 	const session = await getServerSession(authOptions)
 	if (!session?.user.role.permissions?.includes(permission)) {
-		return redirect(route)
+		return redirect(ROUTES.NOT_FOUND)
 	}
 }

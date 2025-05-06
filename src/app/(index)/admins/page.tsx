@@ -19,7 +19,7 @@ interface Props {
 }
 
 const AdminsPage = async ({ searchParams }: Props) => {
-	usePermissions({ permission: UserPermissionEnum.ADMIN_READ, route: ROUTES.REVIEWS as keyof typeof ROUTES })
+	usePermissions({ permission: UserPermissionEnum.ADMIN_READ })
 
 	const { data: adminsData } = await getAdmins(searchParams)
 	const isInitialListEmpty = (adminsData?.pagination?.count === 0 && !searchParams.search) || adminsData === null
