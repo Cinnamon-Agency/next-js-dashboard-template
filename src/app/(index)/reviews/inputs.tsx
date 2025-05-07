@@ -13,6 +13,7 @@ import { Review, ReviewStatus } from 'api/models/reviews/reviews'
 import { ROUTES } from 'parameters/routes'
 
 import { SearchDropdown } from '@/components/custom/search-dropdown'
+import { DatePicker } from '@/components/inputs/date-picker'
 
 interface Props {
 	data: Review[]
@@ -87,6 +88,10 @@ export const Inputs = ({ data }: Props) => {
 							setValue={({ id }) => debouncedFilterChange('rating', id)}
 						/>
 					</Box>
+					<DatePicker
+						onChange={e => debouncedFilterChange('date', e.target.value)}
+						value={searchParams.get('date') || ''}
+					/>
 				</Inline>
 			) : (
 				<DataTableActions onEdit={handleEdit} />
