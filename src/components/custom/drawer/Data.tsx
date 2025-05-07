@@ -15,15 +15,15 @@ export interface Item {
 
 export const drawerItems: Item[] = [
 	{
-		label: 'collaborations',
-		icon: <BriefcaseIcon />,
-		route: ROUTES.COLLABORATIONS,
-		usedByPermission: UserPermissionEnum.REVIEW_READ
-	},
-	{
 		label: 'reviews',
 		icon: <ClipboardListIcon />,
 		route: ROUTES.REVIEWS,
+		usedByPermission: UserPermissionEnum.REVIEW_READ
+	},
+	{
+		label: 'collaborations',
+		icon: <BriefcaseIcon />,
+		route: ROUTES.COLLABORATIONS,
 		usedByPermission: UserPermissionEnum.REVIEW_READ
 	},
 	{ label: 'admins', icon: <PersonIcon />, route: ROUTES.ADMINS, usedByPermission: UserPermissionEnum.ADMIN_READ },
