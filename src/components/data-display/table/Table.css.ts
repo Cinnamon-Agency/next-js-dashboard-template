@@ -70,10 +70,7 @@ const tableCellStyle = {
 	fontWeight: tokens.typography.weight.regular,
 	':first-child': {
 		borderLeft: 'unset'
-	},
-	maxWidth: '300px',
-	whiteSpace: 'nowrap',
-	overflow: 'hidden'
+	}
 }
 
 export const tableCell = style({
@@ -84,7 +81,10 @@ export const tableCell = style({
 
 export const tableCellWithLink = style({
 	...tableCellStyle,
-	...font
+	...font,
+	maxWidth: '300px',
+	whiteSpace: 'nowrap',
+	overflow: 'hidden'
 })
 
 export const tableCaption = style({

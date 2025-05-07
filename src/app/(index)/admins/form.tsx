@@ -5,11 +5,11 @@ import { useTranslations } from 'next-intl'
 import { FormItems } from '@/components/custom/layouts/add-form'
 import { FormControl } from '@/components/inputs/form-control'
 import { RequiredLabel } from '@/components/inputs/required-label'
+import { Select } from '@/components/inputs/select'
 import { TextInput } from '@/components/inputs/text-input'
 import { OpenedProps } from '@/hooks/use-toggle'
-import { Select } from '@/components/inputs/select'
+import { handleRoleOptions } from '@/utils/handleRoleOptions'
 import { Role } from 'api/models/roles/roles'
-import { UserRoleEnum } from 'enums/userRoleEnum'
 
 interface Props {
 	roles: Array<Role>
@@ -40,14 +40,9 @@ const AdminForm = ({ roles, isEdit, cancelDialog }: Props) => {
 			</FormControl>
 			<FormControl name="roleId">
 				<FormControl.Label>
-					<RequiredLabel>{t('General.role')}</RequiredLabel>
+					<RequiredLabel>Role and permissions</RequiredLabel>
 				</FormControl.Label>
-				<Select
-					options={roles
-						.filter(({ name }) => name !== UserRoleEnum.SUPER_ADMIN)
-						.map(({ id, permissions }) => ({ value: id, label: permissions.toString() }))}
-					placeholder={t('General.rolePlaceholder')}
-				/>
+				<Select options={handleRoleOptions(roles)} placeholder={t('General.rolePlaceholder')} />
 				<FormControl.Message />
 			</FormControl>
 		</FormItems>
