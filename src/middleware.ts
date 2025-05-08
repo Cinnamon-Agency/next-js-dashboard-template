@@ -8,44 +8,48 @@ export async function middleware(request: NextRequest) {
 		secret: process.env.NEXTAUTH_SECRET
 	})
 
-	if (!request.nextUrl.pathname.startsWith('/admin')) {
-		if (!token) {
-			const loginUrl = new URL('/admin/login', request.url)
-			return NextResponse.redirect(loginUrl)
-		}
-	}
-
+	const loginUrl = new URL('/admin/login', request.url)
+	const notFound = new URL('/not-found', request.url)
 	const permissions = token?.user.role.permissions
 
 	if (request.nextUrl.pathname.startsWith('/admins')) {
+		if (!token) {
+			return NextResponse.redirect(loginUrl)
+		}
 		if (!permissions?.includes(UserPermissionEnum.ADMIN_READ)) {
-			return NextResponse.redirect(new URL('/not-found', request.url))
+			return NextResponse.redirect(notFound)
 		}
 		if (request.nextUrl.pathname.startsWith('/admins/add') || request.nextUrl.pathname.startsWith('/admins/edit')) {
 			if (!permissions?.includes(UserPermissionEnum.ADMIN_WRITE)) {
-				return NextResponse.redirect(new URL('/not-found', request.url))
+				return NextResponse.redirect(notFound)
 			}
 		}
 	}
 
 	if (request.nextUrl.pathname.startsWith('/collaborations')) {
+		if (!token) {
+			return NextResponse.redirect(loginUrl)
+		}
 		if (!permissions?.includes(UserPermissionEnum.REVIEW_READ)) {
-			return NextResponse.redirect(new URL('/not-found', request.url))
+			return NextResponse.redirect(notFound)
 		}
 		if (request.nextUrl.pathname.startsWith('/collaborations/edit')) {
 			if (!permissions?.includes(UserPermissionEnum.REVIEW_WRITE)) {
-				return NextResponse.redirect(new URL('/not-found', request.url))
+				return NextResponse.redirect(notFound)
 			}
 		}
 	}
 
 	if (request.nextUrl.pathname.startsWith('/reviews')) {
+		if (!token) {
+			return NextResponse.redirect(loginUrl)
+		}
 		if (!permissions?.includes(UserPermissionEnum.REVIEW_READ)) {
-			return NextResponse.redirect(new URL('/not-found', request.url))
+			return NextResponse.redirect(notFound)
 		}
 		if (request.nextUrl.pathname.startsWith('/reviews/edit')) {
 			if (!permissions?.includes(UserPermissionEnum.REVIEW_WRITE)) {
-				return NextResponse.redirect(new URL('/not-found', request.url))
+				return NextResponse.redirect(notFound)
 			}
 		}
 	}
@@ -55,5 +59,5 @@ export async function middleware(request: NextRequest) {
 
 // Configure which routes use this middleware
 export const config = {
-	matcher: ['/admins/:path*', '/dashboard/:path*']
+	matcher: ['/admins/:path*', '/collaborations/:path*', '/reviews/:path*']
 }
