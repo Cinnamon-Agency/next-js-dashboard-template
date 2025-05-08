@@ -7,11 +7,11 @@ import { ROUTES } from 'parameters/routes'
 
 const HomePage = async () => {
 	const session = await getServerSession(authOptions)
-	if (session === null) {
+	if (!session || !session.user.role) {
 		return redirect(ROUTES.LOGIN)
 	}
 
-	const permissions = session?.user.role.permissions
+	const permissions = session.user.role.permissions
 
 	if (permissions.includes(UserPermissionEnum.REVIEW_READ)) {
 		return redirect(ROUTES.REVIEWS)

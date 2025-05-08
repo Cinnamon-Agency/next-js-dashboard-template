@@ -17,9 +17,8 @@ export const metadata: Metadata = {
 
 const DashboardLayout = async ({ children }: { children: ReactNode }) => {
 	const session = await getServerSession(authOptions)
-
 	// This is for protected routes
-	if (!session) {
+	if (!session || !session.user.role) {
 		return redirect(ROUTES.LOGIN)
 	}
 	const permissions = session.user.role.permissions
