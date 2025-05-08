@@ -10,7 +10,7 @@ import { Text } from '@/components/typography/text'
 import { atoms } from '@/style/atoms.css'
 import { ROUTES } from 'parameters'
 
-const PasswordSuccessfullyChangedPage = () => {
+const EmailSuccessfullyChangedPage = () => {
 	const t = useTranslations()
 	const { push } = useRouter()
 
@@ -31,4 +31,4 @@ const PasswordSuccessfullyChangedPage = () => {
 	)
 }
 
-export default PasswordSuccessfullyChangedPage
+export default EmailSuccessfullyChangedPage
