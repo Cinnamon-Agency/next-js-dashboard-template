@@ -7,6 +7,9 @@ import { handleAdminRoles } from '@/utils/handleAdminRoles'
 import { ROUTES } from 'parameters'
 import { columns } from './columns'
 import { Inputs } from './inputs'
+import { getServerSession } from 'next-auth'
+import { authOptions } from 'app/api/auth/[...nextauth]/auth'
+import { UserPermissionEnum } from 'enums/userRoleEnum'
 
 interface Props {
 	searchParams: {
@@ -17,6 +20,7 @@ interface Props {
 }
 
 const AdminsPage = async ({ searchParams }: Props) => {
+	const session = await getServerSession(authOptions)
 	const { data: adminsData } = await getAdmins(searchParams)
 	const isInitialListEmpty = (adminsData?.pagination?.count === 0 && !searchParams.search) || adminsData === null
 
@@ -30,7 +34,10 @@ const AdminsPage = async ({ searchParams }: Props) => {
 		/>
 	) : (
 		<ListWrapper title="Admins">
-			<Inputs data={adminsData?.admins} />
+			<Inputs
+				data={adminsData?.admins}
+				writePermission={session?.user.role.permissions.includes(UserPermissionEnum.ADMIN_WRITE)}
+			/>
 			<DataTable columns={columns} data={handleAdminRoles(adminsData?.admins)} pagination={adminsData?.pagination} />
 		</ListWrapper>
 	)

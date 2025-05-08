@@ -17,9 +17,10 @@ import { DatePicker } from '@/components/inputs/date-picker'
 
 interface Props {
 	data: Review[]
+	writePermission?: boolean
 }
 
-export const Inputs = ({ data }: Props) => {
+export const Inputs = ({ data, writePermission }: Props) => {
 	const searchParams = useSearchParams()
 	const { checkedItems, checkedItemsLength } = useTableStore()
 	const { push, replace, refresh } = useRouter()
@@ -93,9 +94,9 @@ export const Inputs = ({ data }: Props) => {
 						value={searchParams.get('date') || ''}
 					/>
 				</Inline>
-			) : (
+			) : writePermission ? (
 				<DataTableActions onEdit={handleEdit} />
-			)}
+			) : null}
 		</div>
 	)
 }

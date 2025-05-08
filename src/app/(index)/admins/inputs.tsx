@@ -19,10 +19,11 @@ import { ROUTES } from 'parameters'
 import { Admin } from 'api/models/admin/admin'
 
 interface Props {
-	data: Array<Admin>
+	data: Admin[]
+	writePermission?: boolean
 }
 
-export const Inputs = ({ data }: Props) => {
+export const Inputs = ({ data, writePermission }: Props) => {
 	const t = useTranslations()
 	const searchParams = useSearchParams()
 	const confirmDialog = useOpened()
@@ -83,11 +84,11 @@ export const Inputs = ({ data }: Props) => {
 							onChange={({ target: { name, value } }) => debouncedFilterChange(name, value)}
 						/>
 					</Box>
-					<AddButton buttonLabel={t('Admins.add')} buttonLink={ROUTES.ADD_ADMINS} />
+					{writePermission ? <AddButton buttonLabel={t('Admins.add')} buttonLink={ROUTES.ADD_ADMINS} /> : null}
 				</Inline>
-			) : (
+			) : writePermission ? (
 				<DataTableActions onEdit={handleEdit} onDelete={() => confirmDialog.toggleOpened()} />
-			)}
+			) : null}
 			<ConfirmActionDialog
 				title="Admins.delete"
 				description="Admins.deleteAdminDescription"
