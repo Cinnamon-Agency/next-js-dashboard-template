@@ -4,13 +4,6 @@ import { BrandLogo } from '@/components/custom/brand-logo/BrandLogo'
 import { Box } from '@/components/layout/box'
 import { Stack } from '@/components/layout/stack'
 
-import { Metadata } from 'next'
-
-export const metadata: Metadata = {
-	title: 'Collabbro | Dashboard',
-	description: 'Collabbro Admin Dashboard'
-}
-
 const AuthorizationLayout = ({ children }: { children: ReactNode }) => {
 	return (
 		<Box display="flex" width="100vw" justify="center" align="center">
