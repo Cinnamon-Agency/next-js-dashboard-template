@@ -24,6 +24,14 @@ export const Inputs = ({ data, writePermission }: Props) => {
 	const searchParams = useSearchParams()
 	const { checkedItems, checkedItemsLength } = useTableStore()
 	const { push, replace, refresh } = useRouter()
+	const transformedStatusArray = Object.keys(ReviewStatus).map(key => ({
+		id: key,
+		name: key
+	}))
+	const transformedRatingArray = Array.from({ length: 5 }, (_, i) => ({
+		id: (i + 1).toString(),
+		name: `Avg rating ${(i + 1).toString()}`
+	}))
 
 	const handleFilterChange = (filter: string, value: string) => {
 		const current = qs.parse(searchParams.toString())
@@ -48,14 +56,6 @@ export const Inputs = ({ data, writePermission }: Props) => {
 		push(ROUTES.EDIT_REVIEW + data[numericIndex].id)
 		refresh()
 	}
-	const transformedStatusArray = Object.keys(ReviewStatus).map(key => ({
-		id: key,
-		name: key
-	}))
-	const transformedRatingArray = Array.from({ length: 5 }, (_, i) => ({
-		id: (i + 1).toString(),
-		name: 'Avg rating ' + (i + 1).toString()
-	}))
 
 	return (
 		<div>

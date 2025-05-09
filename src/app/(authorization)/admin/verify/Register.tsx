@@ -54,7 +54,6 @@ const Register = ({ uid, status, email }: Props) => {
 		loading.toggleLoading()
 		const registerData: any = { uid, password: data.password }
 		const result = await signIn('register', { ...registerData, redirect: false })
-		console.log(result)
 		if (result?.status === 200) {
 			push(ROUTES.HOME)
 		} else {
