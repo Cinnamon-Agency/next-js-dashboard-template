@@ -8,6 +8,12 @@ import { Box } from '@/components/layout/box'
 import { Stack } from '@/components/layout/stack'
 import { authOptions } from 'app/api/auth/[...nextauth]/auth'
 import { ROUTES } from 'parameters'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+	title: 'Collabbro | Dashboard',
+	description: 'Collabbro Admin Dashboard'
+}
 
 const DashboardLayout = async ({ children }: { children: ReactNode }) => {
 	const session = await getServerSession(authOptions)

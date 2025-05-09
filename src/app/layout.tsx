@@ -10,7 +10,6 @@ import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify'
 import { IntlProvider } from 'next-intl'
 import { notFound } from 'next/navigation'
-import { Metadata } from 'next'
 
 const inter = Inter({
 	weight: ['400', '600', '700', '800'],
@@ -18,10 +17,6 @@ const inter = Inter({
 	variable: '--inter-font'
 })
 
-export const metadata: Metadata = {
-	title: 'Collabbro | Dashboard',
-	description: 'Collabbro Admin Dashboard'
-}
 type Props = {
 	children: ReactNode
 }
