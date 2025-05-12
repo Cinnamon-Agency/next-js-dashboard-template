@@ -6,13 +6,13 @@ import { Register } from 'api/models/auth/register'
 import { ResetPassword } from 'api/models/auth/resetPassword'
 
 export const register = async (requestData: Register) => {
-	const { data } = await instance.post(`/auth/verify`, requestData)
+	const { data } = await instance.post(`/auth/admin/verify`, requestData)
 
 	return data
 }
 
 export const login = async (requestData: Login) => {
-	const { data } = await instance.post(`/auth/login`, requestData)
+	const { data } = await instance.post(`/auth/admin/login`, requestData)
 
 	return data
 }

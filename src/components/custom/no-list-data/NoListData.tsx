@@ -18,7 +18,7 @@ type Props = {
 	navbarTitle?: string
 	title: string
 	description: string
-	buttonLabel: string
+	buttonLabel?: string
 	buttonLink?: string
 	distanceFromTop?: string
 	setNavbarItems?: boolean
@@ -44,7 +44,7 @@ export const NoListData = ({
 
 	if (setNavbarItems) {
 		// eslint-disable-next-line
-		useNavbarItems({ title: navbarTitle ?? '', useUserDropdown: true })
+		useNavbarItems({ title: navbarTitle ?? '' })
 	}
 
 	return (
@@ -61,9 +61,11 @@ export const NoListData = ({
 								</Heading>
 								<Text lineHeight="xlarge">{t(description)}</Text>
 							</Stack>
-							<Box>
-								<AddButton buttonLabel={t(buttonLabel)} onClick={onClickMethod} />
-							</Box>
+							{buttonLabel ? (
+								<Box>
+									<AddButton buttonLabel={t(buttonLabel)} onClick={onClickMethod} />
+								</Box>
+							) : null}
 						</Stack>
 					</Box>
 				</Box>

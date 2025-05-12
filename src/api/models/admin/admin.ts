@@ -1,10 +1,19 @@
+import { UserRoleEnum } from 'enums/userRoleEnum'
+import { Role } from '../roles/roles'
+
 export interface Admin {
-	userId: string
-	firstName: string
-	lastName: string
+	id: string
 	email: string
-	phoneNumber: string
-	location: string
-	locations: string[]
-	locationCode: string
+	fullName: string
+	role: Role
+	status: 'Active' | 'Inactive'
+}
+
+export interface TableAdmin {
+	id: string
+	email: string
+	fullName: string
+	role: UserRoleEnum
+	permissions: string
+	status: 'Active' | 'Inactive'
 }

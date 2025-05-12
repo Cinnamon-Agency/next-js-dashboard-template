@@ -104,6 +104,7 @@ export const SearchDropdown = ({
 					options={options}
 					placeholder={placeholder}
 					name={name}
+					setIsOpen={setIsOpen}
 					alwaysShowSearch={alwaysShowSearch}
 					setValue={setValue}
 				/>

@@ -4,7 +4,6 @@ import { Controller, useFormContext } from 'react-hook-form'
 import { getChildByType, overridePropsDeep } from 'react-nanny'
 
 import { SearchDropdown } from '@/components/custom/search-dropdown/SearchDropdown'
-import { AudioUpload } from '@/components/custom/upload/audio-upload'
 import { PhotoUpload } from '@/components/custom/upload/photo-upload'
 import { CheckIcon } from '@/components/icons/check-icon'
 import { ErrorIcon } from '@/components/icons/error-icon'
@@ -33,7 +32,13 @@ type Props = {
 	children: ReactNode
 }
 
-export const FormControl = ({ name, maxLength, successMessageString, errorMessageString, children }: Props) => {
+export const FormControl = ({
+	name,
+	maxLength,
+	successMessageString = '',
+	errorMessageString = '',
+	children
+}: Props) => {
 	const {
 		control,
 		formState: { errors },
@@ -50,7 +55,6 @@ export const FormControl = ({ name, maxLength, successMessageString, errorMessag
 		NumericInput,
 		PatternInput,
 		PasswordInput,
-		AudioUpload,
 		PhotoUpload,
 		Checkbox,
 		CheckboxGroup,
@@ -133,6 +137,9 @@ FormControl.Message = ({
 	const t = useTranslations()
 	const labelColor = errorMessage ? 'destructive.500' : successMessage ? 'success.500' : 'neutral.500'
 	const labelMessage = errorMessage || successMessage || instructionMessage
+	if (!labelMessage) {
+		return null
+	}
 
 	return (
 		<Box position="absolute" paddingTop={1}>

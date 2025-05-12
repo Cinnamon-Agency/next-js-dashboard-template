@@ -1,8 +1,8 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
 import { Session } from 'next-auth'
 import { useTranslations } from 'next-intl'
+import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
 import { LeftIcon } from '@/components/icons/left-icon'
@@ -12,20 +12,16 @@ import { Box } from '@/components/layout/box'
 import { Inline } from '@/components/layout/inline'
 import { Heading } from '@/components/typography/heading'
 import { Text } from '@/components/typography/text'
-import { Settings } from 'api/models/settings/settings'
 import { useNavbarItemsStore } from 'store/navbar'
 
-import * as styles from './Navbar.css'
 import { UserDropdown } from '../user-dropdown'
-import { LanguageDropdown } from '../language-dropdown'
+import * as styles from './Navbar.css'
 
 interface Props {
 	session: Session | null
-	settings: Settings
-	seenOnboardingSections: string[]
 }
 
-export const Navbar = ({ session, settings, seenOnboardingSections }: Props) => {
+export const Navbar = ({ session }: Props) => {
 	const router = useRouter()
 	const t = useTranslations()
 	const { navbarItems, setNavbarIsLoading } = useNavbarItemsStore()
@@ -61,7 +57,7 @@ export const Navbar = ({ session, settings, seenOnboardingSections }: Props) => 
 			<Box width="100%">
 				<Inline justifyContent="space-between" alignItems="flex-start">
 					<Heading variant="h2" lineHeight="medium" color="neutral.800">
-						{t(navbarItems?.title ?? 'General.loading')}
+						{navbarItems?.title ?? 'Loading...'}
 					</Heading>
 					{navbarItems?.actionButton && <Box style={{ marginTop: '-1rem' }}>{navbarItems?.actionButton}</Box>}
 					{navbarItems?.location && (
@@ -74,14 +70,12 @@ export const Navbar = ({ session, settings, seenOnboardingSections }: Props) => 
 							</Inline>
 						</Box>
 					)}
-					{navbarItems?.useUserDropdown && (
-						<Box style={{ marginTop: '-0.5rem' }}>
-							<Inline gap={3}>
-								<UserDropdown session={session} settings={settings} seenOnboardingSections={seenOnboardingSections} />
-								<LanguageDropdown />
-							</Inline>
-						</Box>
-					)}
+
+					<Box style={{ marginTop: '-0.5rem' }}>
+						<Inline gap={3}>
+							<UserDropdown session={session} />
+						</Inline>
+					</Box>
 				</Inline>
 			</Box>
 		</Box>

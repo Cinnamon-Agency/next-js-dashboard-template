@@ -1,7 +1,5 @@
 export interface AdminPayload {
-	userId?: string
-	email?: string
-	firstName: string
-	lastName: string
-	phoneNumber: string
+	id: string
+	fullName: string
+	roleId: string
 }

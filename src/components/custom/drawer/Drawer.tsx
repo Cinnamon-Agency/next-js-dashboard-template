@@ -9,14 +9,17 @@ import { Item, drawerItems } from './Data'
 import { drawer } from './Drawer.css'
 import { DrawerItem } from './DrawerItem'
 import { BrandLogo } from '../brand-logo/BrandLogo'
+import { UserPermissionEnum } from 'enums/userRoleEnum'
 
 interface Props {
-	role: string
+	permissions: UserPermissionEnum[]
 }
 
-export const Drawer = ({ role }: Props) => {
+export const Drawer = ({ permissions }: Props) => {
 	const [isOpen, setIsOpen] = useState(false)
-	const filtredDrawerItems: Item[] = drawerItems.filter((item: Item) => item.usedByRoles?.includes(role))
+	const filteredDrawerItems: Item[] = drawerItems.filter(
+		(item: Item) => !item.usedByPermission || permissions.includes(item.usedByPermission)
+	)
 
 	return (
 		<Box className={drawer}>
@@ -25,15 +28,8 @@ export const Drawer = ({ role }: Props) => {
 					<BrandLogo addHomeLink />
 				</Box>
 				<Stack gap={4}>
-					{filtredDrawerItems.map(item => (
-						<>
-							<DrawerItem item={item} isOpen={isOpen} setIsOpen={setIsOpen} />
-							{item?.subItems &&
-								isOpen &&
-								item?.subItems.map((subItem: Item) => (
-									<DrawerItem item={subItem} isOpen={isOpen} setIsOpen={setIsOpen} />
-								))}
-						</>
+					{filteredDrawerItems.map(item => (
+						<DrawerItem key={item.label} item={item} isOpen={isOpen} setIsOpen={setIsOpen} />
 					))}
 				</Stack>
 			</Stack>

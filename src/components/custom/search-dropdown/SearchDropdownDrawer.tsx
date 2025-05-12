@@ -1,9 +1,9 @@
 'use client'
 
-import { useRouter, useSearchParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
+import { useRouter, useSearchParams } from 'next/navigation'
 import qs from 'query-string'
-import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useDebounce } from 'rooks'
 
@@ -13,25 +13,24 @@ import { Stack } from '@/components/layout/stack'
 import { Text } from '@/components/typography/text'
 import { Base } from 'api/models/common/base'
 
-import { dropdownListContainer, dropdownListItem, dropdownListItemsContainer } from './SearchDropdown.css'
 import { SearchInput } from '../inputs/search-input'
 import { NoResult } from '../no-result'
+import { dropdownListContainer, dropdownListItem, dropdownListItemsContainer } from './SearchDropdown.css'
 
 interface Props {
 	options: Base[]
 	placeholder: string
+	setIsOpen: Dispatch<SetStateAction<boolean>>
 	name?: string
 	alwaysShowSearch?: boolean
 	setValue?: Dispatch<SetStateAction<any>>
 }
 
-export const SearchDropdownDrawer = ({ name, options, placeholder, alwaysShowSearch, setValue }: Props) => {
+export const SearchDropdownDrawer = ({ name, options, placeholder, alwaysShowSearch, setValue, setIsOpen }: Props) => {
 	const t = useTranslations()
 	const searchParams = useSearchParams()
 	const formContext = useFormContext()
 	const { replace } = useRouter()
-	const [isOpen, setIsOpen] = useState(false)
-	const ref = useRef<HTMLDivElement>(null)
 	const currentSearchParamas = qs.parse(searchParams.toString())
 	const searchParamsValuelength = name ? (currentSearchParamas[name] ? currentSearchParamas[name]?.length : 0) : 0
 	const noResultMessage =
@@ -63,31 +62,17 @@ export const SearchDropdownDrawer = ({ name, options, placeholder, alwaysShowSea
 			if (formContext) {
 				formContext.setValue(name, option.id)
 				formContext.trigger(name)
-				setIsOpen(!isOpen)
 			} else if (setValue) {
 				setValue(option)
 			}
 		}
+		setIsOpen(false)
 	}
-
-	const handleClickOutside = (event: MouseEvent) => {
-		if (ref.current && !ref.current.contains(event.target as Node)) {
-			setIsOpen(false)
-		}
-	}
-
-	useEffect(() => {
-		document.addEventListener('mousedown', handleClickOutside)
-
-		return () => {
-			document.removeEventListener('mousedown', handleClickOutside)
-		}
-	}, [])
 
 	return (
 		<Box className={dropdownListContainer}>
 			<Stack gap={2}>
-				{(alwaysShowSearch || options?.length > 5) && (
+				{alwaysShowSearch && (
 					<Box width="100%" paddingX={1}>
 						<SearchInput
 							name={name}
@@ -101,7 +86,7 @@ export const SearchDropdownDrawer = ({ name, options, placeholder, alwaysShowSea
 					<Stack gap={1}>
 						{options && options?.length > 0 ? (
 							options?.map(option => (
-								<Button size="auto" variant="adaptive" onClick={e => handleDropdownOption(e, option)}>
+								<Button key={option.name} size="auto" variant="adaptive" onClick={e => handleDropdownOption(e, option)}>
 									<Box className={dropdownListItem}>
 										<Text fontSize="small">{option.name}</Text>
 									</Box>

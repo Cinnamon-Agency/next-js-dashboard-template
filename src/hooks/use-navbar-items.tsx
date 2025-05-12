@@ -14,5 +14,5 @@ export const useNavbarItems = (navbarItems: NavbarItems) => {
 		return () => {
 			setNavbarItems(undefined)
 		}
-	}, [setNavbarItems, navbarItems.backLabel, navbarItems.title, navbarItems.useUserDropdown])
+	}, [setNavbarItems, navbarItems.backLabel, navbarItems.title])
 }

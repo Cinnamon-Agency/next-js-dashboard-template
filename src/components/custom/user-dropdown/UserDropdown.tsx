@@ -1,9 +1,8 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
 import { Session } from 'next-auth'
 import { signOut } from 'next-auth/react'
-import { useTranslations } from 'next-intl'
+import { useRouter } from 'next/navigation'
 import React, { useEffect, useRef, useState } from 'react'
 
 import { BlockIcon } from '@/components/icons/block-icon'
@@ -13,16 +12,12 @@ import { Box } from '@/components/layout/box'
 import { Inline } from '@/components/layout/inline'
 import { Stack } from '@/components/layout/stack'
 import { Text } from '@/components/typography/text'
-import { handleFullName } from '@/utils/handleFullName'
-import { Settings } from 'api/models/settings/settings'
 import { logout } from 'api/services/auth'
-import { deleteOnboarding } from 'api/services/onboarding'
 import { ROUTES } from 'parameters'
 
-import { dropdownListContainer, dropdownListItem, dropdownListItemWithAction } from './UserDropdown.css'
 import CarretDownIcon from '../../icons/block-icon/assets/carret-down-icon.svg'
 import CarretUpIcon from '../../icons/block-icon/assets/carret-up-icon.svg'
-import { Onboarding } from '../onboarding'
+import { dropdownListContainer, dropdownListItem, dropdownListItemWithAction } from './UserDropdown.css'
 
 interface Option {
 	label?: string
@@ -32,17 +27,12 @@ interface Option {
 
 interface Props {
 	session: Session | null
-	settings: Settings
-	seenOnboardingSections: string[]
 }
 
-export const UserDropdown = ({ session, settings, seenOnboardingSections }: Props) => {
-	const t = useTranslations()
+export const UserDropdown = ({ session }: Props) => {
 	const [isOpen, setIsOpen] = useState(false)
-	const [openOnboarding, setOpenOnboarding] = useState(false)
 	const ref = useRef<HTMLDivElement>(null)
 	const { replace } = useRouter()
-	const userRole = session?.user?.roles[0]?.name
 
 	const handleLogout = async () => {
 		const result = await logout()
@@ -52,30 +42,16 @@ export const UserDropdown = ({ session, settings, seenOnboardingSections }: Prop
 		}
 	}
 
-	const handleDeleteOnboarding = async () => {
-		if (userRole) {
-			const result = await deleteOnboarding(userRole)
-
-			if (result?.message === 'OK') {
-				setOpenOnboarding(true)
-			}
-		}
-	}
-
 	const options: Option[] = [
 		{
-			label: settings?.email
+			label: session?.user.email
 		},
 		{
-			label: 'General.profileSettings',
+			label: 'Profile settings',
 			action: () => replace(ROUTES.SETTINGS)
 		},
 		{
-			label: 'General.onboardingFlow',
-			action: () => handleDeleteOnboarding()
-		},
-		{
-			label: 'General.logOut',
+			label: 'Log out',
 			action: () => handleLogout()
 		}
 	]
@@ -93,9 +69,6 @@ export const UserDropdown = ({ session, settings, seenOnboardingSections }: Prop
 
 	useEffect(() => {
 		document.addEventListener('mousedown', handleClickOutside)
-		if (userRole && !seenOnboardingSections?.includes(userRole)) {
-			setOpenOnboarding(true)
-		}
 
 		return () => {
 			document.removeEventListener('mousedown', handleClickOutside)
@@ -103,50 +76,50 @@ export const UserDropdown = ({ session, settings, seenOnboardingSections }: Prop
 	}, [])
 
 	return (
-		<>
-			{userRole && (!seenOnboardingSections?.includes(userRole) || openOnboarding) && (
-				<Onboarding userRole={userRole} openOnboarding={openOnboarding} setOpenOnboarding={setOpenOnboarding} />
-			)}
-			<div ref={ref}>
-				<Box position="relative">
-					<Box display="flex" width="100%" justifyContent="flex-end">
-						<Button size="auto" variant="adaptive" onClick={handleDropDownOpening}>
-							<Box borderRadius="small" padding={2} backgroundColor="neutral.150">
-								<Inline gap={2} alignItems="center">
-									<UserIcon size="medium" color="neutral.800" />
-									<Text fontSize="medium" fontWeight="semibold" lineHeight="xlarge" color="neutral.800">
-										{t(handleFullName(settings?.firstName, settings?.lastName))}
-									</Text>
-									<BlockIcon icon={isOpen ? CarretUpIcon : CarretDownIcon} size="medium" color="neutral.800" />
-								</Inline>
-							</Box>
-						</Button>
-					</Box>
-					{isOpen && (
-						<Box className={dropdownListContainer}>
-							<Stack>
-								{options?.map(option =>
-									option.action ? (
-										<Button size="auto" variant="adaptive" disabled={option.disabled} onClick={option.action}>
-											<Box className={dropdownListItemWithAction}>
-												<Text fontSize="medium" lineHeight="xlarge">
-													{t(option.label)}
-												</Text>
-											</Box>
-										</Button>
-									) : (
-										<Box className={dropdownListItem}>
+		<div ref={ref}>
+			<Box position="relative">
+				<Box display="flex" width="100%" justifyContent="flex-end">
+					<Button size="auto" variant="adaptive" onClick={handleDropDownOpening}>
+						<Box borderRadius="small" padding={2} backgroundColor="neutral.150">
+							<Inline gap={2} alignItems="center">
+								<UserIcon size="medium" color="neutral.800" />
+								<Text fontSize="medium" fontWeight="semibold" lineHeight="xlarge" color="neutral.800">
+									{session?.user.name}
+								</Text>
+								<BlockIcon icon={isOpen ? CarretUpIcon : CarretDownIcon} size="medium" color="neutral.800" />
+							</Inline>
+						</Box>
+					</Button>
+				</Box>
+				{isOpen && (
+					<Box className={dropdownListContainer}>
+						<Stack>
+							{options?.map(option =>
+								option.action ? (
+									<Button
+										key={option.label}
+										size="auto"
+										variant="adaptive"
+										disabled={option.disabled}
+										onClick={option.action}>
+										<Box className={dropdownListItemWithAction}>
 											<Text fontSize="medium" lineHeight="xlarge">
-												{t(option.label)}
+												{option.label}
 											</Text>
 										</Box>
-									)
-								)}
-							</Stack>
-						</Box>
-					)}
-				</Box>
-			</div>
-		</>
+									</Button>
+								) : (
+									<Box key={option.label} className={dropdownListItem}>
+										<Text fontSize="medium" lineHeight="xlarge">
+											{option.label}
+										</Text>
+									</Box>
+								)
+							)}
+						</Stack>
+					</Box>
+				)}
+			</Box>
+		</div>
 	)
 }

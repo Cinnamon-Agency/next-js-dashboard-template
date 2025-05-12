@@ -6,7 +6,6 @@ import { usePathname } from 'next/navigation'
 import { Badge } from '@/components/custom/badge'
 import { NoResult } from '@/components/custom/no-result/NoResult'
 import { Checkbox } from '@/components/inputs/checkbox'
-import { Box } from '@/components/layout/box'
 
 import { TableBody, TableCell, TableCellWithLink, TableRow } from '../table'
 import { Inline } from '@/components/layout/inline'
@@ -16,9 +15,16 @@ interface Props<TData, TValue> {
 	table: Table<TData>
 	contentSection?: string
 	data: any
+	linkToSinglePage?: boolean
 }
 
-export const DataTableBody = <TData, TValue>({ columns, table, contentSection, data }: Props<TData, TValue>) => {
+export const DataTableBody = <TData, TValue>({
+	columns,
+	table,
+	contentSection,
+	data,
+	linkToSinglePage
+}: Props<TData, TValue>) => {
 	const pathname = usePathname()
 
 	return (
@@ -33,26 +39,27 @@ export const DataTableBody = <TData, TValue>({ columns, table, contentSection, d
 								onChange={row.getToggleSelectedHandler()}
 							/>
 						</TableCell>
-						{row.getVisibleCells().map((cell: Cell<TData, unknown>) => (
-							<TableCellWithLink
-								key={cell.id}
-								// eslint-disable-next-line sonarjs/no-nested-template-literals
-								href={`${pathname}/${contentSection ? `${contentSection}/` : ''}${row.original?.id}`}>
-								{cell.column.id.includes('status') ? (
-									<Box position="relative">
-										<Badge variant={cell.getValue() as any} />
-									</Box>
-								) : (
-									<Inline alignItems="center" justifyContent="space-between">
-										{flexRender(cell.column.columnDef.cell, cell.getContext())}
-										{cell.column.id.includes('name') &&
-											data?.find((item: any) => item.name === cell.getValue())?.isDefault && (
-												<Badge variant={'default'} />
-											)}
-									</Inline>
-								)}
-							</TableCellWithLink>
-						))}
+						{row.getVisibleCells().map((cell: Cell<TData, unknown>) => {
+							const cellContent = (
+								<Inline alignItems="center" justifyContent="space-between">
+									{flexRender(cell.column.columnDef.cell, cell.getContext())}
+									{cell.column.id.includes('name') &&
+										data?.find((item: any) => item.name === cell.getValue())?.isDefault && (
+											<Badge variant={'default'} />
+										)}
+								</Inline>
+							)
+							return linkToSinglePage ? (
+								<TableCellWithLink
+									key={cell.id}
+									// eslint-disable-next-line sonarjs/no-nested-template-literals
+									href={`${pathname}/${contentSection ? `${contentSection}/` : ''}${row.original?.id}`}>
+									{cellContent}
+								</TableCellWithLink>
+							) : (
+								<TableCell key={cell.id}>{cellContent}</TableCell>
+							)
+						})}
 					</TableRow>
 				))
 			) : (
