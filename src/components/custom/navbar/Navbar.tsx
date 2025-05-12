@@ -1,6 +1,5 @@
 'use client'
 
-import { Session } from 'next-auth'
 import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
@@ -17,11 +16,7 @@ import { useNavbarItemsStore } from 'store/navbar'
 import { UserDropdown } from '../user-dropdown'
 import * as styles from './Navbar.css'
 
-interface Props {
-	session: Session | null
-}
-
-export const Navbar = ({ session }: Props) => {
+export const Navbar = () => {
 	const router = useRouter()
 	const t = useTranslations()
 	const { navbarItems, setNavbarIsLoading } = useNavbarItemsStore()
@@ -73,7 +68,7 @@ export const Navbar = ({ session }: Props) => {
 
 					<Box style={{ marginTop: '-0.5rem' }}>
 						<Inline gap={3}>
-							<UserDropdown session={session} />
+							<UserDropdown />
 						</Inline>
 					</Box>
 				</Inline>

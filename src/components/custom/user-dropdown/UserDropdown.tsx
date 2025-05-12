@@ -1,7 +1,6 @@
 'use client'
 
-import { Session } from 'next-auth'
-import { signOut } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useRef, useState } from 'react'
 
@@ -25,14 +24,11 @@ interface Option {
 	disabled?: boolean
 }
 
-interface Props {
-	session: Session | null
-}
-
-export const UserDropdown = ({ session }: Props) => {
+export const UserDropdown = () => {
 	const [isOpen, setIsOpen] = useState(false)
 	const ref = useRef<HTMLDivElement>(null)
 	const { replace } = useRouter()
+	const { data: session } = useSession()
 
 	const handleLogout = async () => {
 		const result = await logout()

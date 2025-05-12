@@ -28,7 +28,7 @@ const DashboardLayout = async ({ children }: { children: ReactNode }) => {
 			<Drawer permissions={permissions} />
 			<Box flex="1">
 				<Stack>
-					<Navbar session={session} />
+					<Navbar />
 					<Box display="flex" align="center">
 						{children}
 					</Box>
