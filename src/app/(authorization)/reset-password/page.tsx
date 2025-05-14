@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { signIn } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
-import { useEffect } from 'react'
+import { useEffect, Suspense } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import * as z from 'zod'
 
@@ -33,7 +33,7 @@ const formSchema = z
 
 type Schema = z.infer<typeof formSchema>
 
-const ResetYourPasswordPage = () => {
+const ResetPasswordContent = () => {
 	const t = useTranslations()
 	const { push } = useRouter()
 	const searchParams = useSearchParams()
@@ -111,6 +111,14 @@ const ResetYourPasswordPage = () => {
 				</form>
 			</FormProvider>
 		</>
+	)
+}
+
+const ResetYourPasswordPage = () => {
+	return (
+		<Suspense fallback={<div>Loading...</div>}>
+			<ResetPasswordContent />
+		</Suspense>
 	)
 }
 

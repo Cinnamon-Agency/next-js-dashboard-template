@@ -2,7 +2,7 @@
 
 import { redirect, useSearchParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense } from 'react'
 
 import { Button } from '@/components/inputs/button'
 import { Box } from '@/components/layout/box'
@@ -13,7 +13,7 @@ import { atoms } from '@/style/atoms.css'
 import { forgotPassword } from 'api/services/auth'
 import { ROUTES } from 'parameters'
 
-const SuccessPage = () => {
+const SuccessContent = () => {
 	const t = useTranslations()
 	const searchParams = useSearchParams()
 	const [countdown, setCountdown] = useState<number>(30)
@@ -76,6 +76,14 @@ const SuccessPage = () => {
 				</Stack>
 			</form>
 		</>
+	)
+}
+
+const SuccessPage = () => {
+	return (
+		<Suspense fallback={<div>Loading...</div>}>
+			<SuccessContent />
+		</Suspense>
 	)
 }
 
