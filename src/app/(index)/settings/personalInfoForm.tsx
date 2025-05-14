@@ -1,7 +1,6 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Session } from 'next-auth'
 import { useTranslations } from 'next-intl'
 import { FormProvider, useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -18,6 +17,8 @@ import { Stack } from '@/components/layout/stack'
 import { SuccessToast } from '@/components/overlay/toast-messages/SuccessToastmessage'
 import { personal } from 'api/services/settings'
 import { requiredString } from 'schemas'
+import { signIn, useSession } from 'next-auth/react'
+import { ErrorToast } from '@/components/overlay/toast-messages/ErrorToastmessage'
 
 const formSchema = z.object({
 	fullName: requiredString.shape.scheme
@@ -25,12 +26,10 @@ const formSchema = z.object({
 
 type Schema = z.infer<typeof formSchema>
 
-interface Props {
-	session: Session | null
-}
-
-export const PersonalInfoForm = ({ session }: Props) => {
+export const PersonalInfoForm = () => {
 	const t = useTranslations()
+
+	const { data: session } = useSession()
 
 	const form = useForm<Schema>({
 		mode: 'onChange',
@@ -41,10 +40,19 @@ export const PersonalInfoForm = ({ session }: Props) => {
 	})
 
 	const onSubmit = async (data: Schema) => {
-		const result = await personal(data.fullName)
-		if (result?.message === 'OK') {
-			// todo: add session update
-			SuccessToast(t('Settings.personalInfoSuccessfullyUpdated'))
+		try {
+			const result = await personal(data.fullName)
+			if (result?.message === 'OK') {
+				// update user
+				await signIn('login', {
+					updateUser: JSON.stringify({ ...session?.user, name: data.fullName }),
+					redirect: false
+				})
+
+				SuccessToast(t('Settings.personalInfoSuccessfullyUpdated'))
+			}
+		} catch (error) {
+			ErrorToast('Failed to save personal info')
 		}
 	}
 

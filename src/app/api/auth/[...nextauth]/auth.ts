@@ -19,6 +19,10 @@ export const authOptions: NextAuthOptions = {
 			type: 'credentials',
 			credentials: {},
 			async authorize(credentials: any) {
+				// only update user
+				if (credentials.updateUser) {
+					return JSON.parse(credentials.updateUser)
+				}
 				const response = await login({
 					email: credentials.email,
 					password: credentials.password

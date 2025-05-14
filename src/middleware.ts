@@ -10,7 +10,7 @@ export async function middleware(request: NextRequest) {
 
 	const loginUrl = new URL('/admin/login', request.url)
 	const notFound = new URL('/not-found', request.url)
-	const permissions = token?.user.role.permissions
+	const permissions = token?.user?.role?.permissions
 
 	if (request.nextUrl.pathname.startsWith('/admins')) {
 		if (!token) {

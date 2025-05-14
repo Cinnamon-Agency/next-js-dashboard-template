@@ -34,7 +34,7 @@ const SettingsTabs = ({ session }: Props) => {
 					<Tabs.Tab value="password">{t('Authorization.password')}</Tabs.Tab>
 					<Tabs.Tab value="email">{t('General.email')}</Tabs.Tab>
 					<Tabs.Panel value="personalInfo">
-						<PersonalInfoForm session={session} />
+						<PersonalInfoForm />
 					</Tabs.Panel>
 					<Tabs.Panel value="password">
 						<PasswordForm />

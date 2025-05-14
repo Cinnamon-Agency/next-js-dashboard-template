@@ -125,7 +125,6 @@
 	"Reviews": {
 		"noListDataTitle": "No Reviews yet",
 		"noListDataDescription": "No Reviews to show",
-		"add": "Add Review",
 		"edit": "Edit Review",
 		"back": "Back to Reviews",
 		"searchReviews": "Search Reviews",
@@ -138,6 +137,14 @@
 		"time": "Time",
 		"status": "Status",
 		"rating": "Rating"
+	},
+	"Collaborations": {
+		"noListDataTitle": "No Collaborations yet",
+		"noListDataDescription": "No Collaborations to show",
+		"edit": "Edit Collaboration",
+		"back": "Back to Collaborations",
+		"searchReviews": "Search Collaborations",
+		"successfullyEdited": "Collaboration successfully edited!"
 	},
 	"Admins": {
 		"add": "Add Admin",
@@ -160,7 +167,7 @@
 		"personalInfoSuccessfullyUpdated": "Personal info successfully updated!",
 		"updatePassword": "Update password",
 		"passwordSuccessfullyUpdated": "Password successfully updated!",
-		"emailInstructions": "You must verify your new email before you can use it to log-in",
+		"emailInstructions": "You must verify your new email before you can use it to log in",
 		"currentEmail": "Current email",
 		"currentEmailPlaceholder": "Enter current email",
 		"newEmail": "New email",
