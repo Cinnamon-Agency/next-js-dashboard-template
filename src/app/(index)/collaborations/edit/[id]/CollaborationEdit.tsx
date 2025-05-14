@@ -7,7 +7,7 @@ import { z } from 'zod'
 
 import { FormWrapper } from '@/components/custom/layouts/add-form'
 import { useNavbarItems } from '@/hooks/use-navbar-items'
-import { replaceEmptyStringFromObjectWithNull } from '@/utils/replaceEmptyStringFromObjectWithNull'
+// import { replaceEmptyStringFromObjectWithNull } from '@/utils/replaceEmptyStringFromObjectWithNull'
 import { requiredString } from 'schemas'
 
 import { Collaboration } from 'api/models/collaborations/collaborations'
@@ -36,8 +36,8 @@ const CollaborationEdit = ({ collaboration }: Props) => {
 	})
 
 	const onSubmit = async () => {
-		const data = form.getValues()
-		const dataWIhoutEmptyString = replaceEmptyStringFromObjectWithNull(data)
+		// const data = form.getValues()
+		// const dataWIhoutEmptyString = replaceEmptyStringFromObjectWithNull(data)
 		const result = await updateCollaboration({
 			collaborationId: collaboration.id
 		})
