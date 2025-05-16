@@ -11,7 +11,7 @@ export const photoUploadLabel = style({
 	width: '212px',
 	cursor: 'pointer',
 	display: 'inline-block',
-	backgroundColor: tokens.colors['neutral.150'],
+	backgroundColor: tokens.colors['neutral.100'],
 	padding: `${tokens.spacing[15]} ${tokens.spacing[4]}`,
 	fontSize: tokens.typography.size.xsmall,
 	fontWeight: tokens.typography.weight.regular,

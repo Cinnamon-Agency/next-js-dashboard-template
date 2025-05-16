@@ -14,7 +14,7 @@ export const iconContainer = recipe({
 	variants: {
 		variant: {
 			audio: {
-				backgroundColor: tokens.colors['neutral.150']
+				backgroundColor: tokens.colors['neutral.100']
 			},
 			trash: {
 				backgroundColor: tokens.colors['destructive.50']

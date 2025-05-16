@@ -76,7 +76,7 @@ export const UserDropdown = () => {
 			<Box position="relative">
 				<Box display="flex" width="100%" justifyContent="flex-end">
 					<Button size="auto" variant="adaptive" onClick={handleDropDownOpening}>
-						<Box borderRadius="small" padding={2} backgroundColor="neutral.150">
+						<Box borderRadius="small" padding={2} backgroundColor="neutral.100">
 							<Inline gap={2} alignItems="center">
 								<UserIcon size="medium" color="neutral.800" />
 								<Text fontSize="medium" fontWeight="semibold" lineHeight="xlarge" color="neutral.800">
