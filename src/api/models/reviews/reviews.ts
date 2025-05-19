@@ -11,7 +11,7 @@ export interface Review {
 }
 
 export enum ReviewStatus {
-	Pending = 'Pending',
-	Approved = 'Approved',
-	Rejected = 'Rejected'
+	PENDING = 'PENDING',
+	APPROVED = 'APPROVED',
+	REJECTED = 'REJECTED'
 }

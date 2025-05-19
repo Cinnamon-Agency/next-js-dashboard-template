@@ -1,6 +1,8 @@
+import { ReviewStatus } from './reviews'
+
 export interface ReviewPayload {
 	reviewId: string
-	status: 'Pending' | 'Approved' | 'Rejected'
+	status: ReviewStatus
 }
 
 export interface ReviewParams {
