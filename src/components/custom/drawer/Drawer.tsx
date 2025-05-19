@@ -1,22 +1,19 @@
 'use client'
 
-import { useState } from 'react'
-
 import { Box } from '@/components/layout/box'
 import { Stack } from '@/components/layout/stack'
 
+import { UserPermissionEnum } from 'enums/userRoleEnum'
+import { BrandLogo } from '../brand-logo/BrandLogo'
 import { Item, drawerItems } from './Data'
 import { drawer } from './Drawer.css'
 import { DrawerItem } from './DrawerItem'
-import { BrandLogo } from '../brand-logo/BrandLogo'
-import { UserPermissionEnum } from 'enums/userRoleEnum'
 
 interface Props {
 	permissions: UserPermissionEnum[]
 }
 
 export const Drawer = ({ permissions }: Props) => {
-	const [isOpen, setIsOpen] = useState(false)
 	const filteredDrawerItems: Item[] = drawerItems.filter(
 		(item: Item) => !item.usedByPermission || permissions.includes(item.usedByPermission)
 	)
@@ -24,12 +21,12 @@ export const Drawer = ({ permissions }: Props) => {
 	return (
 		<Box className={drawer}>
 			<Stack gap={13}>
-				<Box paddingLeft={6}>
+				<Box>
 					<BrandLogo addHomeLink />
 				</Box>
-				<Stack gap={4}>
+				<Stack gap={5} alignItems="flex-start">
 					{filteredDrawerItems.map(item => (
-						<DrawerItem key={item.label} item={item} isOpen={isOpen} setIsOpen={setIsOpen} />
+						<DrawerItem key={item.label} item={item} />
 					))}
 				</Stack>
 			</Stack>
