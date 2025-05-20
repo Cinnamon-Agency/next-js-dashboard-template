@@ -1,12 +1,11 @@
 'use client'
 
-import { Text } from '@/components/typography/text'
-
 import { FormItems } from '@/components/custom/layouts/add-form'
-import { Label } from '@/components/inputs/label'
-import { Stack } from '@/components/layout/stack'
+import { SearchDropdown } from '@/components/custom/search-dropdown'
+import { FormControl } from '@/components/inputs/form-control'
+import { RequiredLabel } from '@/components/inputs/required-label'
 import { OpenedProps } from '@/hooks/use-toggle'
-import { Collaboration } from 'api/models/collaborations/collaborations'
+import { Collaboration, CollaborationCancellationStatus } from 'api/models/collaborations/collaborations'
 
 interface Props {
 	collaboration: Collaboration
@@ -14,15 +13,20 @@ interface Props {
 }
 
 const CollaborationForm = ({ collaboration, cancelDialog }: Props) => {
+	const transformedStatusArray = Object.keys(CollaborationCancellationStatus).map(key => ({
+		id: key,
+		name: key
+	}))
 	return (
 		<FormItems openCancelDialog={cancelDialog?.toggleOpened}>
-			<Stack gap={4}>
-				{/* todo replace with the actual fields */}
-				<Label>Collaboration ID</Label>
-				<Text fontSize="small" color="neutral.800">
-					{collaboration.id}
-				</Text>
-			</Stack>
+			<FormControl name="cancellationStatus">
+				<FormControl.Label>
+					<RequiredLabel>Cancellation status</RequiredLabel>
+				</FormControl.Label>
+				<SearchDropdown placeholder="Collaborations.cancellationStatus" options={transformedStatusArray} />
+				<FormControl.Message />
+			</FormControl>
+			{/* todo add comment */}
 		</FormItems>
 	)
 }

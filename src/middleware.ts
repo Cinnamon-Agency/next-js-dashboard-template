@@ -30,11 +30,11 @@ export async function middleware(request: NextRequest) {
 		if (!token) {
 			return NextResponse.redirect(loginUrl)
 		}
-		if (!permissions?.includes(UserPermissionEnum.REVIEW_READ)) {
+		if (!permissions?.includes(UserPermissionEnum.COLLABORATION_READ)) {
 			return NextResponse.redirect(notFound)
 		}
 		if (request.nextUrl.pathname.startsWith('/collaborations/edit')) {
-			if (!permissions?.includes(UserPermissionEnum.REVIEW_WRITE)) {
+			if (!permissions?.includes(UserPermissionEnum.COLLABORATION_WRITE)) {
 				return NextResponse.redirect(notFound)
 			}
 		}

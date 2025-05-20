@@ -144,7 +144,19 @@
 		"edit": "Edit Collaboration",
 		"back": "Back to Collaborations",
 		"searchReviews": "Search Collaborations",
-		"successfullyEdited": "Collaboration successfully edited!"
+		"successfullyEdited": "Collaboration successfully edited!",
+		"status": "Status",
+		"reasonToCollaborate": "Reason to collaborate",
+		"inDeadline": "In deadline",
+		"createdAt": "Created at",
+		"type": "Type",
+		"owner": "Owner",
+		"collaborator": "Collaborator",
+		"cancellation": "Cancellation",
+		"cancellationStatus": "Cancellation status",
+		"cancellationReason": "Cancellation reason",
+		"cancellationAdminComment": "Cancellation admin comment",
+		"cancellationCollaboratorComment": "Cancellation collaborator comment"
 	},
 	"Admins": {
 		"add": "Add Admin",

@@ -29,3 +29,8 @@ export const optionalPhoneNumberScheme = z.object({
 		.string()
 		.regex(/^(|([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9]){3,24})?$/, 'ValidationMeseges.phone')
 })
+
+export const collaborationFormSchema = z.object({
+	status: z.string(),
+	comment: z.string()
+})

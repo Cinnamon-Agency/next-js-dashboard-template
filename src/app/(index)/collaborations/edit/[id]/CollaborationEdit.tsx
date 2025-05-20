@@ -7,19 +7,14 @@ import { z } from 'zod'
 
 import { FormWrapper } from '@/components/custom/layouts/add-form'
 import { useNavbarItems } from '@/hooks/use-navbar-items'
-// import { replaceEmptyStringFromObjectWithNull } from '@/utils/replaceEmptyStringFromObjectWithNull'
-import { requiredString } from 'schemas'
+import { replaceEmptyStringFromObjectWithNull } from '@/utils/replaceEmptyStringFromObjectWithNull'
+import { collaborationFormSchema } from 'schemas'
 
 import { Collaboration } from 'api/models/collaborations/collaborations'
-import { updateCollaboration } from 'api/services/collaborations'
+import { updateCollaborationCancellationStatus } from 'api/services/collaborations'
 import CollaborationForm from '../../form'
 
-const formSchema = z.object({
-	// todo replace with the actual fields
-	id: requiredString.shape.scheme
-})
-
-type Schema = z.infer<typeof formSchema>
+type Schema = z.infer<typeof collaborationFormSchema>
 
 interface Props {
 	collaboration: Collaboration
@@ -31,15 +26,20 @@ const CollaborationEdit = ({ collaboration }: Props) => {
 
 	const form = useForm<Schema>({
 		mode: 'onChange',
-		resolver: zodResolver(formSchema),
-		defaultValues: { id: collaboration.id }
+		resolver: zodResolver(collaborationFormSchema),
+		defaultValues: {
+			status: collaboration.cancellation.status,
+			comment: ''
+		}
 	})
 
 	const onSubmit = async () => {
-		// const data = form.getValues()
-		// const dataWIhoutEmptyString = replaceEmptyStringFromObjectWithNull(data)
-		const result = await updateCollaboration({
-			collaborationId: collaboration.id
+		const data = form.getValues()
+		const dataWIhoutEmptyString = replaceEmptyStringFromObjectWithNull(data)
+		const result = await updateCollaborationCancellationStatus({
+			collaborationId: collaboration.id,
+			collaborationCancellationId: collaboration.cancellation.requestedById, //todo
+			...dataWIhoutEmptyString
 		})
 
 		if (result?.message === 'OK') {
