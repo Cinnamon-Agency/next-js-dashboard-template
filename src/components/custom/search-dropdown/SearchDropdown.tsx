@@ -45,7 +45,7 @@ export const SearchDropdown = ({
 	const [choosenValue, setChoosenValue] = useState<Base>()
 	const presentationalLabelVariant = isFilter ? 'filterLabel' : value ? 'formLabel' : 'placeholder'
 
-	const handleDropDownOpening = (e: React.MouseEvent<HTMLButtonElement>) => {
+	const handleDropDownOpening = (e: React.MouseEvent<HTMLElement>) => {
 		e.preventDefault()
 		setIsOpen(!isOpen)
 	}
@@ -82,6 +82,7 @@ export const SearchDropdown = ({
 	return (
 		<div ref={ref}>
 			<InputWrapper
+				onClick={handleDropDownOpening}
 				endIcon={
 					<BlockIcon
 						icon={isOpen ? CarretUpIcon : CarretDownIcon}
