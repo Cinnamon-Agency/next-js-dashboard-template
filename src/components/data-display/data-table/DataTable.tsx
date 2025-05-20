@@ -21,6 +21,8 @@ import { Pagination } from 'api/models/common/pagination'
 import { DataTableBody } from './DataTableBody'
 import { DataTableHeader } from './DataTableHeader'
 import { DataTablePagination } from './DataTablePagination'
+import { Box } from '@/components/layout/box'
+import { tableContainer } from './DataTable.css'
 
 interface Props<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[]
@@ -91,7 +93,7 @@ export const DataTable = <TData, TValue>({
 	}, [table.getState().pagination.pageIndex])
 
 	return (
-		<>
+		<Box className={tableContainer}>
 			<Table>
 				<DataTableHeader table={table} />
 				<DataTableBody
@@ -103,6 +105,6 @@ export const DataTable = <TData, TValue>({
 				/>
 			</Table>
 			{pagination && <DataTablePagination table={table} pagination={pagination} />}
-		</>
+		</Box>
 	)
 }

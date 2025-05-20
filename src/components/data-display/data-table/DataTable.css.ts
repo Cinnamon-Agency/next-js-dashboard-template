@@ -14,3 +14,8 @@ export const dataTableSelect = style({
 	fontSize: tokens.typography.size.large,
 	color: 'red'
 })
+
+export const tableContainer = style({
+	overflowX: 'auto',
+	maxWidth: 'calc(100vw - 300px)'
+})
