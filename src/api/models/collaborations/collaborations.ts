@@ -6,7 +6,8 @@ export interface Collaboration {
 	inDeadline: boolean
 	type: CollaborationType
 	createdAt: string
-	cancellation: {
+	cancellation?: {
+		id: string
 		requestedById: string
 		status: CollaborationCancellationStatus
 		reason: string

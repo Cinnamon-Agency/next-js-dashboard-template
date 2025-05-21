@@ -13,6 +13,8 @@ import { collaborationFormSchema } from 'schemas'
 import { Collaboration } from 'api/models/collaborations/collaborations'
 import { updateCollaborationCancellationStatus } from 'api/services/collaborations'
 import CollaborationForm from '../../form'
+import { Text } from '@/components/typography/text'
+import { Box } from '@/components/layout/box'
 
 type Schema = z.infer<typeof collaborationFormSchema>
 
@@ -28,7 +30,7 @@ const CollaborationEdit = ({ collaboration }: Props) => {
 		mode: 'onChange',
 		resolver: zodResolver(collaborationFormSchema),
 		defaultValues: {
-			status: collaboration.cancellation.status,
+			status: collaboration?.cancellation?.status,
 			comment: ''
 		}
 	})
@@ -38,7 +40,7 @@ const CollaborationEdit = ({ collaboration }: Props) => {
 		const dataWIhoutEmptyString = replaceEmptyStringFromObjectWithNull(data)
 		const result = await updateCollaborationCancellationStatus({
 			collaborationId: collaboration.id,
-			collaborationCancellationId: collaboration.cancellation.requestedById, //todo
+			collaborationCancellationId: collaboration?.cancellation?.id,
 			...dataWIhoutEmptyString
 		})
 
@@ -49,11 +51,21 @@ const CollaborationEdit = ({ collaboration }: Props) => {
 		}
 	}
 
+	if (!collaboration?.cancellation) {
+		return (
+			<Box padding={11}>
+				<Text variant="bodytext" color="neutral.800">
+					No cancellation data to show
+				</Text>
+			</Box>
+		)
+	}
+
 	return (
 		<FormWrapper>
 			<FormProvider {...form}>
 				<form onSubmit={form.handleSubmit(onSubmit)}>
-					<CollaborationForm collaboration={collaboration} />
+					<CollaborationForm />
 				</form>
 			</FormProvider>
 		</FormWrapper>
