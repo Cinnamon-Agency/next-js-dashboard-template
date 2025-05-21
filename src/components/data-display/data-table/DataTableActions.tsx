@@ -9,32 +9,17 @@ import { ButtonVariants } from '@/components/inputs/button/Button.css'
 import { Inline } from '@/components/layout/inline'
 import { Text } from '@/components/typography/text'
 import { useTableStore } from '@/store/table'
-import { InputInfo } from '@/components/inputs/input-info'
-import { StarsIcon } from '@/components/icons/stars-icon'
-import { NoteIcon } from '@/components/icons/note-icon'
 
-type DataTableActionsProps = {
+interface DataTableActionsProps {
 	disableDelete?: boolean
-	displayDeleteInfo?: boolean
-	isNoteEnebled?: boolean
+	disableEdit?: boolean
 	onEdit?: () => void
-	onMakeItDefault?: () => void
 	onDelete?: () => void
-	onNotes?: () => void
 }
 
 type Props = DataTableActionsProps & ButtonVariants
 
-export const DataTableActions = ({
-	size = 'large',
-	disableDelete,
-	displayDeleteInfo,
-	isNoteEnebled,
-	onEdit,
-	onMakeItDefault,
-	onDelete,
-	onNotes
-}: Props) => {
+export const DataTableActions = ({ size = 'large', disableDelete, disableEdit, onEdit, onDelete }: Props) => {
 	const t = useTranslations()
 	const { checkedItemsLength, clearCheckedItems } = useTableStore()
 
@@ -51,37 +36,25 @@ export const DataTableActions = ({
 				</Button>
 			</Inline>
 			<Inline gap={4} alignItems="center">
-				{onEdit && checkedItemsLength === 1 && (
+				{onEdit && !disableEdit && checkedItemsLength === 1 && (
 					<Button size={size} variant="secondary" onClick={() => onEdit()}>
 						<PencilIcon size="medium" color="neutral.700" />
 						{t('General.edit')}
 					</Button>
 				)}
-				{checkedItemsLength === 1 && onMakeItDefault && (
-					<Button size={size} variant="secondary" onClick={() => onMakeItDefault()}>
-						<StarsIcon size="medium" color="warning.500" />
-						<Text color="warning.500" fontWeight="semibold">
-							{t('Languages.makeItDefault')}
-						</Text>
-					</Button>
-				)}
-				{checkedItemsLength === 1 && onNotes && (
-					<Button size={size} variant="secondary" onClick={onNotes}>
-						<NoteIcon size="medium" color={isNoteEnebled ? 'warning.500' : 'success.500'} />
-						<Text color={isNoteEnebled ? 'warning.500' : 'success.500'} fontWeight="semibold">
-							{t(`CaseJourney.${isNoteEnebled ? 'disableNotes' : 'enableNotes'}`)}
-						</Text>
-					</Button>
-				)}
-				{onDelete ? (
-					<Button disabled={disableDelete} size={size} variant="secondary" onClick={() => onDelete()}>
+				{onDelete && !disableDelete ? (
+					<Button size={size} variant="secondary" onClick={() => onDelete()}>
 						<TrashIcon size="medium" color="destructive.500" />
 						<Text color="destructive.500" fontWeight="semibold">
 							{t('General.delete')}
 						</Text>
 					</Button>
 				) : null}
-				{displayDeleteInfo && <InputInfo infoText="Languages.deleteInfo" />}
+				{disableEdit && disableDelete && (
+					<Text color="destructive.500" fontSize="small">
+						You don't have write permissions to edit or delete.
+					</Text>
+				)}
 			</Inline>
 		</Inline>
 	)

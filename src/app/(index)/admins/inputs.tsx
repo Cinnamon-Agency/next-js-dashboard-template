@@ -72,30 +72,37 @@ export const Inputs = ({ data, writePermission }: Props) => {
 		}
 	}
 
+	if (checkedItemsLength) {
+		return (
+			<>
+				<DataTableActions
+					onEdit={handleEdit}
+					onDelete={() => confirmDialog.toggleOpened()}
+					disableEdit={!writePermission}
+					disableDelete={!writePermission}
+				/>
+				<ConfirmActionDialog
+					title="Admins.delete"
+					description="Admins.deleteAdminDescription"
+					buttonLabel="General.delete"
+					confirmDialog={confirmDialog}
+					onSubmit={handleDelete}
+				/>
+			</>
+		)
+	}
+
 	return (
-		<div>
-			{checkedItemsLength === 0 ? (
-				<Inline justifyContent="space-between" alignItems="center">
-					<Box style={{ width: '320px' }}>
-						<SearchInput
-							name="search"
-							defaultValue={searchParams.get('search') || ''}
-							placeholder={t('Admins.searchAdmin')}
-							onChange={({ target: { name, value } }) => debouncedFilterChange(name, value)}
-						/>
-					</Box>
-					{writePermission ? <AddButton buttonLabel={t('Admins.add')} buttonLink={ROUTES.ADD_ADMINS} /> : null}
-				</Inline>
-			) : writePermission ? (
-				<DataTableActions onEdit={handleEdit} onDelete={() => confirmDialog.toggleOpened()} />
-			) : null}
-			<ConfirmActionDialog
-				title="Admins.delete"
-				description="Admins.deleteAdminDescription"
-				buttonLabel="General.delete"
-				confirmDialog={confirmDialog}
-				onSubmit={handleDelete}
-			/>
-		</div>
+		<Inline justifyContent="space-between" alignItems="center">
+			<Box style={{ width: '320px' }}>
+				<SearchInput
+					name="search"
+					defaultValue={searchParams.get('search') || ''}
+					placeholder={t('Admins.searchAdmin')}
+					onChange={({ target: { name, value } }) => debouncedFilterChange(name, value)}
+				/>
+			</Box>
+			{writePermission ? <AddButton buttonLabel={t('Admins.add')} buttonLink={ROUTES.ADD_ADMINS} /> : null}
+		</Inline>
 	)
 }

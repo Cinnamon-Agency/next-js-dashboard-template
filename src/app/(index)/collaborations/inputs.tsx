@@ -53,36 +53,34 @@ export const Inputs = ({ data, writePermission }: Props) => {
 		refresh()
 	}
 
+	if (checkedItemsLength) {
+		return <DataTableActions onEdit={handleEdit} disableEdit={!writePermission} disableDelete={!writePermission} />
+	}
+
 	return (
-		<div>
-			{checkedItemsLength === 0 ? (
-				<Inline gap={4}>
-					<Box style={{ width: '320px' }}>
-						<SearchInput
-							name="search"
-							defaultValue={searchParams.get('search') || ''}
-							placeholder="Search by owner/collaborator"
-							onChange={({ target: { name, value } }) => debouncedFilterChange(name, value)}
-						/>
-					</Box>
-					<Box style={{ position: 'relative' }}>
-						<SearchDropdown
-							placeholder="Collaborations.status"
-							name="status"
-							options={[{ id: '', name: 'All' }, ...transformedStatusArray]}
-							value={searchParams.get('status') || 'Select collaboration status'}
-							isFilter
-							setValue={({ id }) => debouncedFilterChange('status', id)}
-						/>
-					</Box>
-					<DatePicker
-						onChange={e => debouncedFilterChange('date', e.target.value)}
-						value={searchParams.get('date') || ''}
-					/>
-				</Inline>
-			) : writePermission ? (
-				<DataTableActions onEdit={handleEdit} />
-			) : null}
-		</div>
+		<Inline gap={4}>
+			<Box style={{ width: '320px' }}>
+				<SearchInput
+					name="search"
+					defaultValue={searchParams.get('search') || ''}
+					placeholder="Search by owner/collaborator"
+					onChange={({ target: { name, value } }) => debouncedFilterChange(name, value)}
+				/>
+			</Box>
+			<Box style={{ position: 'relative' }}>
+				<SearchDropdown
+					placeholder="Collaborations.status"
+					name="status"
+					options={[{ id: '', name: 'All' }, ...transformedStatusArray]}
+					value={searchParams.get('status') || 'Select collaboration status'}
+					isFilter
+					setValue={({ id }) => debouncedFilterChange('status', id)}
+				/>
+			</Box>
+			<DatePicker
+				onChange={e => debouncedFilterChange('date', e.target.value)}
+				value={searchParams.get('date') || ''}
+			/>
+		</Inline>
 	)
 }

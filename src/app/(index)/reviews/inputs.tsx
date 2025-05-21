@@ -57,46 +57,44 @@ export const Inputs = ({ data, writePermission }: Props) => {
 		refresh()
 	}
 
+	if (checkedItemsLength) {
+		return <DataTableActions onEdit={handleEdit} disableEdit={!writePermission} disableDelete={!writePermission} />
+	}
+
 	return (
-		<div>
-			{checkedItemsLength === 0 ? (
-				<Inline gap={4}>
-					<Box style={{ width: '320px' }}>
-						<SearchInput
-							name="search"
-							defaultValue={searchParams.get('search') || ''}
-							placeholder="Search by reviewer or comment"
-							onChange={({ target: { name, value } }) => debouncedFilterChange(name, value)}
-						/>
-					</Box>
-					<Box style={{ position: 'relative' }}>
-						<SearchDropdown
-							placeholder="Reviews.status"
-							name="status"
-							options={[{ id: '', name: 'All' }, ...transformedStatusArray]}
-							value={searchParams.get('status') || 'Select status'}
-							isFilter
-							setValue={({ id }) => debouncedFilterChange('status', id)}
-						/>
-					</Box>
-					<Box style={{ position: 'relative' }}>
-						<SearchDropdown
-							placeholder="Reviews.rating"
-							name="rating"
-							options={[{ id: '', name: 'All' }, ...transformedRatingArray]}
-							value={searchParams.get('rating') || 'Select avg rating'}
-							isFilter
-							setValue={({ id }) => debouncedFilterChange('rating', id)}
-						/>
-					</Box>
-					<DatePicker
-						onChange={e => debouncedFilterChange('date', e.target.value)}
-						value={searchParams.get('date') || ''}
-					/>
-				</Inline>
-			) : writePermission ? (
-				<DataTableActions onEdit={handleEdit} />
-			) : null}
-		</div>
+		<Inline gap={4}>
+			<Box style={{ width: '320px' }}>
+				<SearchInput
+					name="search"
+					defaultValue={searchParams.get('search') || ''}
+					placeholder="Search by reviewer or comment"
+					onChange={({ target: { name, value } }) => debouncedFilterChange(name, value)}
+				/>
+			</Box>
+			<Box style={{ position: 'relative' }}>
+				<SearchDropdown
+					placeholder="Reviews.status"
+					name="status"
+					options={[{ id: '', name: 'All' }, ...transformedStatusArray]}
+					value={searchParams.get('status') || 'Select status'}
+					isFilter
+					setValue={({ id }) => debouncedFilterChange('status', id)}
+				/>
+			</Box>
+			<Box style={{ position: 'relative' }}>
+				<SearchDropdown
+					placeholder="Reviews.rating"
+					name="rating"
+					options={[{ id: '', name: 'All' }, ...transformedRatingArray]}
+					value={searchParams.get('rating') || 'Select avg rating'}
+					isFilter
+					setValue={({ id }) => debouncedFilterChange('rating', id)}
+				/>
+			</Box>
+			<DatePicker
+				onChange={e => debouncedFilterChange('date', e.target.value)}
+				value={searchParams.get('date') || ''}
+			/>
+		</Inline>
 	)
 }
