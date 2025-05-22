@@ -9,11 +9,12 @@ import { DataTableActions } from '@/components/data-display/data-table/DataTable
 import { Box } from '@/components/layout/box'
 import { Inline } from '@/components/layout/inline'
 import { useTableStore } from '@/store/table'
-import { Review, ReviewStatus } from 'api/models/reviews/reviews'
+import { Review } from 'api/models/reviews/reviews'
 import { ROUTES } from 'parameters/routes'
 
-import { SearchDropdown } from '@/components/custom/search-dropdown'
 import { DatePicker } from '@/components/inputs/date-picker'
+import { Select } from '@/components/inputs/select'
+import { handleReviewRatingOptions, handleReviewStatusOptions } from '@/utils/handleOptions'
 
 interface Props {
 	data: Review[]
@@ -24,14 +25,6 @@ export const Inputs = ({ data, writePermission }: Props) => {
 	const searchParams = useSearchParams()
 	const { checkedItems, checkedItemsLength } = useTableStore()
 	const { push, replace, refresh } = useRouter()
-	const transformedStatusArray = Object.keys(ReviewStatus).map(key => ({
-		id: key,
-		name: key
-	}))
-	const transformedRatingArray = Array.from({ length: 5 }, (_, i) => ({
-		id: (i + 1).toString(),
-		name: `Avg rating ${(i + 1).toString()}`
-	}))
 
 	const handleFilterChange = (filter: string, value: string) => {
 		const current = qs.parse(searchParams.toString())
@@ -72,29 +65,20 @@ export const Inputs = ({ data, writePermission }: Props) => {
 				/>
 			</Box>
 			<Box style={{ position: 'relative' }}>
-				<SearchDropdown
-					placeholder="Reviews.status"
-					name="status"
-					options={[{ id: '', name: 'All' }, ...transformedStatusArray]}
-					value={searchParams.get('status') || 'Select status'}
-					isFilter
-					setValue={({ id }) => debouncedFilterChange('status', id)}
+				<Select
+					options={handleReviewStatusOptions()}
+					value={searchParams.get('status') || ''}
+					onChange={({ target: { value } }) => handleFilterChange('status', value)}
 				/>
 			</Box>
 			<Box style={{ position: 'relative' }}>
-				<SearchDropdown
-					placeholder="Reviews.rating"
-					name="rating"
-					options={[{ id: '', name: 'All' }, ...transformedRatingArray]}
-					value={searchParams.get('rating') || 'Select avg rating'}
-					isFilter
-					setValue={({ id }) => debouncedFilterChange('rating', id)}
+				<Select
+					options={handleReviewRatingOptions()}
+					value={searchParams.get('rating') || ''}
+					onChange={({ target: { value } }) => handleFilterChange('rating', value)}
 				/>
 			</Box>
-			<DatePicker
-				onChange={e => debouncedFilterChange('date', e.target.value)}
-				value={searchParams.get('date') || ''}
-			/>
+			<DatePicker onChange={e => handleFilterChange('date', e.target.value)} value={searchParams.get('date') || ''} />
 		</Inline>
 	)
 }

@@ -11,9 +11,10 @@ import { Inline } from '@/components/layout/inline'
 import { useTableStore } from '@/store/table'
 import { ROUTES } from 'parameters/routes'
 
-import { Collaboration, CollaborationStatus } from 'api/models/collaborations/collaborations'
-import { SearchDropdown } from '@/components/custom/search-dropdown'
 import { DatePicker } from '@/components/inputs/date-picker'
+import { Select } from '@/components/inputs/select'
+import { handleCollaborationStatusOptions } from '@/utils/handleOptions'
+import { Collaboration } from 'api/models/collaborations/collaborations'
 
 interface Props {
 	data: Collaboration[]
@@ -24,10 +25,6 @@ export const Inputs = ({ data, writePermission }: Props) => {
 	const searchParams = useSearchParams()
 	const { checkedItems, checkedItemsLength } = useTableStore()
 	const { push, replace, refresh } = useRouter()
-	const transformedStatusArray = Object.keys(CollaborationStatus).map(key => ({
-		id: key,
-		name: key
-	}))
 
 	const handleFilterChange = (filter: string, value: string) => {
 		const current = qs.parse(searchParams.toString())
@@ -68,19 +65,13 @@ export const Inputs = ({ data, writePermission }: Props) => {
 				/>
 			</Box>
 			<Box style={{ position: 'relative' }}>
-				<SearchDropdown
-					placeholder="Collaborations.status"
-					name="status"
-					options={[{ id: '', name: 'All' }, ...transformedStatusArray]}
-					value={searchParams.get('status') || 'Select collaboration status'}
-					isFilter
-					setValue={({ id }) => debouncedFilterChange('status', id)}
+				<Select
+					options={handleCollaborationStatusOptions()}
+					value={searchParams.get('status') || ''}
+					onChange={({ target: { value } }) => handleFilterChange('status', value)}
 				/>
 			</Box>
-			<DatePicker
-				onChange={e => debouncedFilterChange('date', e.target.value)}
-				value={searchParams.get('date') || ''}
-			/>
+			<DatePicker onChange={e => handleFilterChange('date', e.target.value)} value={searchParams.get('date') || ''} />
 		</Inline>
 	)
 }

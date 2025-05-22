@@ -8,7 +8,7 @@ import { Text } from '@/components/typography/text'
 import { useNavbarItems } from '@/hooks/use-navbar-items'
 import { Collaboration } from 'api/models/collaborations/collaborations'
 import { ROUTES } from 'parameters'
-
+import { formatDate } from '@/utils/formatDate'
 interface Props {
 	collaboration: Collaboration
 }
@@ -25,8 +25,8 @@ export const CollaborationDetails = ({ collaboration }: Props) => {
 	const details = [
 		{ label: 'Status', value: collaboration.status },
 		{ label: 'Reason to collaborate', value: collaboration.reasonToCollaborate },
-		{ label: 'Created at', value: collaboration.createdAt },
-		{ label: 'In deadline', value: collaboration.inDeadline },
+		{ label: 'Created at', value: formatDate(collaboration.createdAt) },
+		{ label: 'In deadline', value: collaboration.inDeadline ? 'Yes' : 'No' },
 		{ label: 'Type', value: collaboration.type },
 		{ label: 'Owner', value: collaboration.owner.email },
 		{ label: 'Collaborator', value: collaboration.collaborator.email },
@@ -42,7 +42,7 @@ export const CollaborationDetails = ({ collaboration }: Props) => {
 				<Stack gap={4} key={label}>
 					<Label>{label}</Label>
 					<Text fontSize="small" color="neutral.800">
-						{value}
+						{value ?? 'No data'}
 					</Text>
 				</Stack>
 			))}

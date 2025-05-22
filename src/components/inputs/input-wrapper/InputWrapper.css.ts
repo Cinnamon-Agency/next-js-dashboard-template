@@ -17,13 +17,12 @@ const hasSuccess = { borderColor: tokens.colors['success.500'] }
 export const inputWrapper = style({
 	position: 'relative',
 	color: tokens.colors['neutral.800'],
-	cursor: 'pointer',
-	maxWidth: '268px'
+	cursor: 'pointer'
 })
 
 export const input = style({
 	height: '2.5rem',
-	width: '268px',
+	width: '100%',
 	display: 'flex',
 	alignItems: 'center',
 	outline: 'none',

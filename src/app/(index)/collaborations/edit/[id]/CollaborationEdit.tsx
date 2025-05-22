@@ -8,15 +8,19 @@ import { z } from 'zod'
 import { FormWrapper } from '@/components/custom/layouts/add-form'
 import { useNavbarItems } from '@/hooks/use-navbar-items'
 import { replaceEmptyStringFromObjectWithNull } from '@/utils/replaceEmptyStringFromObjectWithNull'
-import { collaborationFormSchema } from 'schemas'
-
 import { Collaboration } from 'api/models/collaborations/collaborations'
 import { updateCollaborationCancellationStatus } from 'api/services/collaborations'
 import CollaborationForm from '../../form'
 import { Text } from '@/components/typography/text'
 import { Box } from '@/components/layout/box'
+import { requiredString } from 'schemas'
 
-type Schema = z.infer<typeof collaborationFormSchema>
+const formSchema = z.object({
+	status: requiredString.shape.scheme,
+	comment: z.string()
+})
+
+type Schema = z.infer<typeof formSchema>
 
 interface Props {
 	collaboration: Collaboration
@@ -24,11 +28,11 @@ interface Props {
 
 const CollaborationEdit = ({ collaboration }: Props) => {
 	const { back, refresh } = useRouter()
-	useNavbarItems({ title: 'Edit Collaboration', backLabel: 'Collaborations.back' })
+	useNavbarItems({ title: 'Edit Cancellation Status', backLabel: 'Collaborations.back' })
 
 	const form = useForm<Schema>({
 		mode: 'onChange',
-		resolver: zodResolver(collaborationFormSchema),
+		resolver: zodResolver(formSchema),
 		defaultValues: {
 			status: collaboration?.cancellation?.status,
 			comment: ''
@@ -65,7 +69,7 @@ const CollaborationEdit = ({ collaboration }: Props) => {
 		<FormWrapper>
 			<FormProvider {...form}>
 				<form onSubmit={form.handleSubmit(onSubmit)}>
-					<CollaborationForm />
+					<CollaborationForm collaboration={collaboration} />
 				</form>
 			</FormProvider>
 		</FormWrapper>
