@@ -37,7 +37,7 @@ const CollaborationsPage = async ({ searchParams }: Props) => {
 				<NoListData
 					navbarTitle="Collaborations"
 					title="Collaborations.noListDataTitle"
-					description="Reviews.noListDataDescription"
+					description="Collaborations.noListDataDescription"
 				/>
 			) : (
 				<DataTable columns={columns} data={transformedData} pagination={data?.pagination} linkToSinglePage />
