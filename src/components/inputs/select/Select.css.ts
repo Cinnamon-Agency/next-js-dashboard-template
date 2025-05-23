@@ -12,6 +12,9 @@ export const select = recipe({
 				lineHeight: tokens.typography.lineHeight.xlarge
 			}
 		}
+	},
+	base: {
+		color: tokens.colors['neutral.800']
 	}
 })
 
