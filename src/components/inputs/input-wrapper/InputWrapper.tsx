@@ -3,15 +3,15 @@ import { tokens } from 'style/theme.css'
 
 import { iconSlot, inputWrapper } from './InputWrapper.css'
 
-interface Props {
+interface Props extends React.ComponentPropsWithoutRef<'div'> {
 	endIcon?: JSX.Element
 	startIcon?: JSX.Element
 	children: any
 }
 
-export const InputWrapper = ({ startIcon, endIcon, children }: Props) => {
+export const InputWrapper = ({ startIcon, endIcon, children, ...props }: Props) => {
 	return (
-		<div className={inputWrapper}>
+		<div className={inputWrapper} {...props}>
 			{startIcon && (
 				<div className={iconSlot} style={{ left: tokens.spacing[3] }}>
 					{startIcon}

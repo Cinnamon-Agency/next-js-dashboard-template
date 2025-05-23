@@ -8,7 +8,7 @@ import { Text } from '@/components/typography/text'
 import { useNavbarItems } from '@/hooks/use-navbar-items'
 import { Collaboration } from 'api/models/collaborations/collaborations'
 import { ROUTES } from 'parameters'
-
+import { formatDate } from '@/utils/formatDate'
 interface Props {
 	collaboration: Collaboration
 }
@@ -16,21 +16,36 @@ interface Props {
 export const CollaborationDetails = ({ collaboration }: Props) => {
 	useNavbarItems({
 		title: `Collaboration ${collaboration.id}`,
-		backLabel: 'Collaboration.back',
+		backLabel: 'Collaborations.back',
 		actionButton: (
 			<EditButton buttonLabel="Collaborations.edit" buttonLink={ROUTES.EDIT_COLLABORATIONS + collaboration.id} />
 		)
 	})
 
+	const details = [
+		{ label: 'Status', value: collaboration.status },
+		{ label: 'Reason to collaborate', value: collaboration.reasonToCollaborate },
+		{ label: 'Created at', value: formatDate(collaboration.createdAt) },
+		{ label: 'In deadline', value: collaboration.inDeadline ? 'Yes' : 'No' },
+		{ label: 'Type', value: collaboration.type },
+		{ label: 'Owner', value: collaboration.owner.email },
+		{ label: 'Collaborator', value: collaboration.collaborator.email },
+		{ label: 'Cancellation status', value: collaboration.cancellation?.status },
+		{ label: 'Cancellation reason', value: collaboration.cancellation?.reason },
+		{ label: 'Cancellation admin comment', value: collaboration.cancellation?.adminComment },
+		{ label: 'Cancellation collaborator comment', value: collaboration.cancellation?.collaboratorComment }
+	]
+
 	return (
 		<DetailsWrapper>
-			<Stack gap={4}>
-				{/* todo replace with the actual fields */}
-				<Label>Collaboration ID</Label>
-				<Text fontSize="small" color="neutral.800">
-					{collaboration.id}
-				</Text>
-			</Stack>
+			{details.map(({ label, value }) => (
+				<Stack gap={4} key={label}>
+					<Label>{label}</Label>
+					<Text fontSize="small" color="neutral.800">
+						{value ?? 'No data'}
+					</Text>
+				</Stack>
+			))}
 		</DetailsWrapper>
 	)
 }

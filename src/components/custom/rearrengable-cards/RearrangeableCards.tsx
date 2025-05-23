@@ -86,7 +86,7 @@ export const RearrangeableCards = ({ initialCards, cards, setCards }: Props) => 
 							</Box>
 							<Box
 								borderRadius="small"
-								backgroundColor="neutral.150"
+								backgroundColor="neutral.100"
 								style={{
 									minWidth: '26rem',
 									height: '2.625rem'

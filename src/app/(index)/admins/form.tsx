@@ -8,7 +8,7 @@ import { RequiredLabel } from '@/components/inputs/required-label'
 import { Select } from '@/components/inputs/select'
 import { TextInput } from '@/components/inputs/text-input'
 import { OpenedProps } from '@/hooks/use-toggle'
-import { handleRoleOptions } from '@/utils/handleRoleOptions'
+import { handleRoleOptions } from '@/utils/handleOptions'
 import { Role } from 'api/models/roles/roles'
 
 interface Props {
@@ -42,7 +42,7 @@ const AdminForm = ({ roles, isEdit, cancelDialog }: Props) => {
 				<FormControl.Label>
 					<RequiredLabel>Role and permissions</RequiredLabel>
 				</FormControl.Label>
-				<Select options={handleRoleOptions(roles)} placeholder={t('General.rolePlaceholder')} />
+				<Select options={handleRoleOptions(roles, { omitDefaultLabel: true })} />
 				<FormControl.Message />
 			</FormControl>
 		</FormItems>

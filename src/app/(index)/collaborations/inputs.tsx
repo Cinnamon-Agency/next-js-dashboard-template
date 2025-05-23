@@ -11,6 +11,9 @@ import { Inline } from '@/components/layout/inline'
 import { useTableStore } from '@/store/table'
 import { ROUTES } from 'parameters/routes'
 
+import { DatePicker } from '@/components/inputs/date-picker'
+import { Select } from '@/components/inputs/select'
+import { handleCollaborationStatusOptions } from '@/utils/handleOptions'
 import { Collaboration } from 'api/models/collaborations/collaborations'
 
 interface Props {
@@ -47,23 +50,34 @@ export const Inputs = ({ data, writePermission }: Props) => {
 		refresh()
 	}
 
+	if (checkedItemsLength) {
+		return <DataTableActions onEdit={handleEdit} disableEdit={!writePermission} disableDelete={!writePermission} />
+	}
+
 	return (
-		<div>
-			{checkedItemsLength === 0 ? (
-				<Inline gap={4}>
-					<Box style={{ width: '320px' }}>
-						<SearchInput
-							name="search"
-							defaultValue={searchParams.get('search') || ''}
-							// todo add search placeholder
-							placeholder="Search"
-							onChange={({ target: { name, value } }) => debouncedFilterChange(name, value)}
-						/>
-					</Box>
-				</Inline>
-			) : writePermission ? (
-				<DataTableActions onEdit={handleEdit} />
-			) : null}
-		</div>
+		<Inline gap={4}>
+			<Box style={{ width: '320px' }}>
+				<SearchInput
+					name="search"
+					aria-label="Search by owner/collaborator"
+					defaultValue={searchParams.get('search') || ''}
+					placeholder="Search by owner/collaborator"
+					onChange={({ target: { name, value } }) => debouncedFilterChange(name, value)}
+				/>
+			</Box>
+			<Box style={{ position: 'relative' }}>
+				<Select
+					aria-label="Search by status"
+					options={handleCollaborationStatusOptions()}
+					value={searchParams.get('status') || ''}
+					onChange={({ target: { value } }) => handleFilterChange('status', value)}
+				/>
+			</Box>
+			<DatePicker
+				aria-label="Search by date"
+				onChange={e => handleFilterChange('date', e.target.value)}
+				value={searchParams.get('date') || ''}
+			/>
+		</Inline>
 	)
 }

@@ -16,7 +16,8 @@ const hasSuccess = { borderColor: tokens.colors['success.500'] }
 
 export const inputWrapper = style({
 	position: 'relative',
-	color: tokens.colors['neutral.800']
+	color: tokens.colors['neutral.800'],
+	cursor: 'pointer'
 })
 
 export const input = style({

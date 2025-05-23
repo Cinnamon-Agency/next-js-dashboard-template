@@ -57,6 +57,7 @@ export const tableHead = style({
 	borderLeft: border.border,
 	borderColor: border.borderColor,
 	backgroundColor: tokens.colors['neutral.100'],
+	whiteSpace: 'nowrap',
 	...font,
 	':first-child': {
 		width: '72px',

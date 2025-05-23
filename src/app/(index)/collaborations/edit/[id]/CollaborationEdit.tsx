@@ -7,16 +7,17 @@ import { z } from 'zod'
 
 import { FormWrapper } from '@/components/custom/layouts/add-form'
 import { useNavbarItems } from '@/hooks/use-navbar-items'
-// import { replaceEmptyStringFromObjectWithNull } from '@/utils/replaceEmptyStringFromObjectWithNull'
+import { replaceEmptyStringFromObjectWithNull } from '@/utils/replaceEmptyStringFromObjectWithNull'
+import { Collaboration } from 'api/models/collaborations/collaborations'
+import { updateCollaborationCancellationStatus } from 'api/services/collaborations'
+import CollaborationForm from '../../form'
+import { Text } from '@/components/typography/text'
+import { Box } from '@/components/layout/box'
 import { requiredString } from 'schemas'
 
-import { Collaboration } from 'api/models/collaborations/collaborations'
-import { updateCollaboration } from 'api/services/collaborations'
-import CollaborationForm from '../../form'
-
 const formSchema = z.object({
-	// todo replace with the actual fields
-	id: requiredString.shape.scheme
+	status: requiredString.shape.scheme,
+	comment: z.string()
 })
 
 type Schema = z.infer<typeof formSchema>
@@ -27,19 +28,24 @@ interface Props {
 
 const CollaborationEdit = ({ collaboration }: Props) => {
 	const { back, refresh } = useRouter()
-	useNavbarItems({ title: 'Edit Collaboration', backLabel: 'Collaborations.back' })
+	useNavbarItems({ title: 'Edit Cancellation Status', backLabel: 'Collaborations.back' })
 
 	const form = useForm<Schema>({
 		mode: 'onChange',
 		resolver: zodResolver(formSchema),
-		defaultValues: { id: collaboration.id }
+		defaultValues: {
+			status: collaboration?.cancellation?.status,
+			comment: ''
+		}
 	})
 
 	const onSubmit = async () => {
-		// const data = form.getValues()
-		// const dataWIhoutEmptyString = replaceEmptyStringFromObjectWithNull(data)
-		const result = await updateCollaboration({
-			collaborationId: collaboration.id
+		const data = form.getValues()
+		const dataWIhoutEmptyString = replaceEmptyStringFromObjectWithNull(data)
+		const result = await updateCollaborationCancellationStatus({
+			collaborationId: collaboration.id,
+			collaborationCancellationId: collaboration?.cancellation?.id,
+			...dataWIhoutEmptyString
 		})
 
 		if (result?.message === 'OK') {
@@ -47,6 +53,16 @@ const CollaborationEdit = ({ collaboration }: Props) => {
 			refresh()
 			back()
 		}
+	}
+
+	if (!collaboration?.cancellation) {
+		return (
+			<Box padding={11}>
+				<Text variant="bodytext" color="neutral.800">
+					No cancellation data to show
+				</Text>
+			</Box>
+		)
 	}
 
 	return (

@@ -9,6 +9,8 @@ import { UserPermissionEnum } from 'enums/userRoleEnum'
 import { getServerSession } from 'next-auth'
 import { columns } from './columns'
 import { Inputs } from './inputs'
+import { formatDate } from '@/utils/formatDate'
+import { Collaboration } from 'api/models/collaborations/collaborations'
 
 interface Props {
 	searchParams: CollaborationParams
@@ -19,20 +21,27 @@ const CollaborationsPage = async ({ searchParams }: Props) => {
 
 	const { data } = await getCollaborations(searchParams)
 	const isInitialListEmpty = data?.pagination?.count === 0 || data === null
+	const transformedData = data?.collaborations.map(({ createdAt, inDeadline, ...rest }: Collaboration) => ({
+		...rest,
+		createdAt: formatDate(createdAt),
+		inDeadline: inDeadline ? 'Yes' : 'No'
+	}))
 
-	return isInitialListEmpty ? (
-		<NoListData
-			navbarTitle="Collaborations"
-			title="Collaborations.noListDataTitle"
-			description="Reviews.noListDataDescription"
-		/>
-	) : (
+	return (
 		<ListWrapper title="Collaborations">
 			<Inputs
 				data={data?.collaborations}
-				writePermission={session?.user.role.permissions.includes(UserPermissionEnum.REVIEW_WRITE)}
+				writePermission={session?.user.role.permissions.includes(UserPermissionEnum.COLLABORATION_WRITE)}
 			/>
-			<DataTable columns={columns} data={data?.collaborations} pagination={data?.pagination} linkToSinglePage />
+			{isInitialListEmpty ? (
+				<NoListData
+					navbarTitle="Collaborations"
+					title="Collaborations.noListDataTitle"
+					description="Collaborations.noListDataDescription"
+				/>
+			) : (
+				<DataTable columns={columns} data={transformedData} pagination={data?.pagination} linkToSinglePage />
+			)}
 		</ListWrapper>
 	)
 }

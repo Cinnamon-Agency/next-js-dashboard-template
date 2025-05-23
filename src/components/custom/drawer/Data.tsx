@@ -24,7 +24,7 @@ export const drawerItems: Item[] = [
 		label: 'collaborations',
 		icon: <BriefcaseIcon />,
 		route: ROUTES.COLLABORATIONS,
-		usedByPermission: UserPermissionEnum.REVIEW_READ
+		usedByPermission: UserPermissionEnum.COLLABORATION_READ
 	},
 	{ label: 'admins', icon: <PersonIcon />, route: ROUTES.ADMINS, usedByPermission: UserPermissionEnum.ADMIN_READ },
 	{

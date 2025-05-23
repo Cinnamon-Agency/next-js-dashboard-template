@@ -30,7 +30,7 @@ export const DropdownPresentationlabel = recipe({
 })
 
 export const dropdownListContainer = style({
-	width: '100%',
+	minWidth: 'max-content',
 	position: 'absolute',
 	zIndex: tokens.indices.over,
 	backgroundColor: tokens.colors['shades.00'],

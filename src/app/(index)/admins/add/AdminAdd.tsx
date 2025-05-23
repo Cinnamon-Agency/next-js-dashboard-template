@@ -44,7 +44,7 @@ const AdminAdd = ({ roles }: Props) => {
 		defaultValues: {
 			email: '',
 			fullName: '',
-			roleId: ''
+			roleId: roles[0].id
 		}
 	})
 
