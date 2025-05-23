@@ -11,6 +11,7 @@ import { Text } from '@/components/typography/text'
 import { useTableStore } from '@/store/table'
 
 interface DataTableActionsProps {
+	editMultiple?: boolean
 	disableDelete?: boolean
 	disableEdit?: boolean
 	onEdit?: () => void
@@ -19,13 +20,35 @@ interface DataTableActionsProps {
 
 type Props = DataTableActionsProps & ButtonVariants
 
-export const DataTableActions = ({ size = 'large', disableDelete, disableEdit, onEdit, onDelete }: Props) => {
+export const DataTableActions = ({
+	size = 'large',
+	disableDelete,
+	disableEdit,
+	onEdit,
+	onDelete,
+	editMultiple
+}: Props) => {
 	const t = useTranslations()
 	const { checkedItemsLength, clearCheckedItems } = useTableStore()
+	const isEditMultiple = checkedItemsLength > 1 ? editMultiple : true
 
 	return (
-		<Inline justifyContent="space-between">
-			<Inline gap={2} alignItems="flex-end">
+		<Inline gap={4} alignItems="center">
+			{onEdit && !disableEdit && isEditMultiple && (
+				<Button size={size} variant="secondary" onClick={() => onEdit()}>
+					<PencilIcon size="medium" color="neutral.700" />
+					{t('General.edit')}
+				</Button>
+			)}
+			{onDelete && !disableDelete && checkedItemsLength === 1 && (
+				<Button size={size} variant="secondary" onClick={() => onDelete()}>
+					<TrashIcon size="medium" color="destructive.500" />
+					<Text color="destructive.500" fontWeight="semibold">
+						{t('General.delete')}
+					</Text>
+				</Button>
+			)}
+			<Inline gap={2}>
 				<Text color="neutral.400" fontSize="small">
 					{t('General.itemsSelectedMessage', { count: checkedItemsLength })}
 				</Text>
@@ -34,22 +57,6 @@ export const DataTableActions = ({ size = 'large', disableDelete, disableEdit, o
 						{t('General.clearSection')}
 					</Text>
 				</Button>
-			</Inline>
-			<Inline gap={4} alignItems="center">
-				{onEdit && !disableEdit && checkedItemsLength === 1 && (
-					<Button size={size} variant="secondary" onClick={() => onEdit()}>
-						<PencilIcon size="medium" color="neutral.700" />
-						{t('General.edit')}
-					</Button>
-				)}
-				{onDelete && !disableDelete ? (
-					<Button size={size} variant="secondary" onClick={() => onDelete()}>
-						<TrashIcon size="medium" color="destructive.500" />
-						<Text color="destructive.500" fontWeight="semibold">
-							{t('General.delete')}
-						</Text>
-					</Button>
-				) : null}
 				{disableEdit && disableDelete && (
 					<Text color="destructive.500" fontSize="small">
 						You don't have write permissions to edit or delete.

@@ -10,11 +10,12 @@ import { Box } from '@/components/layout/box'
 import { Inline } from '@/components/layout/inline'
 import { useTableStore } from '@/store/table'
 import { Review } from 'api/models/reviews/reviews'
-import { ROUTES } from 'parameters/routes'
 
 import { DatePicker } from '@/components/inputs/date-picker'
 import { Select } from '@/components/inputs/select'
 import { handleReviewRatingOptions, handleReviewStatusOptions } from '@/utils/handleOptions'
+import { useState } from 'react'
+import { BulkEditDialog } from './BulkEdit'
 
 interface Props {
 	data: Review[]
@@ -22,9 +23,10 @@ interface Props {
 }
 
 export const Inputs = ({ data, writePermission }: Props) => {
+	const [openedDialog, setOpenedDialog] = useState(false)
 	const searchParams = useSearchParams()
 	const { checkedItems, checkedItemsLength } = useTableStore()
-	const { push, replace, refresh } = useRouter()
+	const { replace } = useRouter()
 
 	const handleFilterChange = (filter: string, value: string) => {
 		const current = qs.parse(searchParams.toString())
@@ -43,15 +45,26 @@ export const Inputs = ({ data, writePermission }: Props) => {
 	const debouncedFilterChange = useDebounce(handleFilterChange, 300)
 
 	const handleEdit = () => {
-		const index = Object.keys(checkedItems || {})
-		const numericIndex = parseInt(index[0], 10)
-
-		push(ROUTES.EDIT_REVIEW + data[numericIndex].id)
-		refresh()
+		setOpenedDialog(true)
 	}
 
 	if (checkedItemsLength) {
-		return <DataTableActions onEdit={handleEdit} disableEdit={!writePermission} disableDelete={!writePermission} />
+		return (
+			<>
+				<DataTableActions
+					onEdit={handleEdit}
+					disableEdit={!writePermission}
+					disableDelete={!writePermission}
+					editMultiple
+				/>
+				<BulkEditDialog
+					opened={openedDialog}
+					onClose={() => setOpenedDialog(false)}
+					// @ts-ignore
+					reviews={data.filter((_r, i) => checkedItems[i])}
+				/>
+			</>
+		)
 	}
 
 	return (

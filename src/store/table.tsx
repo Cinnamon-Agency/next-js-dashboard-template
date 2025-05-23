@@ -4,7 +4,7 @@ import { getObjectLength } from '../utils'
 
 type TableStore = {
 	checkedItems: {}
-	checkedItemsLength?: number
+	checkedItemsLength: number
 	setCheckedItems: (checkedItems?: {}) => void
 	clearCheckedItems: () => void
 	getCheckedItemsLength: () => void
