@@ -29,7 +29,7 @@ export const DrawerItem = ({ item }: Props) => {
 			<Box
 				className={clsx(drawerItem, handleRoute(item) && drawerItemSelected)}
 				style={{ cursor: item.route && pathname.includes(item.route) ? 'default' : 'inherit' }}>
-				<Inline gap={4} alignItems="center">
+				<Inline gap={3} flexWrap="nowrap">
 					{item.icon}
 					<Text fontSize="big" fontWeight="semibold" lineHeight="xlarge" textAlign="left">
 						{t(`General.${item.label}`)}
