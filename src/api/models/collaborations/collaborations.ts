@@ -6,24 +6,30 @@ export interface Collaboration {
 	inDeadline: boolean
 	type: CollaborationType
 	createdAt: string
-	cancellation?: {
-		id: string
-		requestedById: string
-		status: CollaborationCancellationStatus
-		reason: string
-		adminComment: string | null
-		collaboratorComment: string | null
-	}
-	owner: {
-		id: string
-		fullName: string
-		email: string
-	}
-	collaborator: {
-		id: string
-		fullName: string
-		email: string
-	}
+	cancellation?: Cancellation
+	owner: Owner
+	collaborator: Collaborator
+}
+
+interface Cancellation {
+	id: string
+	requestedById: string
+	status: CollaborationCancellationStatus
+	reason: string
+	adminComment: string | null
+	collaboratorComment: string | null
+}
+
+interface Owner {
+	id: string
+	fullName: string
+	email: string
+}
+
+interface Collaborator {
+	id: string
+	fullName: string
+	email: string
 }
 
 export enum CollaborationType {
