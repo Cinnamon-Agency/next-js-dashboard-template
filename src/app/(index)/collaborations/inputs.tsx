@@ -59,6 +59,7 @@ export const Inputs = ({ data, writePermission }: Props) => {
 			<Box style={{ width: '320px' }}>
 				<SearchInput
 					name="search"
+					aria-label="Search by owner/collaborator"
 					defaultValue={searchParams.get('search') || ''}
 					placeholder="Search by owner/collaborator"
 					onChange={({ target: { name, value } }) => debouncedFilterChange(name, value)}
@@ -66,12 +67,17 @@ export const Inputs = ({ data, writePermission }: Props) => {
 			</Box>
 			<Box style={{ position: 'relative' }}>
 				<Select
+					aria-label="Search by status"
 					options={handleCollaborationStatusOptions()}
 					value={searchParams.get('status') || ''}
 					onChange={({ target: { value } }) => handleFilterChange('status', value)}
 				/>
 			</Box>
-			<DatePicker onChange={e => handleFilterChange('date', e.target.value)} value={searchParams.get('date') || ''} />
+			<DatePicker
+				aria-label="Search by date"
+				onChange={e => handleFilterChange('date', e.target.value)}
+				value={searchParams.get('date') || ''}
+			/>
 		</Inline>
 	)
 }
