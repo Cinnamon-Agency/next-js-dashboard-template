@@ -17,5 +17,5 @@ export const dataTableSelect = style({
 
 export const tableContainer = style({
 	overflowX: 'auto',
-	maxWidth: 'calc(100vw - 300px)'
+	maxWidth: 'calc(100vw - 350px)'
 })
