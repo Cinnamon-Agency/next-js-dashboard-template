@@ -3,9 +3,6 @@ import { RecipeVariants, recipe } from '@vanilla-extract/recipes'
 import { tokens } from '@/style/theme.css'
 
 export const select = recipe({
-	base: {
-		appearance: 'none'
-	},
 	variants: {
 		sizes: {
 			large: {

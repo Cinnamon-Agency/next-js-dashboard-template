@@ -2,11 +2,8 @@
 import clsx from 'clsx'
 import { InputHTMLAttributes } from 'react'
 
-import { BlockIcon } from 'components/icons/block-icon'
+import { input, inputHasError } from '../input-wrapper/InputWrapper.css'
 
-import { InputWrapper } from '../input-wrapper'
-import { endIconSpacing, input, inputHasError, startIconSpacing } from '../input-wrapper/InputWrapper.css'
-import CarretIcon from './assets/carret-icon.svg'
 import { SelectVariants, select } from './Select.css'
 
 interface Option {
@@ -26,25 +23,21 @@ type Props = InputHTMLAttributes<HTMLSelectElement> & SelectVariants & CustomInp
 
 export const Select = ({ hasError, startIcon, sizes, options, value, ...rest }: Props) => {
 	return (
-		<InputWrapper startIcon={startIcon} endIcon={<BlockIcon icon={CarretIcon} size="medium" />}>
-			<select
-				{...rest}
-				value={value}
-				className={clsx(
-					select({
-						sizes
-					}),
-					input,
-					hasError && inputHasError,
-					endIconSpacing,
-					startIcon && startIconSpacing
-				)}>
-				{options?.map(option => (
-					<option key={option.value} value={option.value} disabled={option.disabled}>
-						{option.label}
-					</option>
-				))}
-			</select>
-		</InputWrapper>
+		<select
+			{...rest}
+			value={value}
+			className={clsx(
+				select({
+					sizes
+				}),
+				input,
+				hasError && inputHasError
+			)}>
+			{options?.map(option => (
+				<option key={option.value} value={option.value} disabled={option.disabled}>
+					{option.label}
+				</option>
+			))}
+		</select>
 	)
 }
