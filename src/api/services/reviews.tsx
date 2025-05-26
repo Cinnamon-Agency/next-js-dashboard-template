@@ -1,6 +1,6 @@
 import axiosInstanceWithToken from 'api/instances/AxiosInstanceWithToken'
 import { fetchWithToken } from 'api/instances/FetchWithToken'
-import { ReviewParams, ReviewPayload } from 'api/models/reviews/reviewPayload'
+import { ReviewBulkPayload, ReviewParams, ReviewPayload } from 'api/models/reviews/reviewPayload'
 
 export const getReviews = (query: ReviewParams) => {
 	const queryParams = {
@@ -19,6 +19,12 @@ export const getReview = (id: string) => {
 
 export const updateReview = async (review: ReviewPayload) => {
 	const response = await axiosInstanceWithToken.put(`/review`, review)
+
+	return response?.data
+}
+
+export const updateReviewBulk = async (review: ReviewBulkPayload) => {
+	const response = await axiosInstanceWithToken.put(`/review/bulk`, review)
 
 	return response?.data
 }
