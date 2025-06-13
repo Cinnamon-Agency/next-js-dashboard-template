@@ -1,15 +1,15 @@
 'use client'
 
-import { SessionProvider } from 'next-auth/react'
-import { ReactNode } from 'react'
 import { Box } from '@/components/layout/box'
 import { TokenHandler } from '@/components/utils/tokenHandler/TokenHandler'
-import { Inter } from 'next/font/google'
 import '@/style/app.css'
-import 'react-toastify/dist/ReactToastify.css'
-import { ToastContainer } from 'react-toastify'
+import { SessionProvider } from 'next-auth/react'
 import { IntlProvider } from 'next-intl'
+import { Inter } from 'next/font/google'
 import { notFound } from 'next/navigation'
+import { PropsWithChildren } from 'react'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const inter = Inter({
 	weight: ['400', '600', '700', '800'],
@@ -17,9 +17,6 @@ const inter = Inter({
 	variable: '--inter-font'
 })
 
-type Props = {
-	children: ReactNode
-}
 const getMessages = async () => {
 	try {
 		return (await import(`../../messages/en.json`)).default
@@ -28,7 +25,7 @@ const getMessages = async () => {
 	}
 }
 
-const RootLayout = async ({ children }: Props) => {
+const RootLayout = async ({ children }: PropsWithChildren) => {
 	const messages = await getMessages()
 
 	return (

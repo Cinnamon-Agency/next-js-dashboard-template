@@ -13,8 +13,8 @@ const HomePage = async () => {
 
 	const permissions = session.user.role.permissions
 
-	if (permissions.includes(UserPermissionEnum.REVIEW_READ)) {
-		return redirect(ROUTES.REVIEWS)
+	if (permissions.includes(UserPermissionEnum.DATA_READ)) {
+		return redirect(ROUTES.DATA)
 	} else {
 		return redirect(ROUTES.SETTINGS)
 	}

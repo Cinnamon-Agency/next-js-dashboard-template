@@ -15,10 +15,6 @@ export const badge = recipe({
 	},
 	variants: {
 		variant: {
-			published: {
-				color: tokens.colors['success.700'],
-				background: tokens.colors['success.100']
-			},
 			default: {
 				color: tokens.colors['neutral.700'],
 				background: tokens.colors['neutral.100']
@@ -28,22 +24,6 @@ export const badge = recipe({
 				background: tokens.colors['warning.100']
 			},
 			hidden: {
-				color: tokens.colors['destructive.700'],
-				background: tokens.colors['destructive.100']
-			},
-			open: {
-				color: tokens.colors['success.700'],
-				background: tokens.colors['success.100']
-			},
-			inprogress: {
-				color: tokens.colors['warning.700'],
-				background: tokens.colors['warning.100']
-			},
-			closed: {
-				color: tokens.colors['destructive.700'],
-				background: tokens.colors['destructive.100']
-			},
-			other: {
 				color: tokens.colors['destructive.700'],
 				background: tokens.colors['destructive.100']
 			}

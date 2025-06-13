@@ -1,21 +1,21 @@
-import { redirect } from 'next/navigation'
 import { getServerSession } from 'next-auth/next'
-import { ReactNode } from 'react'
+import { redirect } from 'next/navigation'
+import { PropsWithChildren } from 'react'
 
 import { Drawer } from '@/components/custom/drawer'
 import { Navbar } from '@/components/custom/navbar'
 import { Box } from '@/components/layout/box'
 import { Stack } from '@/components/layout/stack'
 import { authOptions } from 'app/api/auth/[...nextauth]/auth'
-import { ROUTES } from 'parameters'
 import { Metadata } from 'next'
+import { ROUTES } from 'parameters'
 
 export const metadata: Metadata = {
-	title: 'Collabbro | Dashboard',
-	description: 'Collabbro Admin Dashboard'
+	title: 'Admin Dashboard',
+	description: 'Admin Dashboard'
 }
 
-const DashboardLayout = async ({ children }: { children: ReactNode }) => {
+const DashboardLayout = async ({ children }: PropsWithChildren) => {
 	const session = await getServerSession(authOptions)
 	// This is for protected routes
 	if (!session || !session.user.role) {

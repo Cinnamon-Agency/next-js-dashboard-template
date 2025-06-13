@@ -27,7 +27,7 @@ const formSchema = z
 	})
 	.refine(data => data.newPassword === data.confirmPassword, {
 		path: ['confirmPassword'],
-		message: 'ValidationMeseges.confirmPassword'
+		message: 'ValidationMessages.confirmPassword'
 	})
 
 type Schema = z.infer<typeof formSchema>

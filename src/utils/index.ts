@@ -4,3 +4,4 @@ export { replaceEmptyStringFromObjectWithNull } from './replaceEmptyStringFromOb
 export { areAllItemsEmptyInArrayObject } from './areAllItemsEmptyInArrayObject'
 export { capitalizeFirstLetter } from './capitalizeFirstLetter'
 export { areArraysIdentical } from './areArraysIdentical'
+export { formatDate } from './formatDate'

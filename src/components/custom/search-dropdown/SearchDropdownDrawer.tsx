@@ -35,9 +35,9 @@ export const SearchDropdownDrawer = ({ name, options, placeholder, alwaysShowSea
 	const searchParamsValuelength = name ? (currentSearchParamas[name] ? currentSearchParamas[name]?.length : 0) : 0
 	const noResultMessage =
 		options?.length === 0 && !alwaysShowSearch
-			? 'General.noResoultMessage'
+			? 'General.noResultMessage'
 			: searchParamsValuelength && searchParamsValuelength > 2
-				? 'General.noResoultMessage'
+				? 'General.noResultMessage'
 				: 'General.searchMinInstructions'
 
 	const handleFilterChange = (filter: string, value: string) => {
@@ -93,7 +93,7 @@ export const SearchDropdownDrawer = ({ name, options, placeholder, alwaysShowSea
 								</Button>
 							))
 						) : (
-							<NoResult size="small" noResoultMessage={t(noResultMessage)} />
+							<NoResult size="small" noResultMessage={t(noResultMessage)} />
 						)}
 					</Stack>
 				</Box>

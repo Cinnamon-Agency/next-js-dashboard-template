@@ -3,7 +3,8 @@ import Image from 'next/image'
 type BrandLogoProps = { addHomeLink?: boolean }
 
 export const BrandLogo = ({ addHomeLink }: BrandLogoProps) => {
-	const image = <Image src="/images/collabbro-logo.svg" width={135} height={33} alt="logo" />
+	// replace with your logo
+	const image = <Image src="/images/no-data-found.svg" width={135} height={33} alt="logo" />
 
 	if (addHomeLink) {
 		return <a href="/">{image}</a>

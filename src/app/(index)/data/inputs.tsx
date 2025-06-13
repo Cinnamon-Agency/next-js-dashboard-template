@@ -12,12 +12,10 @@ import { useTableStore } from '@/store/table'
 import { ROUTES } from 'parameters/routes'
 
 import { DatePicker } from '@/components/inputs/date-picker'
-import { Select } from '@/components/inputs/select'
-import { handleCollaborationStatusOptions } from '@/utils/handleOptions'
-import { Collaboration } from 'api/models/collaborations/collaborations'
+import { Data } from 'api/models/data/data'
 
 interface Props {
-	data: Collaboration[]
+	data: Data[]
 	writePermission?: boolean
 }
 
@@ -46,7 +44,7 @@ export const Inputs = ({ data, writePermission }: Props) => {
 		const index = Object.keys(checkedItems || {})
 		const numericIndex = parseInt(index[0], 10)
 
-		push(ROUTES.EDIT_COLLABORATIONS + data[numericIndex].id)
+		push(ROUTES.EDIT_DATA + data[numericIndex].id)
 		refresh()
 	}
 
@@ -59,18 +57,10 @@ export const Inputs = ({ data, writePermission }: Props) => {
 			<Box style={{ width: '320px' }}>
 				<SearchInput
 					name="search"
-					aria-label="Search by owner/collaborator"
+					aria-label="Search"
 					defaultValue={searchParams.get('search') || ''}
-					placeholder="Search by owner/collaborator"
+					placeholder="Search"
 					onChange={({ target: { name, value } }) => debouncedFilterChange(name, value)}
-				/>
-			</Box>
-			<Box style={{ position: 'relative' }}>
-				<Select
-					aria-label="Search by status"
-					options={handleCollaborationStatusOptions()}
-					value={searchParams.get('status') || ''}
-					onChange={({ target: { value } }) => handleFilterChange('status', value)}
 				/>
 			</Box>
 			<DatePicker

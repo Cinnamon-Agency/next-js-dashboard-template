@@ -1,7 +1,8 @@
-# Collabbro admin dashboard
+# Admin dashboard template
 
+Copied and modified from Barnahus/Collabbro admin panels
 
-## Installation 
+## Installation
 
 Install the dependencies:
 
@@ -47,7 +48,7 @@ This starter template includes configuration files for ESLint, Prettier and Husk
 
 - ESLint statically analyzes your code to quickly find problems
 - Prettier is a code formatter that ensures consistent code style across the project
-- Husky is a git hook manager that ensures that certain scripts are run before commits 
+- Husky is a git hook manager that ensures that certain scripts are run before commits
 
 ## Docs
 

@@ -4,23 +4,14 @@ import { Box } from 'components/layout/box'
 
 import { BadgeVariants, badge } from './Badge.css'
 
-type Props = BadgeVariants & Record<string, unknown>
-
-const variantTextMap: Record<string, string> = {
-	draft: 'General.draft',
-	default: 'General.default',
-	published: 'General.published',
-	hidden: 'General.hidden',
-	open: 'General.open',
-	inprogress: 'General.inProgress',
-	closed: 'General.closed',
-	other: 'General.other'
+interface Props {
+	// @ts-expect-error
+	variant: BadgeVariants['variants']['variant']
+	text: string
 }
 
-export const Badge = ({ variant = 'draft' }: Props) => {
+export const Badge = ({ variant = 'draft', text }: Props) => {
 	const t = useTranslations()
-	const variantWithLowerCase: any = variant.toLowerCase()
-	const text = variantTextMap[variantWithLowerCase] || 'Unknown'
 
-	return <Box className={badge({ variant: variantWithLowerCase })}>{t(text)}</Box>
+	return <Box className={badge({ variant })}>{t(text)}</Box>
 }

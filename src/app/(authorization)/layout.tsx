@@ -6,8 +6,8 @@ import { Stack } from '@/components/layout/stack'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-	title: 'Collabbro | Dashboard',
-	description: 'Collabbro Admin Dashboard'
+	title: 'Admin Dashboard',
+	description: 'Admin Dashboard'
 }
 
 const AuthorizationLayout = ({ children }: { children: ReactNode }) => {
