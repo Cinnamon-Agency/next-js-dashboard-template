@@ -1,0 +1,169 @@
+.quill {
+	color: #363636;
+}
+
+.ql-toolbar.ql-snow {
+	border-radius: 8px;
+	border: 1px solid #d6d6dd;
+	font-family: 'Inter', sans-serif;
+	background-color: #fff;
+}
+
+.ql-snow .ql-picker {
+	color: #222222;
+}
+
+.ql-picker-label {
+	border-radius: 8px;
+}
+
+.ql-snow.ql-toolbar .ql-picker-label:hover {
+	color: #ec7b35;
+	stroke: #ec7b35;
+}
+
+.ql-snow.ql-toolbar .ql-picker-label:focus-visible {
+	outline: unset !important;
+	color: #ec7b35;
+	stroke: #ec7b35;
+}
+
+.ql-picker-options {
+	border-radius: 8px;
+	border: 1px solid #d6d6dd !important;
+	font-family: 'Inter', sans-serif;
+}
+
+.ql-picker-item {
+	font-family: 'Inter', sans-serif;
+	color: #222222;
+}
+
+.ql-snow.ql-toolbar .ql-picker-item:hover {
+	color: #ec7b35;
+}
+
+.ql-snow.ql-toolbar .ql-picker-label.ql-active {
+	color: #ec7b35;
+}
+
+.ql-snow.ql-toolbar .ql-picker-item.ql-selected {
+	color: #ec7b35;
+}
+
+.ql-snow.ql-toolbar button {
+	color: #222222;
+}
+
+.ql-snow.ql-toolbar button:hover {
+	color: #ec7b35;
+}
+
+.ql-snow .ql-stroke:active {
+	stroke: #ec7b35;
+}
+
+.ql-snow.ql-toolbar button:focus,
+.ql-snow.ql-toolbar button:focus-visible {
+	outline: unset;
+	color: #ec7b35;
+	stroke: #ec7b35;
+}
+
+.ql-snow.ql-toolbar button svg:focus {
+	outline: unset !important;
+	color: #ec7b35 !important;
+	stroke: #ec7b35 !important;
+}
+
+.ql-snow.ql-toolbar button:focus-visible {
+	outline: unset !important;
+	color: #ec7b35 !important;
+	stroke: #ec7b35 !important;
+}
+
+.ql-snow .ql-stroke {
+	stroke: #222222;
+}
+
+.ql-snow.ql-toolbar button:hover .ql-stroke {
+	stroke: #ec7b35;
+}
+
+.ql-snow.ql-toolbar button.ql-active {
+	color: #ec7b35;
+}
+
+.ql-container.ql-snow {
+	height: 128px;
+	border-radius: 8px;
+	border: unset;
+}
+
+.ql-editor {
+	font-family: 'Inter', sans-serif;
+	padding: 10px 48px 10px 12px !important;
+	background-color: #fff;
+	border-radius: 8px;
+	border-right: 1px solid #d6d6dd;
+	border-bottom: 1px solid #d6d6dd;
+	border-left: 1px solid #d6d6dd;
+	font-size: 0.875rem;
+}
+
+.ql-editor:active {
+	border-color: #faa977;
+	box-shadow:
+		-4px 4px 0px 0px #e0dee6,
+		4px 4px 0px 0px #e0dee6;
+}
+
+.ql-editor:hover {
+	border-color: #faa977;
+	box-shadow:
+		-4px 4px 0px 0px #e0dee6,
+		4px 4px 0px 0px #e0dee6;
+}
+
+.ql-editor:focus {
+	border-color: #faa977;
+	box-shadow:
+		-4px 4px 0px 0px #e0dee6,
+		4px 4px 0px 0px #e0dee6;
+}
+
+.ql-editor:visited {
+	border-color: #faa977;
+	box-shadow:
+		-4px 4px 0px 0px #e0dee6,
+		4px 4px 0px 0px #e0dee6;
+}
+
+.ql-editor.ql-blank::before {
+	font-style: unset;
+	color: #d6d6d6;
+	font-size: 0.875rem;
+	left: 12px;
+}
+
+.ql-stroke:hover {
+	color: #faa977;
+	stroke: #faa977 !important;
+	fill: #faa977;
+}
+
+.ql-picker-label::before .ql-stroke:hover {
+	color: #faa977 !important;
+	stroke: #faa977 !important;
+	fill: #faa977 !important;
+}
+
+.ql-picker-label::before:hover {
+	color: #faa977;
+	stroke: #faa977;
+	fill: #faa977;
+}
+
+.ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke {
+	stroke: #faa977 !important;
+}
