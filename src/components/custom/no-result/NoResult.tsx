@@ -7,9 +7,9 @@ import { Box } from '@/components/layout/box'
 import { Stack } from '@/components/layout/stack'
 import { Text } from '@/components/typography/text'
 
-type Props = { size: 'small' | 'large'; noResoultMessage: string }
+type Props = { size: 'small' | 'large'; noResultMessage: string }
 
-export const NoResult = ({ size, noResoultMessage }: Props) => {
+export const NoResult = ({ size, noResultMessage }: Props) => {
 	const t = useTranslations()
 	const noResultSizes =
 		size === 'small' ? { paddingY: 2, width: 164, height: 100 } : { paddingY: 6, width: 264, height: 180 }
@@ -32,7 +32,7 @@ export const NoResult = ({ size, noResoultMessage }: Props) => {
 				</Box>
 				<Box display="flex" justify="center">
 					<Text fontStyle="italic" lineHeight="xlarge" color="neutral.700">
-						{t(noResoultMessage)}
+						{t(noResultMessage)}
 					</Text>
 				</Box>
 			</Stack>

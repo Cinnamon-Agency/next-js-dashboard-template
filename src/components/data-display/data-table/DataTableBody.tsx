@@ -45,7 +45,7 @@ export const DataTableBody = <TData, TValue>({
 									{flexRender(cell.column.columnDef.cell, cell.getContext())}
 									{cell.column.id.includes('name') &&
 										data?.find((item: any) => item.name === cell.getValue())?.isDefault && (
-											<Badge variant={'default'} />
+											<Badge variant={'default'} text="" />
 										)}
 								</Inline>
 							)
@@ -65,7 +65,7 @@ export const DataTableBody = <TData, TValue>({
 			) : (
 				<TableRow>
 					<TableCell colSpan={columns.length + 1} className="h-24 text-center">
-						<NoResult size="large" noResoultMessage="General.noResoultMessage" />
+						<NoResult size="large" noResultMessage="General.noResultMessage" />
 					</TableCell>
 				</TableRow>
 			)}

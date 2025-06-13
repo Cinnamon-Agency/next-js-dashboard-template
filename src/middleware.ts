@@ -12,43 +12,15 @@ export async function middleware(request: NextRequest) {
 	const notFound = new URL('/not-found', request.url)
 	const permissions = token?.user?.role?.permissions
 
-	if (request.nextUrl.pathname.startsWith('/admins')) {
+	if (request.nextUrl.pathname.startsWith('/data')) {
 		if (!token) {
 			return NextResponse.redirect(loginUrl)
 		}
-		if (!permissions?.includes(UserPermissionEnum.ADMIN_READ)) {
+		if (!permissions?.includes(UserPermissionEnum.DATA_READ)) {
 			return NextResponse.redirect(notFound)
 		}
-		if (request.nextUrl.pathname.startsWith('/admins/add') || request.nextUrl.pathname.startsWith('/admins/edit')) {
-			if (!permissions?.includes(UserPermissionEnum.ADMIN_WRITE)) {
-				return NextResponse.redirect(notFound)
-			}
-		}
-	}
-
-	if (request.nextUrl.pathname.startsWith('/collaborations')) {
-		if (!token) {
-			return NextResponse.redirect(loginUrl)
-		}
-		if (!permissions?.includes(UserPermissionEnum.COLLABORATION_READ)) {
-			return NextResponse.redirect(notFound)
-		}
-		if (request.nextUrl.pathname.startsWith('/collaborations/edit')) {
-			if (!permissions?.includes(UserPermissionEnum.COLLABORATION_WRITE)) {
-				return NextResponse.redirect(notFound)
-			}
-		}
-	}
-
-	if (request.nextUrl.pathname.startsWith('/reviews')) {
-		if (!token) {
-			return NextResponse.redirect(loginUrl)
-		}
-		if (!permissions?.includes(UserPermissionEnum.REVIEW_READ)) {
-			return NextResponse.redirect(notFound)
-		}
-		if (request.nextUrl.pathname.startsWith('/reviews/edit')) {
-			if (!permissions?.includes(UserPermissionEnum.REVIEW_WRITE)) {
+		if (request.nextUrl.pathname.startsWith('/data/edit')) {
+			if (!permissions?.includes(UserPermissionEnum.DATA_WRITE)) {
 				return NextResponse.redirect(notFound)
 			}
 		}
@@ -59,5 +31,5 @@ export async function middleware(request: NextRequest) {
 
 // Configure which routes use this middleware
 export const config = {
-	matcher: ['/admins/:path*', '/collaborations/:path*', '/reviews/:path*']
+	matcher: ['/data/:path*']
 }

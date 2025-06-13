@@ -22,7 +22,6 @@ type Props = {
 	buttonLink?: string
 	distanceFromTop?: string
 	setNavbarItems?: boolean
-	disableButton?: boolean
 	onClick?: MouseEventHandler<HTMLButtonElement>
 }
 
@@ -34,7 +33,6 @@ export const NoListData = ({
 	buttonLink,
 	distanceFromTop,
 	setNavbarItems = true,
-	disableButton,
 	onClick
 }: Props) => {
 	const t = useTranslations()

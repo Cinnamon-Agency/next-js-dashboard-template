@@ -1,23 +1,29 @@
+'use client'
+
+import { EditButton } from '@/components/custom/button/edit-button'
 import { DetailsWrapper } from '@/components/custom/layouts/DetailsWrapper'
 import { Label } from '@/components/inputs/label'
 import { Stack } from '@/components/layout/stack'
 import { Text } from '@/components/typography/text'
+import { useNavbarItems } from '@/hooks/use-navbar-items'
 import { formatDate } from '@/utils/formatDate'
-import { Review } from 'api/models/reviews/reviews'
+import { Data } from 'api/models/data/data'
+import { ROUTES } from 'parameters'
 
 interface Props {
-	review: Review
+	data: Data
 }
 
-const Details = ({ review }: Props) => {
+export const DataDetails = ({ data }: Props) => {
+	useNavbarItems({
+		title: `Data ${data.id}`,
+		backLabel: 'Data.back',
+		actionButton: <EditButton buttonLabel="Data.edit" buttonLink={ROUTES.EDIT_DATA + data.id} />
+	})
+
 	const details = [
-		{ label: 'Reviewer name', value: review.reviewerName },
-		{ label: 'Time', value: formatDate(review.time) },
-		{ label: 'Comment', value: review.comment },
-		{ label: 'Communication', value: review.communication },
-		{ label: 'Expertise', value: review.expertise },
-		{ label: 'Reliability', value: review.reliability },
-		{ label: 'Status', value: review.status }
+		{ label: 'Created at', value: formatDate(data.createdAt) },
+		{ label: 'Name', value: data.name }
 	]
 
 	return (
@@ -33,5 +39,3 @@ const Details = ({ review }: Props) => {
 		</DetailsWrapper>
 	)
 }
-
-export default Details

@@ -17,10 +17,10 @@ export default {
 }
 
 const formSchema = z.object({
-	name: z.string().min(1, { message: 'ValidationMeseges.required' }),
-	select: z.string().min(1, { message: 'ValidationMeseges.required' }),
-	number: z.coerce.number().min(1, { message: 'ValidationMeseges.required' }),
-	date: z.string().min(1, { message: 'ValidationMeseges.required' })
+	name: z.string().min(1, { message: 'ValidationMessages.required' }),
+	select: z.string().min(1, { message: 'ValidationMessages.required' }),
+	number: z.coerce.number().min(1, { message: 'ValidationMessages.required' }),
+	date: z.string().min(1, { message: 'ValidationMessages.required' })
 })
 
 type Schema = z.infer<typeof formSchema>

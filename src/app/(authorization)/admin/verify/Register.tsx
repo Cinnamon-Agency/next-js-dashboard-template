@@ -29,7 +29,7 @@ const formSchema = z
 	})
 	.refine(data => data.password === data.confirmPassword, {
 		path: ['confirmPassword'],
-		message: 'ValidationMeseges.confirmPassword'
+		message: 'ValidationMessages.confirmPassword'
 	})
 
 type Schema = z.infer<typeof formSchema>
@@ -80,7 +80,7 @@ const Register = ({ uid, status, email }: Props) => {
 
 	useEffect(() => {
 		if (status === 401004) {
-			ErrorToast(t('ValidationMeseges.invalidRegistrationLink'))
+			ErrorToast(t('ValidationMessages.invalidRegistrationLink'))
 		}
 	}, [status])
 
