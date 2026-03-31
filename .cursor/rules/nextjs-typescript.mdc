@@ -1,0 +1,75 @@
+---
+description: Next.js 14 (App Router) and TypeScript conventions
+globs: "**/*.{ts,tsx}"
+alwaysApply: false
+---
+
+# Next.js and TypeScript standards
+
+Next.js **14** (App Router) with **strict** TypeScript (`tsconfig.json`).
+
+## App Router patterns
+
+- **Server vs client**: Use Server Components by default. Add `'use client'` when interactivity or client-only APIs are required (many existing pages are client-heavy — match the file’s existing pattern).
+- **Data fetching**: Use `fetch` with Next caching options where applicable, or service modules under `@/services/*`.
+- **Server Actions**: Use `'use server'` in dedicated files or at the top of modules when mutating data, consistent with Next 14 docs.
+- **Metadata**: Use `metadata` / `generateMetadata` exports in `page.tsx` or `layout.tsx` when adding SEO.
+- **Conventions**: `page.tsx`, `layout.tsx`, `loading.tsx`, `error.tsx`, `not-found.tsx` as needed.
+
+## Middleware and auth
+
+- **`src/middleware.ts`** protects routes (e.g. `/data`) using **next-auth** JWT and role permissions. Preserve this flow when adding secured routes.
+
+## i18n
+
+- **`next-intl`**: Messages loaded in the root layout; keep user-facing strings consistent with the messages JSON pattern already used.
+
+## TypeScript
+
+- **Strict mode** is on — avoid `any`; narrow unknowns properly.
+- Prefer **`interface`** for object shapes and public props; use **`type`** for unions, mapped types, or utility compositions.
+- Add explicit types for public APIs and complex components where inference is unclear.
+
+## Page props (Next.js 14)
+
+In **Next.js 14**, `params` and `searchParams` on `page.tsx` are **synchronous** objects (not Promises):
+
+```tsx
+interface PageProps {
+  params: { id: string };
+  searchParams?: { [key: string]: string | string[] | undefined };
+}
+
+export default function Page({ params, searchParams }: PageProps) {
+  const { id } = params;
+  // ...
+}
+```
+
+Use **`generateStaticParams`** only when implementing static segments that need it.
+
+## Data fetching example (Server Component)
+
+```tsx
+async function getData() {
+  const res = await fetch("https://api.example.com/data", {
+    next: { revalidate: 3600 },
+  });
+  if (!res.ok) throw new Error("Failed to fetch data");
+  return res.json();
+}
+```
+
+## Server Actions example
+
+```tsx
+"use server";
+
+import { revalidatePath } from "next/cache";
+
+export async function createItem(formData: FormData) {
+  const name = formData.get("name") as string;
+  // ... persistence ...
+  revalidatePath("/");
+}
+```

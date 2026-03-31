@@ -1,0 +1,54 @@
+---
+description: Project-wide conventions for next-js-dashboard-template
+alwaysApply: true
+---
+
+# Project Overview
+
+Next.js 14 dashboard template using React 18, **Vanilla Extract** for styling, **next-intl** for i18n, and **next-auth** for sessions.
+
+## Tech Stack
+
+- **Framework**: Next.js 14 (App Router)
+- **UI**: Custom components under `src/components/` (Box, layout primitives, inputs, overlays), Radix primitives where used
+- **Styling**: Vanilla Extract (`*.css.ts`), design tokens in `src/style/tokens/`, shared atoms in `src/style/atoms.css.ts`
+- **Forms**: react-hook-form + zod
+- **State**: Zustand stores under `src/store/`
+- **i18n**: next-intl (messages JSON, `IntlProvider` in root layout)
+- **Auth**: next-auth (`SessionProvider`, JWT in `src/middleware.ts`)
+- **Package manager**: Yarn (see `yarn.lock`)
+
+## Project structure
+
+- `src/app/` — App Router: `page.tsx`, `layout.tsx`, route groups such as `(authorization)/`, `(index)/`
+- `src/components/` — Feature and UI components (grouped by area: `layout/`, `inputs/`, `overlay/`, `navigation/`, etc.)
+- `src/style/` — Global styles, theme, atoms, sprinkles/tokens
+- `src/hooks/` — Shared hooks
+- `src/utils/` — Helpers
+- `src/store/` — Zustand stores
+- `src/services/` — API and external integrations
+- `src/parameters/` — App constants (e.g. routes)
+- `src/enums/` — Shared enums
+- `messages/` — next-intl message files (e.g. `en.json`)
+- `public/` — Static assets (import via `public/*` path alias)
+
+## Path aliases
+
+Use `@/` imports as defined in `tsconfig.json`, for example:
+
+- `@/components/*`, `@/style/*`, `@/hooks/*`, `@/utils/*`, `@/store/*`, `@/services/*`, `@/types/*`
+- Some modules import from `style/...` without `@/` (valid with `baseUrl: ./src`)
+
+## Key conventions
+
+- **Component size**: Aim for max ~100 lines per file; split into smaller pieces when it grows.
+- **Hooks**: Minimize `useEffect`; prefer derived state, handlers, or dedicated hooks.
+- **Class names**: Use `clsx` to combine classes (including Vanilla Extract `atoms(...)` output).
+- **Storybook**: Co-locate `*.stories.tsx` with components where present.
+
+## Commands
+
+- `yarn dev` — Development server
+- `yarn build` — Production build
+- `yarn lint` — ESLint (`next lint`)
+- `yarn storybook` — Storybook on port 6006

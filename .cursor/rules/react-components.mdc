@@ -1,0 +1,32 @@
+---
+description: React component patterns and conventions
+globs: "**/*.tsx"
+alwaysApply: false
+---
+
+# React component patterns
+
+- Keep components focused; aim for **~100 lines** per file and split when larger.
+- Minimize `useEffect`. Prefer derived state, event handlers, or custom hooks. Avoid `useEffect` for syncing two pieces of state that can be computed together.
+- Use **functional components** with typed props.
+- Use **`'use client'`** only when the component needs browser APIs, React client hooks, or event handlers that cannot stay in a parent client boundary.
+- **Exports**: Prefer **named exports** for shared UI (e.g. `Box`, `Stack`). **Next.js app files** (`page.tsx`, `layout.tsx`) typically **default-export** the page/layout component, which matches existing code.
+
+## Layout and primitives
+
+- **`Box`** (`@/components/layout/box`) — polymorphic layout primitive: `as`, native HTML props, and **atom props** merged via `atoms(...)` from Vanilla Extract.
+- Other layout pieces live under `src/components/layout/` (e.g. `Stack`, `Inline`, `Container`, `Columns`, `Card`).
+- Use **`clsx`** to combine conditional classes with atom output: `className={clsx(atoms(atomsProps), className)}` (see `Box`).
+
+## Styling
+
+- Prefer **Vanilla Extract** (`*.css.ts`) and **atoms** for consistent spacing, color, and typography — not ad-hoc inline styles unless necessary.
+- Co-locate `ComponentName.css.ts` next to the component when styles are component-specific.
+
+## Storybook
+
+- Stories use `*.stories.tsx` with Storybook 7 patterns; follow existing story files in the same folder as the component.
+
+## Forms and inputs
+
+- Form-heavy flows use **react-hook-form** with **zod** schemas where applicable (`src/schemas.ts` and local schemas).

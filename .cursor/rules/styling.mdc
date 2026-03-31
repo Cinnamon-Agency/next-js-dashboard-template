@@ -1,0 +1,29 @@
+---
+description: Vanilla Extract and design-token styling conventions
+globs: "**/*.{tsx,css.ts}"
+alwaysApply: false
+---
+
+# Styling conventions
+
+This project uses **Vanilla Extract**, not Tailwind. Do not assume `tailwind.config` or utility-first Tailwind classes unless a file already uses them.
+
+## Vanilla Extract
+
+- Component and theme styles live in **`*.css.ts`** files (e.g. `theme.css.ts`, `atoms.css.ts`, component `Foo.css.ts`).
+- Use **recipes** and **atoms** patterns already defined under `src/style/` for repeatable styling.
+- Import sprinkles/atoms from the established paths (e.g. `style/atoms.css`, `style/theme.css.ts`) — follow imports in existing components.
+
+## Design tokens
+
+- Shared tokens live under **`src/style/tokens/`**: breakpoints, colors, spacing, typography, shadows, borders, z-indices.
+- Prefer **semantic token usage** (via atoms/theme) over hard-coded pixel or hex values in new UI.
+
+## Class composition
+
+- Use **`clsx`** for conditional class names and merging with `className` props.
+- When extending layout primitives, pass through `className` and merge with `clsx` like existing `Box` usage.
+
+## Global CSS
+
+- App-wide entry styles are wired through imports such as `@/style/app.css` in the root layout — keep global rules minimal; prefer component-level Vanilla Extract.
